@@ -19,3 +19,31 @@ CREATE TABLE Utilisateurs (
 -- Insertion dans la table Utilisateurs
 INSERT INTO Utilisateurs (nom, email, mot_de_passe, post) VALUES ("Admin", "cult@to.fr", SHA1('1234'), 'admin');
 INSERT INTO Utilisateurs (nom, email, mot_de_passe, post) VALUES ("Utilisateur", "util@to.fr", SHA1('1234'), 'simple');
+
+
+-- Table pour les variétés de thé
+CREATE TABLE The (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(255) NOT NULL,
+    occupation DECIMAL(10,2) NOT NULL, -- en m2
+    rendement_par_pied DECIMAL(10,2) NOT NULL
+);
+
+-- Insertion de données de test supplémentaires pour les variétés de thé
+INSERT INTO The (nom, occupation, rendement_par_pied) VALUES
+    ('Thé au jasmin', 3.0, 0.85),
+    ('Thé au gingembre', 2.8, 0.75),
+    ('Thé au citron', 2.9, 0.78),
+    ('Thé aux fruits rouges', 3.2, 0.82),
+    ('Thé à la menthe', 3.1, 0.80);
+
+
+
+INSERT INTO The (nom, occupation, rendement_par_pied) VALUES
+    ('Thé vert', 2.5, 0.8),
+    ('Thé noir', 2.7, 0.7),
+    ('Thé oolong', 2.6, 0.75),
+    ('Thé vert clair', 3.2, 0.9),
+    ('Thé noir foncé', 2.9, 0.65),
+    ('Thé oolong léger', 2.4, 0.8),
+    ('Thé blanc pur', 3.0, 0.75);

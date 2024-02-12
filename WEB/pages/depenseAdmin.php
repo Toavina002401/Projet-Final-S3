@@ -28,12 +28,9 @@
     <main id="main">
 
     <!-- ======= Variation des thés Section ======= -->
-    <?php
-        $listeThe=getAllThea();
-    ?>
     <section id="variation" class="about">
         <header class="section-header" data-aos="fade-up">
-            <p>Variation des thés</p>
+            <p>Dépenses</p>
         </header>
       <div class="container" data-aos="fade-up">
         <div class="row">
@@ -49,22 +46,36 @@
                 </tr>
               </thead>
               <tbody>
-                    <?php for ($i=0; $i < count($listeThe); $i++) { ?>
-                        <tr>
-                            <th  scope="row"> <?php echo($listeThe[$i]["id"]); ?></th>
-                            <td><?php echo($listeThe[$i]["nom"]); ?></td>
-                            <td  class="text-center"><?php echo($listeThe[$i]["occupation"]); ?></td>
-                            <td  class="text-center"><?php echo($listeThe[$i]["rendement_par_pied"]); ?></td>
-                            <td>
-                                <a href="#" style="text-decoration: none;">
-                                    <button type="button" class="btn btnIcone"><img src="../../assets/images/edit.png" width="30px"></button>
-                                </a>
-                                <a href="../../pages/delete/delVariete.php?id=<?php echo($listeThe[$i]["id"]); ?>">
-                                    <button type="button" class="btn btnIcone"><img src="../../assets/images/delete.png" width="30px"></button>
-                                </a>
-                            </td>
-                        </tr>
-                    <?php } ?>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Thé vert</td>
+                  <td  class="text-center">1.23</td>
+                  <td  class="text-center">3</td>
+                  <td>
+                    <button type="button" class="btn btnIcone"><img src="../../assets/images/edit.png" width="30px"></button>
+                    <button type="button" class="btn btnIcone"><img src="../../assets/images/delete.png" width="30px"></button>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Thé noir</td>
+                  <td  class="text-center">1.28</td>
+                  <td  class="text-center">2</td>
+                  <td>
+                    <button type="button" class="btn btnIcone"><img src="../../assets/images/edit.png" width="30px"></button>
+                    <button type="button" class="btn btnIcone"><img src="../../assets/images/delete.png" width="30px"></button>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>Oolong</td>
+                  <td  class="text-center">1.4</td>
+                  <td  class="text-center">1.5</td>
+                  <td>
+                    <button type="button" class="btn btnIcone"><img src="../../assets/images/edit.png" width="30px"></button>
+                    <button type="button" class="btn btnIcone"><img src="../../assets/images/delete.png"  width="30px"></button>
+                  </td>                  
+                </tr>
               </tbody>
             </table>
           </div>
