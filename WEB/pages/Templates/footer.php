@@ -8,9 +8,8 @@
 
                 </div>
                 <div class="col-lg-5 col-md-12 footer-info">
-                    <a href="index.html" class="logo d-flex align-items-center">
-                    <img src="assets/img/logo.png" alt="">
-                    <span>Théicole</span>
+                    <a href="#" class="logo d-flex align-items-center" style="text-decoration: none;">
+                        <img src="../../assets/images/logo.png" alt=""><span>Théicole</span>
                     </a>
                     <p>Les ouvriers, telles des fourmis laborieuses, s'affairent avec dévouement à leur tâche quotidienne, cueillant, triant, séchant avec précision et savoir-faire ancestral. Leurs mains sont le lien entre la terre fertile et la tasse fumante qui réchauffe les cœurs à travers le monde.</p>
                     <div class="social-links mt-3">
@@ -65,15 +64,15 @@
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
     <!-- Vendor JS Files -->
-    <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-    <script src="assets/vendor/aos/aos.js"></script>
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="assets/vendor/php-email-form/validate.js"></script>
+    <script src="../../assets/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="../../assets/vendor/aos/aos.js"></script>
+    <script src="../../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../../assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="../../assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="../../assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="../../assets/vendor/php-email-form/validate.js"></script>
 
     <!-- Template Main JS File -->
-    <script src="assets/js/main.js"></script>
+    <script src="../../assets/js/main.js"></script>
 
 </body>
