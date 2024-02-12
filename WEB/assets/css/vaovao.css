@@ -1,0 +1,41 @@
+.btnIcone img {
+    width: 30px;
+    height: 30px;
+    padding: 0;
+}
+
+/* Style de la boîte de dialogue */
+.modal {
+    display: none; /* Caché par défaut */
+    position: fixed; /* Rester en place */
+    z-index: 1; /* Se situe au-dessus */
+    left: 0;
+    top: 0;
+    width: 100%; /* Pleine largeur */
+    height: 100%; /* Pleine hauteur */
+    overflow: auto; /* Permettre le défilement si nécessaire */
+    background-color: rgb(0,0,0); /* Couleur de fond */
+    background-color: rgba(0,0,0,0.4); /* Noir avec opacité */
+  }
+  
+  .modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% du haut et centré horizontalement */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 40%; /* Peut être ajusté à votre convenance */
+  }
+  
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
