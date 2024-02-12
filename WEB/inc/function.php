@@ -502,8 +502,8 @@
             }
         }
 
-    //WE NEED TO TEST IF POID IS ENOUGH
-        -GETPARCELLE
+    
+    //////
 
     // Fonction pour enregistrer une nouvelle dépense
     function saisieDepense($date, $nom, $id_typeDepense, $montant){
