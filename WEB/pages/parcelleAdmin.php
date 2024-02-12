@@ -28,10 +28,12 @@
     <main id="main">
 
     <!-- ======= Variation des thés Section ======= -->
+    <section class="breadcrumbs">
+        <div class="container" data-aos="fade-up">
+            <h2>Nos parcelles</h2>
+        </div>
+    </section>
     <section id="variation" class="about">
-        <header class="section-header" data-aos="fade-up">
-            <p>Nos parcelles</p>
-        </header>
       <div class="container" data-aos="fade-up">
         <div class="row">
           <div class="col-12">
