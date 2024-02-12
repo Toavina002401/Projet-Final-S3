@@ -35,48 +35,47 @@
         <header class="section-header" data-aos="fade-up">
             <p>Variation des thés</p>
         </header>
-      <div class="container" data-aos="fade-up">
-        <div class="row">
-          <div class="col-12">
-            <table class="table datatable">
-              <thead>
-                <tr>
-                  <th scope="col" style="color: #CE5768;">Id</th>
-                  <th scope="col"  style="color: #CE5768;">Variété</th>
-                  <th scope="col"  style="color: #CE5768;">Occupation (m2/pied)</th>
-                  <th scope="col"  style="color: #CE5768;">Rendement par pied (kg/mois)</th>
-                  <th scope="col"  style="color: #CE5768;">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                    <?php for ($i=0; $i < count($listeThe); $i++) { ?>
-                        <tr>
-                            <th  scope="row"> <?php echo($listeThe[$i]["id"]); ?></th>
-                            <td><?php echo($listeThe[$i]["nom"]); ?></td>
-                            <td  class="text-center"><?php echo($listeThe[$i]["occupation"]); ?></td>
-                            <td  class="text-center"><?php echo($listeThe[$i]["rendement_par_pied"]); ?></td>
-                            <td>
-                                <a href="#" style="text-decoration: none;">
-                                    <button type="button" class="btn btnIcone"><img src="../../assets/images/edit.png" width="30px"></button>
-                                </a>
-                                <a href="../../pages/delete/delVariete.php?id=<?php echo($listeThe[$i]["id"]); ?>">
-                                    <button type="button" class="btn btnIcone"><img src="../../assets/images/delete.png" width="30px"></button>
-                                </a>
-                            </td>
-                        </tr>
-                    <?php } ?>
-              </tbody>
-            </table>
-          </div>
-          <div class="d-flex justify-content-center mt-3">
-            <a href="#" class="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center"  style="text-decoration: none;">
-              <span>Inserer</span>
-              <i class="bi bi-plus-circle"></i>
-            </a>
-          </div>
+        <div class="container" data-aos="fade-up">
+            <div class="row">
+            <div class="col-12">
+                <table class="table datatable">
+                <thead>
+                    <tr>
+                    <th scope="col" style="color: #CE5768;">Id</th>
+                    <th scope="col"  style="color: #CE5768;">Variété</th>
+                    <th scope="col"  style="color: #CE5768;">Occupation (m2/pied)</th>
+                    <th scope="col"  style="color: #CE5768;">Rendement par pied (kg/mois)</th>
+                    <th scope="col"  style="color: #CE5768;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        <?php for ($i=0; $i < count($listeThe); $i++) { ?>
+                            <tr>
+                                <th  scope="row"> <?php echo($listeThe[$i]["id"]); ?></th>
+                                <td><?php echo($listeThe[$i]["nom"]); ?></td>
+                                <td  class="text-center"><?php echo($listeThe[$i]["occupation"]); ?></td>
+                                <td  class="text-center"><?php echo($listeThe[$i]["rendement_par_pied"]); ?></td>
+                                <td>
+                                    <a href="#" style="text-decoration: none;">
+                                        <button type="button" class="btn btnIcone"><img src="../../assets/images/edit.png" width="30px"></button>
+                                    </a>
+                                    <a href="../../pages/delete/delVariete.php?id=<?php echo($listeThe[$i]["id"]); ?>">
+                                        <button type="button" class="btn btnIcone"><img src="../../assets/images/delete.png" width="30px"></button>
+                                    </a>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                </tbody>
+                </table>
+            </div>
+            <div class="d-flex justify-content-center mt-3">
+                <a href="#" class="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center"  style="text-decoration: none;">
+                <span>Inserer</span>
+                <i class="bi bi-plus-circle"></i>
+                </a>
+            </div>
+            </div>
         </div>
-      </div>
-    </section><!-- End Variation des thés Section -->
 
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
