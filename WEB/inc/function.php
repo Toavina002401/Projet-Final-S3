@@ -341,10 +341,10 @@
         
         // CREATE CUEILLEUR
             function createCueilleur($nom, $genre, $salaire){
-                    $query = "INSERT INTO Cueilleurs (nom, genre, salaire) VALUES (?, ?, ?)";
+                    $query = "INSERT INTO Cueilleurs (nom, genre, datenaissance) VALUES (?, ?, ?)";
                     $stmt = dbconnect()->prepare($query);
                     if ($stmt) {
-                        $stmt->bind_param("ssd", $nom, $genre, $salaire);
+                        $stmt->bind_param("sss", $nom, $genre, $salaire);
                         if ($stmt->execute()) {
                             return true;
                         } else {
@@ -380,10 +380,10 @@
         
         // UPDATE CUEILLEUR
             function updateCueilleur($id, $nom, $genre, $salaire){
-                    $query = "UPDATE Cueilleurs SET nom = ?, genre = ?, salaire = ? WHERE id = ?";
+                    $query = "UPDATE Cueilleurs SET nom = ?, genre = ?, datenaissance = ? WHERE id = ?";
                     $stmt = dbconnect()->prepare($query);
                     if ($stmt) {
-                        $stmt->bind_param("ssdi", $nom, $genre, $salaire, $id);
+                        $stmt->bind_param("sssi", $nom, $genre, $salaire, $id);
                         if ($stmt->execute()) {
                             return true;
                         } else {

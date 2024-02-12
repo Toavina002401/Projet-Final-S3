@@ -92,3 +92,28 @@ function editParcelle(num) {
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");                                         
   xhr.send(data);
 }
+
+function editCueilleur(num) {
+  var xhr=creeXHR();
+  var data="id="+num;
+  xhr.addEventListener("load", function(event) {
+    var liste=JSON.parse(xhr.responseText);
+    modal2.style.display = "block";
+    var num=document.getElementById("nommod");
+    var sur=document.getElementById("dateNaissancemod");
+    var type=document.getElementById("genremod");
+    var idm=document.getElementById("idmod");
+    idm.value=liste["id"];
+    num.value=liste["nom"];
+    sur.value=liste["datenaissance"];
+    for (let i = 0; i < type.options.length; i++) {
+      if (type.options[i].value == liste["genre"]) {
+        type.options[i].setAttribute("selected","");
+      }
+    }
+  });
+
+  xhr.open("POST","../update/ajax3.php",true);
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");                                         
+  xhr.send(data);
+}
