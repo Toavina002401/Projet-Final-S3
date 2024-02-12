@@ -212,6 +212,248 @@
     //////////////////////////------------------------------------/////////////////////////////////////
     //////////////////////////------------------------------------/////////////////////////////////////
 
+     //GEStTION PARCELLE
+        // LISTER PARCELLE
+            // Par Surface
+            function listParcelleBySurface(){
+                $query = "SELECT * FROM Parcelle";
+                $result = dbconnect()->query($query);
+                if ($result) {
+                    return $result->fetch_all(MYSQLI_ASSOC);
+                } else {
+                    return [];
+                }
+            }         
+        // Par Numero
+            function listParcelleByNumero(){
+                $query = "SELECT * FROM Parcelle ORDER BY numero_parcelle";
+                $result = dbconnect()->query($query);
+                if ($result) {
+                    return $result->fetch_all(MYSQLI_ASSOC);
+                } else {
+                    return [];
+                }
+            }
+
+
+    // CREATE PARCELLE
+        function createParcelle($numero, $surface, $id_variete){
+        
+            $query = "INSERT INTO Parcelle (numero_parcelle, surface_HA, id_variete) VALUES (?, ?, ?)";
+            $stmt = dbconnect()->prepare($query);
+            if ($stmt) {
+                $stmt->bind_param("idi", $numero, $surface, $id_variete);
+                if ($stmt->execute()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+
+    // DELETE PARCELLE
+        function deleteParcelle($id){
+            $query = "DELETE FROM Parcelle WHERE id = ?";
+            $stmt = dbconnect()->prepare($query);
+            if ($stmt) {
+                $stmt->bind_param("i", $id);
+                if ($stmt->execute()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+
+
+    // UPDATE PARCELLE
+    function updateParcelle($id, $numero, $surface, $id_variete){
+        
+        $query = "UPDATE Parcelle SET numero_parcelle = ?, surface_HA = ?, id_variete = ? WHERE id = ?";
+        $stmt = dbconnect()->prepare($query);
+        if ($stmt) {
+            $stmt->bind_param("idii", $numero, $surface, $id_variete, $id);
+            if ($stmt->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
     
+    // Fonction pour obtenir parcelle par son id
+    function getParcelleById($id) {
+       
+        $bdd = dbconnect();
+        
+        // Préparation de la requête SQL
+        $query = "SELECT * FROM Parcelle WHERE id = ?";
+        
+        // Préparation de la requête
+        $stmt = $bdd->prepare($query);
+        
+        // Vérification de la préparation de la requête
+        if ($stmt) {
+            // Liaison des paramètres et exécution de la requête
+            $stmt->bind_param("i", $id);
+            if ($stmt->execute()) {
+                // Récupération du résultat
+                $result = $stmt->get_result();
+                if ($result->num_rows > 0) {
+                    // Récupération des données
+                    $tea = $result->fetch_assoc();
+                    return $tea; // Retourner les données de la variété de thé
+                } else {
+                    return null; // Aucune variété de thé trouvée avec cet identifiant
+                }
+            } else {
+                return null; // Erreur lors de l'exécution de la requête
+            }
+        } else {
+            return null; // Erreur lors de la préparation de la requête
+        }
+    }
+
+
+    //////////////////////////------------------------------------/////////////////////////////////////
+    //////////////////////////------------------------------------/////////////////////////////////////
+    //////////////////////////------------------------------------/////////////////////////////////////
+    
+     //GESTION CUEILLEURS
+        // LISTER CUEILLEURS
+                // Par Nom
+                function listCueilleursByNom(){
+                    $query = "SELECT * FROM Cueilleurs ORDER BY nom";
+                    $result = dbconnect()->query($query);
+                    if ($result) {
+                        return $result->fetch_all(MYSQLI_ASSOC);
+                    } else {
+                        return [];
+                    }
+                }
+        
+        // CREATE CUEILLEUR
+            function createCueilleur($nom, $genre, $salaire){
+                    $query = "INSERT INTO Cueilleurs (nom, genre, salaire) VALUES (?, ?, ?)";
+                    $stmt = dbconnect()->prepare($query);
+                    if ($stmt) {
+                        $stmt->bind_param("ssd", $nom, $genre, $salaire);
+                        if ($stmt->execute()) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
+                }
+
+        
+
+       
+      
+      
+       
+        // DELETE CUEILLEUR
+            function deleteCueilleur($id){
+                    $query = "DELETE FROM Cueilleurs WHERE id = ?";
+                    $stmt = dbconnect()->prepare($query);
+                    if ($stmt) {
+                        $stmt->bind_param("i", $id);
+                        if ($stmt->execute()) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
+                }
+
+        
+        // UPDATE CUEILLEUR
+            function updateCueilleur($id, $nom, $genre, $salaire){
+                    $query = "UPDATE Cueilleurs SET nom = ?, genre = ?, salaire = ? WHERE id = ?";
+                    $stmt = dbconnect()->prepare($query);
+                    if ($stmt) {
+                        $stmt->bind_param("ssdi", $nom, $genre, $salaire, $id);
+                        if ($stmt->execute()) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        return false;
+                    }
+                }
+
+    
+        // Fonction pour obtenir l'ID du cueilleur par son nom
+            function getidcueilleurparnom($nom_cueilleur){
+                $bdd = dbconnect();
+                $query = "SELECT id FROM Cueilleurs WHERE nom = ?";
+                $stmt = $bdd->prepare($query);
+                if ($stmt) {
+                    $stmt->bind_param("s", $nom_cueilleur);
+                    if ($stmt->execute()) {
+                        $result = $stmt->get_result();
+                        if ($result->num_rows > 0) {
+                            $row = $result->fetch_assoc();
+                            return $row['id']; // Retourne l'ID du cueilleur
+                        } else {
+                            return null; // Aucun cueilleur trouvé avec ce nom
+                        }
+                    } else {
+                        return null; // Erreur lors de l'exécution de la requête
+                    }
+                } else {
+                    return null; // Erreur de préparation de la requête
+                }
+            }
+
+        //get by id cuilleur
+            function getCueilleurById($id) {
+                // Connexion à la base de données (à remplacer par votre méthode de connexion)
+                $bdd = dbconnect();
+                
+                // Préparation de la requête SQL
+                $query = "SELECT * FROM Cueilleurs WHERE id = ?";
+                
+                // Préparation de la requête
+                $stmt = $bdd->prepare($query);
+                
+                // Vérification de la préparation de la requête
+                if ($stmt) {
+                    // Liaison des paramètres et exécution de la requête
+                    $stmt->bind_param("i", $id);
+                    if ($stmt->execute()) {
+                        // Récupération du résultat
+                        $result = $stmt->get_result();
+                        if ($result->num_rows > 0) {
+                            // Récupération des données
+                            $cueilleur = $result->fetch_assoc();
+                            return $cueilleur; // Retourner les données du cueilleur
+                        } else {
+                            return null; // Aucun cueilleur trouvé avec cet identifiant
+                        }
+                    } else {
+                        return null; // Erreur lors de l'exécution de la requête
+                    }
+                } else {
+                    return null; // Erreur lors de la préparation de la requête
+                }
+            }
+            
+    
+    //////////////////////////------------------------------------/////////////////////////////////////
+    //////////////////////////------------------------------------/////////////////////////////////////
+    //////////////////////////------------------------------------/////////////////////////////////////
 
 ?>

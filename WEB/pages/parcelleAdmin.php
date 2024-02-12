@@ -28,6 +28,9 @@
     <main id="main">
 
     <!-- ======= Variation des thés Section ======= -->
+    <?php
+        $listeParcelle=listParcelleByNumero();
+    ?>
     <section class="breadcrumbs">
         <div class="container" data-aos="fade-up">
             <h2>Nos parcelles</h2>
@@ -40,49 +43,36 @@
             <table class="table datatable">
               <thead>
                 <tr>
-                  <th scope="col" style="color: #CE5768;">Id</th>
-                  <th scope="col"  style="color: #CE5768;">Numero parcelle</th>
-                  <th scope="col"  style="color: #CE5768;">Surface (HA)</th>
-                  <th scope="col"  style="color: #CE5768;">Variété</th>
-                  <th scope="col"  style="color: #CE5768;">Actions</th>
+                  <th scope="col" >Id</th>
+                  <th scope="col" >Numero parcelle</th>
+                  <th scope="col" >Surface (HA)</th>
+                  <th scope="col" >Variété</th>
+                  <th scope="col" >Actions</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Thé vert</td>
-                  <td >1.23</td>
-                  <td>3</td>
-                  <td>
-                    <button type="button" class="btn btnIcone"><img src="../../assets/images/edit.png" width="30px"></button>
-                    <button type="button" class="btn btnIcone"><img src="../../assets/images/delete.png" width="30px"></button>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Thé noir</td>
-                  <td  >1.28</td>
-                  <td  >2</td>
-                  <td>
-                    <button type="button" class="btn btnIcone"><img src="../../assets/images/edit.png" width="30px"></button>
-                    <button type="button" class="btn btnIcone"><img src="../../assets/images/delete.png" width="30px"></button>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Oolong</td>
-                  <td  >1.4</td>
-                  <td  >1.5</td>
-                  <td>
-                    <button type="button" class="btn btnIcone"><img src="../../assets/images/edit.png" width="30px"></button>
-                    <button type="button" class="btn btnIcone"><img src="../../assets/images/delete.png"  width="30px"></button>
-                  </td>                  
-                </tr>
+                <?php for ($i=0; $i < count($listeParcelle); $i++) { 
+                    $info=getTeaById($listeParcelle[$i]["id_variete"]);
+                    $num="editParcelle(".$listeParcelle[$i]["id"].")";
+                ?>
+                    <tr>
+                        <th scope="row"><?php echo($listeParcelle[$i]["id"]) ;?></th>
+                        <td><?php echo($listeParcelle[$i]["numero_parcelle"]) ;?></td>
+                        <td ><?php echo($listeParcelle[$i]["surface_HA"]) ;?></td>
+                        <td><?php echo($info["nom"]) ;?></td>
+                        <td>
+                            <button type="button" class="btn btnIcone" onclick="<?php echo($num);?>"><img src="../../assets/images/edit.png" width="30px"></button>
+                            <a href="../../pages/delete/delParcelle.php?id=<?php echo($listeParcelle[$i]["id"]); ?>">
+                                <button type="button" class="btn btnIcone"><img src="../../assets/images/delete.png" width="30px"></button>
+                            </a>
+                        </td>
+                    </tr>
+                <?php } ?>
               </tbody>
             </table>
           </div>
           <div class="d-flex justify-content-center mt-3">
-            <a href="#" class="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center"  style="text-decoration: none;">
+            <a href="#" class="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center"  style="text-decoration: none;" onclick="clickage()">
               <span>Inserer</span>
               <i class="bi bi-plus-circle"></i>
             </a>
@@ -90,6 +80,76 @@
         </div>
       </div>
     </section><!-- End Variation des thés Section -->
+
+    <!-- Structure de la boîte de dialogue -->
+    <section id="formulaire" class="modal">
+        <div class="modal-content"  style="width: 30%;">
+            <span class="close hidden">&times;</span>
+            <div class="form-group mb-3 log d-flex align-items-center justify-content-center">
+                <img src="../../assets/images/logo.png" alt="">
+                <h2>Insertion</h2>
+            </div>
+            <form action="../insertion/insParcelle.php" method="post">
+                <div class="form-group mb-3">
+                    <label for="numPars">Numero parcelle :</label>
+                    <input type="text" class="form-control" id="numPars" name="numPars" required>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="surface">Surface (HA) :</label>
+                    <input type="text" class="form-control" id="surface" name="surface" required>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="type">Variété de thé planté :</label>
+                    <select class="form-control" name="type" id="type"  required>
+                        <?php 
+                            $li=getAllThea();
+                            for ($i=0; $i < count($li); $i++) { 
+                        ?>
+                            <option value="<?php echo($li[$i]["id"]); ?>"><?php echo($li[$i]["nom"]); ?></option>
+                        <?php }?>
+                    </select>
+                </div>
+                <div class="form-group mb-3">
+                    <button type="submit" class="btn btn-success form-control">Insérer</button>
+                </div>
+            </form>        
+        </div>
+    </section>
+
+    <section id="formulaire2" class="modal">
+            <div class="modal-content"  style="width: 30%;">
+                <span class="close hidden">&times;</span>
+                <div class="form-group mb-3 log d-flex align-items-center justify-content-center">
+                    <img src="../../assets/images/logo.png" alt="">
+                    <h2>Modification</h2>
+                </div>
+                <form action="../update/updParcelle.php" method="post">
+                <div class="form-group mb-3">
+                    <input type="hidden" name="idmod" id="idmod">
+                    <label for="numPars">Numero parcelle :</label>
+                    <input type="text" class="form-control" id="numParsmod" name="numPars" required>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="surface">Surface (HA) :</label>
+                    <input type="text" class="form-control" id="surfacemod" name="surface" required>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="type">Variété de thé planté :</label>
+                    <select class="form-control" name="typemod" id="typemod"  required>
+                        <?php 
+                            $li=getAllThea();
+                            for ($i=0; $i < count($li); $i++) { 
+                        ?>
+                            <option value="<?php echo($li[$i]["id"]); ?>"><?php echo($li[$i]["nom"]); ?></option>
+                        <?php }?>
+                    </select>
+                </div>
+                <div class="form-group mb-3">
+                    <button type="submit" class="btn btn-success form-control">Modifier</button>
+                </div>
+            </form>         
+            </div>
+        </section>
 
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">

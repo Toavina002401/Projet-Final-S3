@@ -47,3 +47,60 @@ INSERT INTO The (nom, occupation, rendement_par_pied) VALUES
     ('Thé noir foncé', 2.9, 0.65),
     ('Thé oolong léger', 2.4, 0.8),
     ('Thé blanc pur', 3.0, 0.75);
+
+
+-- Table pour les parcelles
+CREATE TABLE Parcelle (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    numero_parcelle INT NOT NULL,
+    surface_HA DECIMAL(10,2) NOT NULL, -- en ha
+    id_variete INT,
+    FOREIGN KEY (id_variete) REFERENCES The(id)
+);
+
+
+INSERT INTO Parcelle (numero_parcelle, surface_HA, id_variete) VALUES
+    (1, 5.5, 1),
+    (2, 4.0, 2),
+    (3, 3.8, 3),
+    (5, 4.7, 1),
+    (6, 3.5, 2),
+    (7, 5.0, 3),
+    (8, 7.2, 5),
+    (9,4.2,5),
+    (10,2.2,6),
+    (11,1.2,5)
+    ;
+
+
+-- Insertion de données de test supplémentaires pour les parcelles
+INSERT INTO Parcelle (numero_parcelle, surface_HA, id_variete) VALUES
+    (24, 5.3, 1),
+    (25, 6.7, 2),
+    (26, 4.5, 3),
+    (27, 7.1, 8),
+    (28, 5.9, 5),
+    (29, 6.2, 6),
+    (30, 4.8, 7),
+    (31, 7.5, 11),
+    (32, 5.6, 12),
+    (33, 6.9, 9);
+
+
+-- Table pour les cueilleurs
+CREATE TABLE Cueilleurs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(255) NOT NULL,
+    genre ENUM('Masculin', 'Féminin') NOT NULL,
+    datenaissance DATE -- Suppression de la colonne salaire
+);
+
+-- Insertion de données de test pour les cueilleurs
+INSERT INTO Cueilleurs (nom, genre, datenaissance) VALUES
+    ('Jean Dupont', 'Masculin', '1990-05-15'),
+    ('Marie Leclerc', 'Féminin', '1987-12-28'),
+    ('Pierre Durand', 'Masculin', '1995-08-03'),
+    ('Alice Martin', 'Féminin', '1992-04-20'),
+    ('Paul Dupuis', 'Masculin', '1989-10-10'),
+    ('Sophie Lefèvre', 'Féminin', '1993-07-18'),
+    ('Martin Lambert', 'Masculin', '1985-02-09');

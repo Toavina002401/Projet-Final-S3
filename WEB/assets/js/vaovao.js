@@ -67,3 +67,28 @@ function edit(num) {
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");                                         
   xhr.send(data);
 }
+
+function editParcelle(num) {
+  var xhr=creeXHR();
+  var data="id="+num;
+  xhr.addEventListener("load", function(event) {
+    var liste=JSON.parse(xhr.responseText);
+    modal2.style.display = "block";
+    var num=document.getElementById("numParsmod");
+    var sur=document.getElementById("surfacemod");
+    var type=document.getElementById("typemod");
+    var idm=document.getElementById("idmod");
+    idm.value=liste["id"];
+    num.value=liste["numero_parcelle"];
+    sur.value=liste["surface_HA"];
+    for (let i = 0; i < type.options.length; i++) {
+      if (type.options[i].value == liste["id_variete"]) {
+        type.options[i].setAttribute("selected","");
+      }
+    }
+  });
+
+  xhr.open("POST","../update/ajax2.php",true);
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");                                         
+  xhr.send(data);
+}
