@@ -21,3 +21,66 @@
 .enfant-footer p{
     margin-top: 5px;
 }
+
+
+.section-img-login img{
+    position: absolute;
+    top: 50%;
+    left:50%;
+    transform: translate(-10%,-50%);
+}
+
+.section-form-login{
+    position: absolute;
+    top: 50%;
+    left:50%;
+    transform: translate(-115%,-50%);
+    width: 600px;
+    height: 600px;
+    background-color: #4153f19a;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.section-form-login h1{
+    color: #f3ecec;
+    margin: 30px;
+    font-size: 3.2em;
+}
+
+.section-form-login form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.insertion-donnees-login{
+    margin-bottom: 30px;
+    width: 17vw;
+    height: 45px;
+    border-radius: 25px;
+    outline: none;
+    border: none;
+    padding-left: 35px;
+    font-size: 0.96em;
+}
+
+.btn-donnees-login{
+    padding: 11px 35px;
+    border-radius: 25px;
+    outline: none;
+    border-top-color:#FFB8B8 ;
+    border-left-color: #FFB8B8;
+    border-right-color:#CCCCCC ;
+    border-bottom-color: #CCCCCC;
+    color: #3F3D56;
+}
+
+.section-form-login a{
+    margin-top: 25px;
+}
+

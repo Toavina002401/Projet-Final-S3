@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     text-decoration: none;
-    background-color: #F2F2F2;
+    background-color: white;
 }
 
 body{
@@ -13,12 +13,13 @@ body{
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-75%);
+    transform: translate(-50%,-60%);
+    width: 750px;
 }
 
 .imgGif{
     position: absolute;
-    top: 75%;
+    top: 90%;
     left: 50%;
     transform: translate(-50%,-50%);
     width: 100px;
