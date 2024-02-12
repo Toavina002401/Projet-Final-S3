@@ -3,7 +3,11 @@
     {
         static $connect = null;
         if ($connect === null) {
-            $connect = mysqli_connect('localhost','root','','pokemon');
+            //localohost= ip
+            //root utilisateur
+            //mdp
+            //nom database
+            $connect = mysqli_connect('localhost','root','','takeTea');
         }
         return $connect;
     }
