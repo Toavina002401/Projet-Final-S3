@@ -39,3 +39,9 @@
     text-decoration: none;
     cursor: pointer;
   }
+
+
+  .hidden {
+    display: none;
+  }
+  
