@@ -20,6 +20,7 @@
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
   <link href="assets/css/vaovao.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -28,20 +29,18 @@
   <header id="header" class="header fixed-top">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="accueilFront.html" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
         <span>Théicole</span>
       </a>
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto " href="index.html">Accueil</a></li>
+          <li><a class="nav-link scrollto " href="accueilFront.html">Accueil</a></li>
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-          <li><a href="the.html">Variétés de thé</a></li>
-          <li><a href="parcelles.html">Nos parcelles</a></li>
-          <li><a href="cueilleurs.html">Cueilleurs</a></li>
-          <li><a href="depense.html">Dépenses</a></li>
-          <li><a href="salaire.html">Salaires</a></li>
+          <li><a href="frontCueillette.html">Cueillette</a></li>
+          <li><a href="frontDepenses.html">Dépenses</a></li>
+          <li><a href="frontResultat.html">Résultat</a></li>
           <li><a class="getstarted scrollto" href="#about">Deconnexion</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
@@ -52,102 +51,67 @@
   <br>
 
   <main id="main">
-    <!-- ======= Breadcrumbs ======= -->
-        <section class="breadcrumbs">
-          <div class="container" data-aos="fade-up">
-            <h2>Variétés de thé</h2>
-    
-          </div>
-        </section><!-- End Breadcrumbs -->
-    <!-- ======= About Section ======= -->
-    <section class="about">
 
-      <div class="container" data-aos="fade-up">
-        <div class="row">
-          
-          <div class="col-12">
-            <table class="table datatable">
-              <thead>
-                <tr>
-                  <th scope="col">Id</th>
-                  <th scope="col">Variété</th>
-                  <th scope="col">Occupation (m2/pied)</th>
-                  <th scope="col">Rendement par pied (kg/mois)</th>
-                  <th scope="col">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Thé vert</td>
-                  <td>1.23</td>
-                  <td>3</td>
-                  <td>
-                    <button type="button" class="btn btnIcone"><img src="assets/img/edit.png" alt=""></button>
-                    <button type="button" class="btn btnIcone"><img src="assets/img/delete.png" alt=""></button>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Thé noir</td>
-                  <td>1.28</td>
-                  <td>2</td>
-                  <td>
-                    <button type="button" class="btn btnIcone"><img src="assets/img/edit.png" alt=""></button>
-                    <button type="button" class="btn btnIcone"><img src="assets/img/delete.png" alt=""></button>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Oolong</td>
-                  <td>1.4</td>
-                  <td>1.5</td>
-                  <td>
-                    <button type="button" class="btn btnIcone"><img src="assets/img/edit.png" alt=""></button>
-                    <button type="button" class="btn btnIcone"><img src="assets/img/delete.png" alt=""></button>
-                  </td>                  
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div>
-            <a href="#" class="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center">
-              <span>Inserer</span>
-              <i class="bi bi-plus-circle"></i>
-            </a>
-          </div>
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about">
+        
+        <div class="container" data-aos="fade-up">
+            <div class="row gx-0">
+                <div class="col-lg-4 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
+                  <img src="assets/img/stat.svg" class="img-fluid" alt="">
+                </div>
+                <div class="col-lg-1"></div>
+                <div class="col-lg-7 d-flex flex-column " data-aos="fade-up" data-aos-delay="200">
+                    <div class="content">
+                        <h2>Résultats</h2>
+                        
+                        <form action="traitement.php" method="">
+                            <div class="form-group mb-3">
+                                <label for="debut">Date début :</label>
+                                <input type="date" class="form-control" id="debut" name="debut" >
+                            </div>
+                            <div class="form-group mb-3">
+                                <p><label for="fin">Date fin :</label>
+                                <input type="date" class="form-control" id="fin" name="fin" >
+                            </div>
+                            <div class="form-group mb-3  ">
+                                <button type="submit" class="btn btn-success form-control">Afficher le résultat</button>
+                            </div>
+                        </form>
+
+                        <table class="table datatable">
+                            <thead>
+                              <tr>
+                                <th scope="col">N° de parcelle</th>
+                                <th scope="col">Poids restant</th>
+                                <th scope="col">Poids cueilli</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th>1</th>
+                                <td>20</td>
+                                <td>200</td>
+                              </tr>
+                              <tr>
+                                <th>2</th>
+                                <td>100</td>
+                                <td>400</td>
+                              </tr>
+                              <tr>
+                                <th>3</th>
+                                <td>60</td>
+                                <td>100</td>               
+                              </tr>
+                            </tbody>
+                          </table>
+                    </div>
+                </div>
+            </div>
         </div>
       </div>
+
     </section><!-- End About Section -->
-
-
-    <!-- Structure de la boîte de dialogue -->
-    <section id="formulaire" class="modal">
-      <div class="modal-content ">
-        <span class="close hidden">&times;</span>
-        <form action="traitement.php" method="post">
-          <div class="form-group mb-3 log d-flex align-items-center">
-            <img src="assets/img/logo.png" alt="">
-            <h2>Insertion</h2>
-          </div>
-          <div class="form-group mb-3">
-            <label for="variete">Variété :</label>
-            <input type="text" class="form-control" id="variete" name="variete" required>
-          </div>
-          <div class="form-group mb-3">
-            <label for="occupation">Occupation (m2/pied) :</label>
-            <input type="number" class="form-control" id="occupation" name="occupation" required>
-          </div>
-          <div class="form-group mb-3">
-            <label for="rendement">Rendement par pied (kg/mois) :</label>
-            <input type="number" class="form-control" id="rendement" name="rendement" required>
-          </div>
-          <div class="form-group mb-3  ">
-            <button type="submit" class="btn btn-success form-control">Insérer</button>
-          </div>
-        </form>        
-      </div>
-    </section>
 
 
     <!-- ======= Contact Section ======= -->
@@ -211,7 +175,7 @@
       <div class="container">
         <div class="row gy-4">
           <div class="col-lg-5 col-md-12 footer-info">
-            <a href="index.html" class="logo d-flex align-items-center">
+            <a href="accueilFront.html" class="logo d-flex align-items-center">
               <img src="assets/img/logo.png" alt="">
               <span>Théicole</span>
             </a>
@@ -263,7 +227,7 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
-  <script src="assets/js/vaovao.js"></script>
+
 </body>
 
 </html>
