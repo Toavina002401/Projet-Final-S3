@@ -104,3 +104,24 @@ INSERT INTO Cueilleurs (nom, genre, datenaissance) VALUES
     ('Paul Dupuis', 'Masculin', '1989-10-10'),
     ('Sophie Lefèvre', 'Féminin', '1993-07-18'),
     ('Martin Lambert', 'Masculin', '1985-02-09');
+
+
+-- Table pour les types de dépenses
+CREATE TABLE TypeDepense (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(255) NOT NULL
+);
+
+
+    INSERT INTO TypeDepense (nom) VALUES
+        ('Engrais'),
+        ('Carburant'),
+        ('Logistique'),
+        ('Emballage'),
+        ('Entretien'),
+        ('Transport'),
+        ('Marketing');
+    -- Insertion de quelques données de test supplémentaires pour les types de dépenses
+    INSERT INTO TypeDepense (nom) VALUES
+        ('Fournitures de bureau'),
+        ('Frais de maintenance');

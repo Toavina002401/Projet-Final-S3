@@ -28,6 +28,9 @@
     <main id="main">
 
     <!-- ======= Variation des thés Section ======= -->
+    <?php
+        $listedep=listCategoriesDepense();
+    ?>
     <section class="breadcrumbs">
         <div class="container" data-aos="fade-up">
             <h2>Dépenses</h2>
@@ -40,44 +43,22 @@
             <table class="table datatable">
               <thead>
                 <tr>
-                  <th scope="col" style="color: #CE5768;">Id</th>
-                  <th scope="col"  style="color: #CE5768;">Variété</th>
-                  <th scope="col"  style="color: #CE5768;">Occupation (m2/pied)</th>
-                  <th scope="col"  style="color: #CE5768;">Rendement par pied (kg/mois)</th>
-                  <th scope="col"  style="color: #CE5768;">Actions</th>
+                  <th scope="col" >Id</th>
+                  <th scope="col">Type</th>
+                  <th scope="col" >Actions</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Thé vert</td>
-                  <td  class="text-center">1.23</td>
-                  <td  class="text-center">3</td>
-                  <td>
-                    <button type="button" class="btn btnIcone"><img src="../../assets/images/edit.png" width="30px"></button>
-                    <button type="button" class="btn btnIcone"><img src="../../assets/images/delete.png" width="30px"></button>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Thé noir</td>
-                  <td  class="text-center">1.28</td>
-                  <td  class="text-center">2</td>
-                  <td>
-                    <button type="button" class="btn btnIcone"><img src="../../assets/images/edit.png" width="30px"></button>
-                    <button type="button" class="btn btnIcone"><img src="../../assets/images/delete.png" width="30px"></button>
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Oolong</td>
-                  <td  class="text-center">1.4</td>
-                  <td  class="text-center">1.5</td>
-                  <td>
-                    <button type="button" class="btn btnIcone"><img src="../../assets/images/edit.png" width="30px"></button>
-                    <button type="button" class="btn btnIcone"><img src="../../assets/images/delete.png"  width="30px"></button>
-                  </td>                  
-                </tr>
+                <?php for ($i=0; $i < count($listedep); $i++) { ?>
+                  <tr>
+                    <th scope="row"><?php echo($listedep[$i]["id"]); ?></th>
+                    <td><?php echo($listedep[$i]["nom"]); ?></td>
+                    <td>
+                      <button type="button" class="btn btnIcone"><img src="../../assets/images/edit.png" width="30px"></button>
+                      <button type="button" class="btn btnIcone"><img src="../../assets/images/delete.png" width="30px"></button>
+                    </td>
+                  </tr>
+                <?php } ?>
               </tbody>
             </table>
           </div>

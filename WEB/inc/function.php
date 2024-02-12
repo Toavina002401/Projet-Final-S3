@@ -456,4 +456,131 @@
     //////////////////////////------------------------------------/////////////////////////////////////
     //////////////////////////------------------------------------/////////////////////////////////////
 
+
+     //GESTION CATEGORIE DEPENSE
+    
+        // LISTER LES CATEGORIES DE DEPENSES
+        function listCategoriesDepense(){
+            $query = "SELECT * FROM TypeDepense";
+            $result = dbconnect()->query($query);
+            if ($result) {
+                return $result->fetch_all(MYSQLI_ASSOC);
+            } else {
+                return [];
+            }
+        }
+
+
+    // CREER UNE CATEGORIE DE DEPENSE
+        function createCategorieDepense($nom){
+            $query = "INSERT INTO TypeDepense (nom) VALUES (?)";
+            $stmt = dbconnect()->prepare($query);
+            if ($stmt) {
+                $stmt->bind_param("s", $nom);
+                if ($stmt->execute()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+
+
+    // DELETE UNE CATEGORIE DE DEPENSE
+        function deleteCategorieDepense($id){
+            $query = "DELETE FROM TypeDepense WHERE id = ?";
+            $stmt = dbconnect()->prepare($query);
+            if ($stmt) {
+                $stmt->bind_param("i", $id);
+                if ($stmt->execute()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+
+    // UPDATE UNE CATEGORIE DE DEPENSE
+        function updateCategorieDepense($id, $nom){
+            $query = "UPDATE TypeDepense SET nom = ? WHERE id = ?";
+            $stmt = dbconnect()->prepare($query);
+            if ($stmt) {
+                $stmt->bind_param("si", $nom, $id);
+                if ($stmt->execute()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+
+    
+    // Fonction pour obtenir l'ID de la catégorie de dépense par son nom
+        function getidparnomcategoriedepense($nom_categorie){
+            $bdd = dbconnect(); // Obtenir l'objet de connexion à la base de données
+            $query = "SELECT id FROM TypeDepense WHERE nom = ?";
+            $stmt = $bdd->prepare($query);
+            if ($stmt) {
+                $stmt->bind_param("s", $nom_categorie);
+                if ($stmt->execute()) {
+                    $result = $stmt->get_result();
+                    if ($result->num_rows > 0) {
+                        $row = $result->fetch_assoc();
+                        return $row['id']; // Retourne l'ID de la catégorie de dépense
+                    } else {
+                        return null; // Aucune catégorie de dépense trouvée avec ce nom
+                    }
+                } else {
+                    return null; // Erreur lors de l'exécution de la requête
+                }
+            } else {
+                return null; // Erreur de préparation de la requête
+            }
+        }
+
+
+    //get depense by id
+        function getTypeDepenseById($id) {
+            // Connexion à la base de données (à remplacer par votre méthode de connexion)
+            $bdd = dbconnect();
+            
+            // Préparation de la requête SQL
+            $query = "SELECT * FROM TypeDepense WHERE id = ?";
+            
+            // Préparation de la requête
+            $stmt = $bdd->prepare($query);
+            
+            // Vérification de la préparation de la requête
+            if ($stmt) {
+                // Liaison des paramètres et exécution de la requête
+                $stmt->bind_param("i", $id);
+                if ($stmt->execute()) {
+                    // Récupération du résultat
+                    $result = $stmt->get_result();
+                    if ($result->num_rows > 0) {
+                        // Récupération des données
+                        $typeDepense = $result->fetch_assoc();
+                        return $typeDepense; // Retourner les données du type de dépense
+                    } else {
+                        return null; // Aucun type de dépense trouvé avec cet identifiant
+                    }
+                } else {
+                    return null; // Erreur lors de l'exécution de la requête
+                }
+            } else {
+                return null; // Erreur lors de la préparation de la requête
+            }
+        }
+    
+
+
+//////////////////////////------------------------------------/////////////////////////////////////
+//////////////////////////------------------------------------/////////////////////////////////////
+//////////////////////////------------------------------------/////////////////////////////////////
 ?>
