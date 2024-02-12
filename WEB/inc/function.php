@@ -582,6 +582,92 @@
 
 
     //Configuration salaire
+
+        // CREATE SALAIRE
+        function createSalaire($id_cueilleur, $salaire, $datelastupdate){
+            $query = "INSERT INTO Salaire (id_cueilleur, salaire, datelastupdate) VALUES (?, ?, ?)";
+            $stmt = dbconnect()->prepare($query);
+            if ($stmt) {
+                $stmt->bind_param("ids", $id_cueilleur, $salaire, $datelastupdate);
+                if ($stmt->execute()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+
+        // LISTER SALAIRES
+        function listSalaires(){
+            $query = "SELECT * FROM Salaire";
+            $result = dbconnect()->query($query);
+            if ($result) {
+                return $result->fetch_all(MYSQLI_ASSOC);
+            } else {
+                return [];
+            }
+        }
+
+        // DELETE SALAIRE
+        function deleteSalaire($id){
+            $query = "DELETE FROM Salaire WHERE id = ?";
+            $stmt = dbconnect()->prepare($query);
+            if ($stmt) {
+                $stmt->bind_param("i", $id);
+                if ($stmt->execute()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+
+        // UPDATE SALAIRE
+        function updateSalaire($id, $id_cueilleur, $salaire, $datelastupdate){
+            $query = "UPDATE Salaire SET id_cueilleur = ?, salaire = ?, datelastupdate = ? WHERE id = ?";
+            $stmt = dbconnect()->prepare($query);
+            if ($stmt) {
+                $stmt->bind_param("idsi", $id_cueilleur, $salaire, $datelastupdate, $id);
+                if ($stmt->execute()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+
+        //get by id salaire
+        function getSalaireById($id) {
+            $bdd = dbconnect();
+            
+            $query = "SELECT * FROM Salaire WHERE id = ?";
+            
+            $stmt = $bdd->prepare($query);
+            
+            if ($stmt) {
+                $stmt->bind_param("i", $id);
+                if ($stmt->execute()) {
+                    $result = $stmt->get_result();
+                    if ($result->num_rows > 0) {
+                        $salaire = $result->fetch_assoc();
+                        return $salaire;
+                    } else {
+                        return null;
+                    }
+                } else {
+                    return null;
+                }
+            } else {
+                return null;
+            }
+        }
+
         
 
     /////////////////////FRONT OFFICE/////////////////////////////////////////////
@@ -694,12 +780,8 @@
             function checkIFisEnough($date, $idcueilleur, $idparcelle, $poids) {
                 $max = 0;
 
-                // Vérifier si la date est le premier jour du mois
-                if (date('j', strtotime($date)) == 1) {
-                    $max = getMAX($idparcelle);
-                } else {
-                    $max = getMAX($idparcelle) + sumPoidscultive($idparcelle, $date);
-                }
+                $max = getMAX($idparcelle) + sumPoidscultive($idparcelle, $date);
+                
 
                 // Vérifier si les fonctions getMAX et sumPoidscultive ont renvoyé des résultats valides
                 if ($max !== false) {
@@ -818,6 +900,31 @@
                 return 0;
             }
 
+            //fonction poids total cueilli dans une periode donne
+
+            // Fonction pour calculer le poids total cueilli dans une période donnée
+            function poidsTotalCueilli($datedebut, $datefin) {
+                // Connexion à la base de données
+                $bdd = dbconnect();
+
+                // Requête SQL pour obtenir le poids total cueilli dans la période donnée
+                $query = "SELECT SUM(poids_cueilli) AS total_poids FROM Cueillettes WHERE date_cueillette BETWEEN ? AND ?";
+                $stmt = $bdd->prepare($query);
+                $stmt->bind_param("ss", $datedebut, $datefin);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                // Vérifier si la requête a réussi
+                if ($result->num_rows > 0) {
+                    $row = $result->fetch_assoc();
+                    return $row['total_poids'];
+                } else {
+                    return 0; // En cas d'erreur ou de données manquantes, retourner 0
+                }
+            }
+
+
+
 
             // Fonction pour calculer le coût de revient par kg
             function coutderevient($datedebut, $datefin) {
@@ -836,7 +943,78 @@
 
    
 
+            
+    function listeDepense() {
+                $conn= dbconnect();
+                // Préparation de la requête SQL
+                $sql = "SELECT Depenses.id, Depenses.dates, Depenses.nom, TypeDepense.nom AS type, Depenses.montant
+                        FROM Depenses
+                        INNER JOIN TypeDepense ON Depenses.id_typeDep = TypeDepense.id";
+            
+                // Exécution de la requête
+                $result = mysqli_query($conn, $sql);
+            
+                // Vérification s'il y a des résultats
+                if (mysqli_num_rows($result) > 0) {
+                    // Création d'une variable pour stocker la liste des dépenses
+                    $listeDepenses = "";
+            
+                    // Parcourir les résultats et ajouter chaque dépense à la liste
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $listeDepenses .= "ID: " . $row["id"] . " | Date: " . $row["dates"] . " | Nom: " . $row["nom"] . " | Type: " . $row["type"] . " | Montant: " . $row["montant"] . "<br>";
+                    }
+            
+                    // Libérer le résultat de la requête
+                    mysqli_free_result($result);
+            
+                    // Retourner la liste des dépenses
+                    return $listeDepenses;
+                } else {
+                    // Si aucune dépense n'est trouvée, retourner un message indiquant qu'il n'y a pas de dépenses enregistrées
+                    return "Aucune dépense enregistrée.";
+                }
+            }
+            
 
+
+
+    
+    //RECHERCHE
+
+    function searchThe($keyword) {
+        // Connexion à la base de données (à remplacer par votre méthode de connexion)
+        $bdd = dbconnect();
+        
+        // Préparation de la requête SQL avec une clause LIKE pour rechercher les variétés de thé
+        $query = "SELECT * FROM The WHERE nom LIKE ?";
+        
+        // Ajout du caractère joker '%' autour du mot-clé pour rechercher partiellement
+        $keyword = "%$keyword%";
+        
+        // Préparation de la requête
+        $stmt = $bdd->prepare($query);
+        
+        // Vérification de la préparation de la requête
+        if ($stmt) {
+            // Liaison des paramètres et exécution de la requête
+            $stmt->bind_param("s", $keyword);
+            if ($stmt->execute()) {
+                // Récupération du résultat
+                $result = $stmt->get_result();
+                if ($result->num_rows > 0) {
+                    // Récupération des données
+                    $varietes = $result->fetch_all(MYSQLI_ASSOC);
+                    return $varietes; // Retourner les variétés de thé correspondantes
+                } else {
+                    return []; // Aucune variété de thé trouvée avec ce nom
+                }
+            } else {
+                return null; // Erreur lors de l'exécution de la requête
+            }
+        } else {
+            return null; // Erreur lors de la préparation de la requête
+        }
+    }
 
 
 
