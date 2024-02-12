@@ -30,14 +30,36 @@
     transform: translate(-10%,-50%);
 }
 
+.section-img-login-admin img{
+    position: absolute;
+    top: 50%;
+    left:50%;
+    transform: translate(-90%,-50%);
+}
+
+.section-form-login-admin{
+    position: absolute;
+    top: 50%;
+    left:50%;
+    transform: translate(15%,-50%);
+    width: 600px;
+    height: 600px;
+    background-color: #2f2e41a8;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .section-form-login{
     position: absolute;
     top: 50%;
     left:50%;
     transform: translate(-115%,-50%);
-    width: 600px;
-    height: 600px;
-    background-color: #4153f19a;
+    width: 550px;
+    height: 550px;
+    background-color: #CCCCCC;
     border-radius: 25px;
     display: flex;
     flex-direction: column;
@@ -46,12 +68,25 @@
 }
 
 .section-form-login h1{
-    color: #f3ecec;
+    color: #2F2E41;
+    margin: 30px;
+    font-size: 3.2em;
+}
+
+.section-form-login-admin h1{
+    color: #CCCCCC;
     margin: 30px;
     font-size: 3.2em;
 }
 
 .section-form-login form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.section-form-login-admin form{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -80,7 +115,11 @@
     color: #3F3D56;
 }
 
-.section-form-login a{
+.section-form-login p{
+    margin-top: 25px;
+}
+
+.section-form-login-admin p{
     margin-top: 25px;
 }
 
