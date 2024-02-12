@@ -384,8 +384,6 @@
 
 
         
-
-
     //GESTION CATEGORIE DEPENSE
     
         // LISTER LES CATEGORIES DE DEPENSES
@@ -503,7 +501,7 @@
         }
 
     
-    //////
+    ///// 
 
     // Fonction pour enregistrer une nouvelle dépense
     function saisieDepense($date, $nom, $id_typeDepense, $montant){
@@ -521,6 +519,104 @@
             return false; // Erreur de préparation de la requête
         }
     }
+
+
+
+
+
+    // Fonction pour récupérer la somme des poids cueillis dans une parcelle pour un mois donné
+        function sumPoidscultive($idparcelle, $date) {
+           $bdd= dbconnect();
+
+            // Requête SQL pour obtenir la somme des poids cueillis dans la parcelle pour le mois donné
+            $query = "SELECT SUM(poids_cueilli) AS total_poids FROM Cueillettes WHERE id_parcelle = ? AND MONTH(date_cueillette) = MONTH(?) AND YEAR(date_cueillette) = YEAR(?)";
+            $stmt = $bdd->prepare($query);
+            $stmt->bind_param("iss", $idparcelle, $date, $date);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            // Vérifier si la requête a réussi
+            if ($result) {
+                $row = $result->fetch_assoc();
+                return $row['total_poids'];
+            } else {
+                return 0; 
+            }
+        }
+
+        // Fonction pour récupérer le poids maximum de thé attendu dans une parcelle
+        function getMAX($idparcelle) {
+            $bdd= dbconnect();
+
+            // Requête SQL pour obtenir le poids maximum de thé attendu dans la parcelle
+            $query = "SELECT surface_HA, id_variete FROM Parcelle WHERE id = ?";
+            $stmt = $bdd->prepare($query);
+            $stmt->bind_param("i", $idparcelle);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            // Vérifier si la requête a réussi
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                $surface_HA = $row['surface_HA']; // Surface de la parcelle en hectares
+                $id_variete = $row['id_variete']; // ID de la variété de thé
+
+                // Requête SQL pour obtenir le rendement par pied de la variété de thé
+                $query_rendement = "SELECT rendement_par_pied FROM The WHERE id = ?";
+                $stmt_rendement = $bdd->prepare($query_rendement);
+                $stmt_rendement->bind_param("i", $id_variete);
+                $stmt_rendement->execute();
+                $result_rendement = $stmt_rendement->get_result();
+
+                // Vérifier si la requête a réussi
+                if ($result_rendement->num_rows > 0) {
+                    $row_rendement = $result_rendement->fetch_assoc();
+                    $rendement_par_pied = $row_rendement['rendement_par_pied']; // Rendement par pied de la variété de thé
+
+                    // Calculer la surface de la parcelle en mètres carrés
+                    $surface_m2 = $surface_HA * 10000;
+
+                    // Calculer le nombre de pieds de thé sur la parcelle
+                    $nombre_pied = $surface_m2 / $rendement_par_pied;
+
+                    // Calculer le poids maximum attendu
+                    $poids_max = $nombre_pied * $rendement_par_pied;
+
+                    return $poids_max;
+                }
+            }
+
+            // En cas d'erreur ou de données manquantes, retourner false
+            return false;
+        }
+
+        // Fonction pour tester si le poids de la cueillette est suffisant
+        function checkIFisEnough($date, $idcueilleur, $idparcelle, $poids) {
+            $max = 0;
+
+            // Vérifier si la date est le premier jour du mois
+            if (date('j', strtotime($date)) == 1) {
+                $max = getMAX($idparcelle);
+            } else {
+                $max = getMAX($idparcelle) + sumPoidscultive($idparcelle, $date);
+            }
+
+            // Vérifier si les fonctions getMAX et sumPoidscultive ont renvoyé des résultats valides
+            if ($max !== false) {
+                if ($poids < $max) {
+                    saisiecuillete($date, $idcueilleur, $idparcelle, $poids);
+                } else {
+                    return "Erreur : Le poids de la cueillette est insuffisant.";
+                }
+            } else {
+                return "Erreur : Impossible de récupérer les données nécessaires pour vérifier le poids de la cueillette.";
+            }
+        }
+
+   
+
+
+
 
 
 ?>

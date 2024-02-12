@@ -87,3 +87,48 @@ CREATE TABLE Plantation (
 -- Fonction pour récupérer tous les cueillettes dans un parcelle pour valider le poids
 -- getSurfaceParcelle en m2
 -- Récupérer toutes les plantations
+
+
+
+
+-- Insertion de données de test pour les variétés de thé
+INSERT INTO The (nom, occupation, rendement_par_pied) VALUES
+    ('Thé vert', 2.5, 0.8),
+    ('Thé noir', 2.7, 0.7),
+    ('Thé oolong', 2.6, 0.75);
+
+-- Insertion de données de test pour les parcelles
+INSERT INTO Parcelle (numero_parcelle, surface_HA, id_variete) VALUES
+    (1, 5.5, 1),
+    (2, 4.0, 2),
+    (3, 3.8, 3);
+
+-- Insertion de données de test pour les cueilleurs
+INSERT INTO Cueilleurs (nom, genre, salaire) VALUES
+    ('Jean Dupont', 'Masculin', 10.50),
+    ('Marie Leclerc', 'Féminin', 11.20),
+    ('Pierre Durand', 'Masculin', 9.75);
+
+-- Insertion de données de test pour les types de dépenses
+INSERT INTO TypeDepense (nom) VALUES
+    ('Engrais'),
+    ('Carburant'),
+    ('Logistique');
+
+-- Insertion de données de test pour les dépenses
+INSERT INTO Depenses (dates, nom, id_typeDep, montant) VALUES
+    ('2024-02-10', 'Achat d engrais', 1, 50.25),
+    ('2024-02-11', 'Achat de carburant', 2, 30.75),
+    ('2024-02-12', 'Frais de logistique', 3, 100.00);
+
+-- Insertion de données de test pour les cueillettes
+INSERT INTO Cueillettes (date_cueillette, id_cueilleur, id_parcelle, poids_cueilli) VALUES
+    ('2024-02-10', 1, 1, 12.5),
+    ('2024-02-11', 2, 2, 10.8),
+    ('2024-02-12', 3, 3, 9.2);
+
+-- Insertion de données de test pour les plantations
+INSERT INTO Plantation (id_parcelle, id_the, date_plantation) VALUES
+    (1, 1, '2023-04-01'),
+    (2, 2, '2023-03-15'),
+    (3, 3, '2023-04-20');
