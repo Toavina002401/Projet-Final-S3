@@ -35,8 +35,7 @@
 
       <nav id="navbar" class="navbar">
         <ul>
-          <li><a class="nav-link scrollto " href="#hero">Accueil</a></li>
-          <li><a class="nav-link scrollto" href="#about">A propos</a></li>
+          <li><a class="nav-link scrollto " href="index.html">Accueil</a></li>
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
           <li><a href="the.html">Variation des thés</a></li>
           <li><a class="nav-link scrollto" href="#portfolio">Nos parcelles</a></li>
@@ -60,7 +59,7 @@
           </div>
         </section><!-- End Breadcrumbs -->
     <!-- ======= About Section ======= -->
-    <section id="about" class="about">
+    <section >
 
       <div class="container" data-aos="fade-up">
         <div class="row">
@@ -122,28 +121,30 @@
 
     <!-- Structure de la boîte de dialogue -->
     <section id="formulaire" class="modal">
-
       <div class="modal-content ">
         <span class="close hidden">&times;</span>
         <form action="traitement.php" method="post">
+          <div class="form-group mb-3 log d-flex align-items-center">
+            <img src="assets/img/logo.png" alt="">
+            <h2>Insertion</h2>
+          </div>
           <div class="form-group mb-3">
             <label for="variete">Variété :</label>
-            <input type="text" class="form-control" id="variete" name="variete">
+            <input type="text" class="form-control" id="variete" name="variete" required>
           </div>
           <div class="form-group mb-3">
             <label for="occupation">Occupation (m2/pied) :</label>
-            <input type="number" class="form-control" id="occupation" name="occupation">
+            <input type="number" class="form-control" id="occupation" name="occupation" required>
           </div>
           <div class="form-group mb-3">
             <label for="rendement">Rendement par pied (kg/mois) :</label>
-            <input type="number" class="form-control" id="rendement" name="rendement">
+            <input type="number" class="form-control" id="rendement" name="rendement" required>
           </div>
           <div class="form-group mb-3  ">
             <button type="submit" class="btn btn-success form-control">Insérer</button>
           </div>
         </form>        
       </div>
-      
     </section>
 
 

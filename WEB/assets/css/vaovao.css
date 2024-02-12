@@ -20,7 +20,7 @@
   
   .modal-content {
     background-color: #fefefe;
-    margin: 15% auto; /* 15% du haut et centré horizontalement */
+    margin: 2% auto; /* 15% du haut et centré horizontalement */
     padding: 20px;
     border: 1px solid #888;
     width: 40%; /* Peut être ajusté à votre convenance */
@@ -45,3 +45,7 @@
     display: none;
   }
   
+  .log img {
+    max-height: 150px;
+    margin-right: 6px;
+  }
