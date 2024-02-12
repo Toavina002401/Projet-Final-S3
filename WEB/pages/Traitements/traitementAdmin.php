@@ -4,6 +4,6 @@
         header("Location:../admin.php");
     }
     else if(connexion_Admin($_GET["pseudo"],$_GET["mdp"])!=-1){
-        echo("tafiditra ilay admi");
+        header("Location:../Templates/template.php?page=accueilAdmin.php");
     }
 ?>

@@ -4,6 +4,6 @@
         header("Location:../login.php");
     }
     else if(connexion_Utilisateurs($_GET["pseudo"],$_GET["mdp"])!=-1){
-        echo("tafiditra ilay uti");
+        header("Location:../Templates/template.php?page=accueil.php");
     }
 ?>
