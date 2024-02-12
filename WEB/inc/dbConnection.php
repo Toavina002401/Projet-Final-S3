@@ -6,7 +6,7 @@
             //localohost= ip
             //root utilisateur
             //mdp
-            //nom database
+            //nom databases
             $connect = mysqli_connect('localhost','root','','takeTea');
         }
         return $connect;
