@@ -1,0 +1,23 @@
+*{
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+}
+
+.boite-footer {
+    background-color: rgb(51, 65, 65);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 50px;
+}
+
+.enfant-footer{
+    text-align: center;
+    color: rgb(208, 211, 213);
+    font-size: 1.1em;
+}
+
+.enfant-footer p{
+    margin-top: 5px;
+}
