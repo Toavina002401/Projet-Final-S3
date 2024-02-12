@@ -37,10 +37,11 @@
         <ul>
           <li><a class="nav-link scrollto " href="index.html">Accueil</a></li>
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-          <li><a href="the.html">Variation des thés</a></li>
+          <li><a href="the.html">Variétés de thé</a></li>
           <li><a href="parcelles.html">Nos parcelles</a></li>
           <li><a href="cueilleurs.html">Cueilleurs</a></li>
           <li><a href="depense.html">Dépenses</a></li>
+          <li><a href="salaire.html">Salaires</a></li>
           <li><a class="getstarted scrollto" href="#about">Deconnexion</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
@@ -69,7 +70,7 @@
                 <tr>
                   <th scope="col">N°</th>
                   <th scope="col">Surface (ha)</th>
-                  <th scope="col">Variété de thé planté</th>
+                  <th scope="col">Variétés de thé planté</th>
                   <th scope="col">Actions</th>
                 </tr>
               </thead>
@@ -133,9 +134,14 @@
             <input type="number" class="form-control" id="occupation" name="occupation" required>
           </div>
           <div class="form-group mb-3">
-            <label for="variete">Variété de thé planté:</label>
-            <input type="text" class="form-control" id="variete" name="variete" required>
+            <label for="variete">Variété de thé planté :</label>
+            <select class="form-control" id="variete" name="variete" required>
+              <option value="1">Thé vert</option>
+              <option value="2">Thé noir</option>
+              <option value="3">Oolong</option>
+            </select>
           </div>
+          
           <div class="form-group mb-3  ">
             <button type="submit" class="btn btn-success form-control">Insérer</button>
           </div>
