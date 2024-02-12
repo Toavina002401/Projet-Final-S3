@@ -10,7 +10,7 @@
         <nav id="navbar" class="navbar">
             <ul>
             <li><a class="nav-link scrollto " href="#hero">Accueil</a></li>
-            <li><a href="#" style="text-decoration: none;">Variation des thés</a></li>
+            <li><a href="#" style="text-decoration: none;" href="#variation">Variation des thés</a></li>
             <li><a class="nav-link scrollto" href="#portfolio">Nos parcelles</a></li>
             <li><a class="nav-link scrollto" href="#team">Cueilleurs</a></li>
             <li><a href="#" style="text-decoration: none;">Dépenses</a></li>
@@ -26,6 +26,70 @@
     <br>
 
     <main id="main">
+
+    <!-- ======= Variation des thés Section ======= -->
+    <section id="variation" class="about">
+        <header class="section-header">
+            <p>Variation des thés</p>
+        </header>
+      <div class="container" data-aos="fade-up">
+        <div class="row">
+          <div class="col-12">
+            <table class="table datatable">
+              <thead>
+                <tr>
+                  <th scope="col">Id</th>
+                  <th scope="col">Variété</th>
+                  <th scope="col">Occupation (m2/pied)</th>
+                  <th scope="col">Rendement par pied (kg/mois)</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Thé vert</td>
+                  <td>1.23</td>
+                  <td>3</td>
+                  <td>
+                    <button type="button" class="btn btnIcone"><img src="assets/img/edit.png" alt=""></button>
+                    <button type="button" class="btn btnIcone"><img src="assets/img/delete.png" alt=""></button>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Thé noir</td>
+                  <td>1.28</td>
+                  <td>2</td>
+                  <td>
+                    <button type="button" class="btn btnIcone"><img src="assets/img/edit.png" alt=""></button>
+                    <button type="button" class="btn btnIcone"><img src="assets/img/delete.png" alt=""></button>
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>Oolong</td>
+                  <td>1.4</td>
+                  <td>1.5</td>
+                  <td>
+                    <button type="button" class="btn btnIcone"><img src="assets/img/edit.png" alt=""></button>
+                    <button type="button" class="btn btnIcone"><img src="assets/img/delete.png" alt=""></button>
+                  </td>                  
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="d-flex justify-content-center">
+            <a href="#" class="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center"  style="text-decoration: none;">
+              <span>Inserer</span>
+              <i class="bi bi-plus-circle"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section><!-- End Variation des thés Section -->
+
+
         <!-- ======= Contact Section ======= -->
         <section id="contact" class="contact">
 
