@@ -12,7 +12,7 @@
     <script>
         setTimeout(function() {
             window.location.href = "login.php";
-        }, 3000);
+        }, 1500);
     </script>
 </body>
 </html>
