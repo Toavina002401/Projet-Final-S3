@@ -1,43 +1,62 @@
 <?php
     include("dbConnection.php");
-    $bdd = dbconnect();
-    global $bdd;
+    
+   
 
     //CONNEXION ok
         // Connexion admin
-        function connexion_Admin($email, $mdp){
-            $query = "SELECT id FROM Utilisateurs WHERE email = ? AND mot_de_passe = SHA1(?) AND post = 'admin'"; 
-            $stmt = $bdd->prepare($query);
-            $stmt->bind_param("ss", $email, $mdp);
-            $stmt->execute();
-            $stmt->store_result();
-            if ($stmt->num_rows > 0) {
-                $stmt->bind_result($id);
-                $stmt->fetch();
-                return $id;
-            } else {
-                return -1;
+            function getUtilisateurById($bdd, $id){
+                $query = "SELECT * FROM Utilisateurs WHERE id = ?";
+                $stmt = $bdd->prepare($query);
+                if ($stmt) {
+                    $stmt->bind_param("i", $id);
+                    if ($stmt->execute()) {
+                        $result = $stmt->get_result();
+                        if ($result->num_rows > 0) {
+                            return $result->fetch_assoc(); // Retourne un seul utilisateur
+                        } else {
+                            return null; // Aucun utilisateur trouvé avec cet identifiant
+                        }
+                    } else {
+                        return null; 
+                    }
+                } else {
+                    return null; 
+                }
             }
-        }
-
-         // Connexion Utilisateurs
-        function connexion_Utilisateurs($email,$mdp){
-      
-            $query = "SELECT id FROM Utilisateurs WHERE email = ? AND mot_de_passe = SHA1(?) AND post = 'simple'";
-            $stmt = $bdd->prepare($query);
-            $stmt->bind_param("ss", $email, $mdp);
-            $stmt->execute();
-            $stmt->store_result();
-            if ($stmt->num_rows > 0) {
-                $stmt->bind_result($id);
-                $stmt->fetch();
-                return $id;
-            } else {
-                return -1;
+        
+            function connexion_Admin($email, $mdp){
+                $query = "SELECT id FROM Utilisateurs WHERE email = ? AND mot_de_passe = SHA1(?) AND post = 'admin'"; 
+                $stmt = dbconnect()->prepare($query);
+                $stmt->bind_param("ss", $email, $mdp);
+                $stmt->execute();
+                $stmt->store_result();
+                if ($stmt->num_rows > 0) {
+                    $stmt->bind_result($id);
+                    $stmt->fetch();
+                    return $id;
+                } else {
+                    return -1;
+                }
             }
-        }
 
-    
+        // Connexion Utilisateurs
+            function connexion_Utilisateurs($email,$mdp){
+          
+                $query = "SELECT id FROM Utilisateurs WHERE email = ? AND mot_de_passe = SHA1(?) AND post = 'simple'";
+                $stmt = dbconnect()->prepare($query);
+                $stmt->bind_param("ss", $email, $mdp);
+                $stmt->execute();
+                $stmt->store_result();
+                if ($stmt->num_rows > 0) {
+                    $stmt->bind_result($id);
+                    $stmt->fetch();
+                    return $id;
+                } else {
+                    return -1;
+                }
+            }
+
         //////////////////////////------------------------------------/////////////////////////////////////
         //////////////////////////------------------------------------/////////////////////////////////////
         //////////////////////////------------------------------------/////////////////////////////////////
@@ -45,9 +64,9 @@
     //GESTION THEA  
         // LISTER THEA
             // Fonction pour récupérer toutes les variétés de thé
-                function getAllThea($bdd){
+                function getAllThea(){
                     $query = "SELECT * FROM The";
-                    $result = $bdd->query($query);
+                    $result = dbconnect()->query($query);
                     if ($result) {
                         return $result->fetch_all(MYSQLI_ASSOC);
                     } else {
@@ -55,9 +74,9 @@
                     }
                 }
                 // Fonction pour récupérer toutes les variétés de thé triées par nom
-                function getTheaByAlphabet($bdd){
+                function getTheaByAlphabet(){
                     $query = "SELECT * FROM The ORDER BY nom";
-                    $result = $bdd->query($query);
+                    $result = dbconnect()->query($query);
                     if ($result) {
                         return $result->fetch_all(MYSQLI_ASSOC);
                     } else {
@@ -65,9 +84,9 @@
                     }
                 }
                 // Fonction pour récupérer toutes les variétés de thé triées par occupation (du plus grand au plus petit)
-                function getTheaByOccupation($bdd){
+                function getTheaByOccupation(){
                     $query = "SELECT * FROM The ORDER BY occupation DESC";
-                    $result = $bdd->query($query);
+                    $result = dbconnect()->query($query);
                     if ($result) {
                         return $result->fetch_all(MYSQLI_ASSOC);
                     } else {
@@ -75,9 +94,9 @@
                     }
                 }
                 // Fonction pour récupérer toutes les variétés de thé triées par rendement par pied (du plus grand au plus petit)
-                function getTheaByRendement($bdd){
+                function getTheaByRendement(){
                     $query = "SELECT * FROM The ORDER BY rendement_par_pied DESC";
-                    $result = $bdd->query($query);
+                    $result = dbconnect()->query($query);
                     if ($result) {
                         return $result->fetch_all(MYSQLI_ASSOC);
                     } else {
@@ -91,7 +110,7 @@
 
             $query = "UPDATE The SET nom = ?, occupation = ?, rendement_par_pied = ? WHERE id = ?";
         
-            $stmt = $bdd->prepare($query);
+            $stmt = dbconnect()->prepare($query);
             
             if ($stmt) {
                 // Binder les paramètres
@@ -117,7 +136,7 @@
             // Requête de suppression
             $query = "DELETE FROM The WHERE id = ?";
             
-            $stmt = $bdd->prepare($query);
+            $stmt = dbconnect()->prepare($query);
             
             if ($stmt) {
                 // Binder le paramètre
@@ -142,7 +161,7 @@
             $query = "INSERT INTO The (nom, occupation, rendement_par_pied) VALUES (?, ?, ?)";
             
             // Préparer la requête
-            $stmt = $bdd->prepare($query);
+            $stmt = dbconnect()->prepare($query);
             
             if ($stmt) {
                 $stmt->bind_param("sdd", $nom, $occupation, $rendement);
@@ -167,7 +186,7 @@
             // Par Surface
                 function listParcelleBySurface(){
                     $query = "SELECT * FROM Parcelle ORDER BY surface_HA";
-                    $result = $bdd->query($query);
+                    $result = dbconnect()->query($query);
                     if ($result) {
                         return $result->fetch_all(MYSQLI_ASSOC);
                     } else {
@@ -177,7 +196,7 @@
             // Par Numero
                 function listParcelleByNumero(){
                     $query = "SELECT * FROM Parcelle ORDER BY numero_parcelle";
-                    $result = $bdd->query($query);
+                    $result = dbconnect()->query($query);
                     if ($result) {
                         return $result->fetch_all(MYSQLI_ASSOC);
                     } else {
@@ -190,7 +209,7 @@
             function createParcelle($numero, $surface, $id_variete){
             
                 $query = "INSERT INTO Parcelle (numero_parcelle, surface_HA, id_variete) VALUES (?, ?, ?)";
-                $stmt = $bdd->prepare($query);
+                $stmt = dbconnect()->prepare($query);
                 if ($stmt) {
                     $stmt->bind_param("idi", $numero, $surface, $id_variete);
                     if ($stmt->execute()) {
@@ -206,7 +225,7 @@
         // DELETE PARCELLE
             function deleteParcelle($id){
                 $query = "DELETE FROM Parcelle WHERE id = ?";
-                $stmt = $bdd->prepare($query);
+                $stmt = dbconnect()->prepare($query);
                 if ($stmt) {
                     $stmt->bind_param("i", $id);
                     if ($stmt->execute()) {
@@ -224,7 +243,7 @@
         function updateParcelle($id, $numero, $surface, $id_variete){
             
             $query = "UPDATE Parcelle SET numero_parcelle = ?, surface_HA = ?, id_variete = ? WHERE id = ?";
-            $stmt = $bdd->prepare($query);
+            $stmt = dbconnect()->prepare($query);
             if ($stmt) {
                 $stmt->bind_param("idii", $numero, $surface, $id_variete, $id);
                 if ($stmt->execute()) {
@@ -234,6 +253,30 @@
                 }
             } else {
                 return false;
+            }
+        }
+
+        
+        // Fonction pour obtenir l'ID de la parcelle par son numéro
+        function getidparcelleparnum($num_parcelle){
+            $bdd = dbconnect(); 
+            $query = "SELECT id FROM Parcelle WHERE numero_parcelle = ?";
+            $stmt = $bdd->prepare($query);
+            if ($stmt) {
+                $stmt->bind_param("i", $num_parcelle);
+                if ($stmt->execute()) {
+                    $result = $stmt->get_result();
+                    if ($result->num_rows > 0) {
+                        $row = $result->fetch_assoc();
+                        return $row['id']; // Retourne l'ID de la parcelle
+                    } else {
+                        return null; // Aucune parcelle trouvée avec ce numéro
+                    }
+                } else {
+                    return null; // Erreur lors de l'exécution de la requête
+                }
+            } else {
+                return null; // Erreur de préparation de la requête
             }
         }
 
@@ -247,17 +290,18 @@
                 // Par Nom
                 function listCueilleursByNom(){
                     $query = "SELECT * FROM Cueilleurs ORDER BY nom";
-                    $result = $bdd->query($query);
+                    $result = dbconnect()->query($query);
                     if ($result) {
                         return $result->fetch_all(MYSQLI_ASSOC);
                     } else {
                         return [];
                     }
                 }
+        
         // CREATE CUEILLEUR
             function createCueilleur($nom, $genre, $salaire){
                     $query = "INSERT INTO Cueilleurs (nom, genre, salaire) VALUES (?, ?, ?)";
-                    $stmt = $bdd->prepare($query);
+                    $stmt = dbconnect()->prepare($query);
                     if ($stmt) {
                         $stmt->bind_param("ssd", $nom, $genre, $salaire);
                         if ($stmt->execute()) {
@@ -275,10 +319,11 @@
        
       
       
+       
         // DELETE CUEILLEUR
             function deleteCueilleur($id){
                     $query = "DELETE FROM Cueilleurs WHERE id = ?";
-                    $stmt = $bdd->prepare($query);
+                    $stmt = dbconnect()->prepare($query);
                     if ($stmt) {
                         $stmt->bind_param("i", $id);
                         if ($stmt->execute()) {
@@ -295,7 +340,7 @@
         // UPDATE CUEILLEUR
             function updateCueilleur($id, $nom, $genre, $salaire){
                     $query = "UPDATE Cueilleurs SET nom = ?, genre = ?, salaire = ? WHERE id = ?";
-                    $stmt = $bdd->prepare($query);
+                    $stmt = dbconnect()->prepare($query);
                     if ($stmt) {
                         $stmt->bind_param("ssdi", $nom, $genre, $salaire, $id);
                         if ($stmt->execute()) {
@@ -308,6 +353,30 @@
                     }
                 }
 
+    
+        // Fonction pour obtenir l'ID du cueilleur par son nom
+            function getidcueilleurparnom($nom_cueilleur){
+                $bdd = dbconnect();
+                $query = "SELECT id FROM Cueilleurs WHERE nom = ?";
+                $stmt = $bdd->prepare($query);
+                if ($stmt) {
+                    $stmt->bind_param("s", $nom_cueilleur);
+                    if ($stmt->execute()) {
+                        $result = $stmt->get_result();
+                        if ($result->num_rows > 0) {
+                            $row = $result->fetch_assoc();
+                            return $row['id']; // Retourne l'ID du cueilleur
+                        } else {
+                            return null; // Aucun cueilleur trouvé avec ce nom
+                        }
+                    } else {
+                        return null; // Erreur lors de l'exécution de la requête
+                    }
+                } else {
+                    return null; // Erreur de préparation de la requête
+                }
+            }
+    
     //////////////////////////------------------------------------/////////////////////////////////////
     //////////////////////////------------------------------------/////////////////////////////////////
     //////////////////////////------------------------------------/////////////////////////////////////
@@ -317,12 +386,141 @@
         
 
 
+    //GESTION CATEGORIE DEPENSE
+    
+        // LISTER LES CATEGORIES DE DEPENSES
+            function listCategoriesDepense(){
+                $query = "SELECT * FROM TypeDepense";
+                $result = dbconnect()->query($query);
+                if ($result) {
+                    return $result->fetch_all(MYSQLI_ASSOC);
+                } else {
+                    return [];
+                }
+            }
+
+
+        // CREER UNE CATEGORIE DE DEPENSE
+            function createCategorieDepense($nom){
+                $query = "INSERT INTO TypeDepense (nom) VALUES (?)";
+                $stmt = dbconnect()->prepare($query);
+                if ($stmt) {
+                    $stmt->bind_param("s", $nom);
+                    if ($stmt->execute()) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            }
+
+
+        // DELETE UNE CATEGORIE DE DEPENSE
+            function deleteCategorieDepense($id){
+                $query = "DELETE FROM TypeDepense WHERE id = ?";
+                $stmt = dbconnect()->prepare($query);
+                if ($stmt) {
+                    $stmt->bind_param("i", $id);
+                    if ($stmt->execute()) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            }
+
+        // UPDATE UNE CATEGORIE DE DEPENSE
+            function updateCategorieDepense($id, $nom){
+                $query = "UPDATE TypeDepense SET nom = ? WHERE id = ?";
+                $stmt = dbconnect()->prepare($query);
+                if ($stmt) {
+                    $stmt->bind_param("si", $nom, $id);
+                    if ($stmt->execute()) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            }
+
+        
+        // Fonction pour obtenir l'ID de la catégorie de dépense par son nom
+            function getidparnomcategoriedepense($nom_categorie){
+                $bdd = dbconnect(); // Obtenir l'objet de connexion à la base de données
+                $query = "SELECT id FROM TypeDepense WHERE nom = ?";
+                $stmt = $bdd->prepare($query);
+                if ($stmt) {
+                    $stmt->bind_param("s", $nom_categorie);
+                    if ($stmt->execute()) {
+                        $result = $stmt->get_result();
+                        if ($result->num_rows > 0) {
+                            $row = $result->fetch_assoc();
+                            return $row['id']; // Retourne l'ID de la catégorie de dépense
+                        } else {
+                            return null; // Aucune catégorie de dépense trouvée avec ce nom
+                        }
+                    } else {
+                        return null; // Erreur lors de l'exécution de la requête
+                    }
+                } else {
+                    return null; // Erreur de préparation de la requête
+                }
+            }
+
+
   
 
+    //////////////////////////------------------------------------/////////////////////////////////////
+    //////////////////////////------------------------------------/////////////////////////////////////
+    //////////////////////////------------------------------------/////////////////////////////////////
 
 
 
 
+    /////////////////////FRONT OFFICE/////////////////////////////////////////////
 
+    //SAISIE CUEILLETE
+        function saisiecuillete($date, $idcueilleur, $idparcelle, $poids){
+            $bdd = dbconnect(); 
+            $query = "INSERT INTO Cueillettes (date_cueillette, id_cueilleur, id_parcelle, poids_cueilli) VALUES (?, ?, ?, ?)";
+            $stmt = $bdd->prepare($query);
+            if ($stmt) {
+                $stmt->bind_param("siii", $date, $idcueilleur, $idparcelle, $poids);
+                if ($stmt->execute()) {
+                    return true; // Insertion réussie
+                } else {
+                    return false; // Échec de l'insertion
+                }
+            } else {
+                return false; // Erreur de préparation de la requête
+            }
+        }
+
+    // Fonction pour enregistrer une nouvelle dépense
+    function saisieDepense($date, $nom, $id_typeDepense, $montant){
+        $bdd = dbconnect(); // Obtenir l'objet de connexion à la base de données
+        $query = "INSERT INTO Depenses (dates, nom, id_typeDep, montant) VALUES (?, ?, ?, ?)";
+        $stmt = $bdd->prepare($query);
+        if ($stmt) {
+            $stmt->bind_param("ssis", $date, $nom, $id_typeDepense, $montant);
+            if ($stmt->execute()) {
+                return true; // Insertion réussie
+            } else {
+                return false; // Échec de l'insertion
+            }
+        } else {
+            return false; // Erreur de préparation de la requête
+        }
+    }
+
+    
+
+    //GETCUEILLETE 
 
 ?>
