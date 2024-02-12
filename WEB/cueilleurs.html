@@ -54,7 +54,7 @@
     <!-- ======= Breadcrumbs ======= -->
         <section class="breadcrumbs">
           <div class="container" data-aos="fade-up">
-            <h2>Variation des thés</h2>
+            <h2>Cueilleurs</h2>
     
           </div>
         </section><!-- End Breadcrumbs -->
@@ -68,18 +68,18 @@
               <thead>
                 <tr>
                   <th scope="col">Id</th>
-                  <th scope="col">Variété</th>
-                  <th scope="col">Occupation (m2/pied)</th>
-                  <th scope="col">Rendement par pied (kg/mois)</th>
+                  <th scope="col">Nom</th>
+                  <th scope="col">Genre</th>
+                  <th scope="col">Date de naissance</th>
                   <th scope="col">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <th scope="row">1</th>
-                  <td>Thé vert</td>
-                  <td>1.23</td>
-                  <td>3</td>
+                  <td>Rakoto</td>
+                  <td>Homme</td>
+                  <td>21/09/1999</td>
                   <td>
                     <button type="button" class="btn btnIcone"><img src="assets/img/edit.png" alt=""></button>
                     <button type="button" class="btn btnIcone"><img src="assets/img/delete.png" alt=""></button>
@@ -87,9 +87,9 @@
                 </tr>
                 <tr>
                   <th scope="row">2</th>
-                  <td>Thé noir</td>
-                  <td>1.28</td>
-                  <td>2</td>
+                  <td>Rasoa</td>
+                  <td>Femme</td>
+                  <td>1/12/2000</td>
                   <td>
                     <button type="button" class="btn btnIcone"><img src="assets/img/edit.png" alt=""></button>
                     <button type="button" class="btn btnIcone"><img src="assets/img/delete.png" alt=""></button>
@@ -97,9 +97,9 @@
                 </tr>
                 <tr>
                   <th scope="row">3</th>
-                  <td>Oolong</td>
-                  <td>1.4</td>
-                  <td>1.5</td>
+                  <td>Rabe</td>
+                  <td>Homme</td>
+                  <td>12/06/1995</td>
                   <td>
                     <button type="button" class="btn btnIcone"><img src="assets/img/edit.png" alt=""></button>
                     <button type="button" class="btn btnIcone"><img src="assets/img/delete.png" alt=""></button>
@@ -129,16 +129,16 @@
             <h2>Insertion</h2>
           </div>
           <div class="form-group mb-3">
-            <label for="variete">Variété :</label>
-            <input type="text" class="form-control" id="variete" name="variete" required>
+            <label for="nom">Nom :</label>
+            <input type="text" class="form-control" id="nom" name="nom" required>
           </div>
           <div class="form-group mb-3">
-            <label for="occupation">Occupation (m2/pied) :</label>
-            <input type="number" class="form-control" id="occupation" name="occupation" required>
+            <label for="occupation">Genre :</label>
+            <input type="text" class="form-control" id="occupation" name="occupation" required>
           </div>
           <div class="form-group mb-3">
-            <label for="rendement">Rendement par pied (kg/mois) :</label>
-            <input type="number" class="form-control" id="rendement" name="rendement" required>
+            <label for="rendement">Date de naissance :</label>
+            <input type="date" class="form-control" id="rendement" name="rendement" required>
           </div>
           <div class="form-group mb-3  ">
             <button type="submit" class="btn btn-success form-control">Insérer</button>

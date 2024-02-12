@@ -54,7 +54,7 @@
     <!-- ======= Breadcrumbs ======= -->
         <section class="breadcrumbs">
           <div class="container" data-aos="fade-up">
-            <h2>Variation des thés</h2>
+            <h2>Nos parcelles</h2>
     
           </div>
         </section><!-- End Breadcrumbs -->
@@ -67,19 +67,17 @@
             <table class="table datatable">
               <thead>
                 <tr>
-                  <th scope="col">Id</th>
-                  <th scope="col">Variété</th>
-                  <th scope="col">Occupation (m2/pied)</th>
-                  <th scope="col">Rendement par pied (kg/mois)</th>
+                  <th scope="col">N°</th>
+                  <th scope="col">Surface (ha)</th>
+                  <th scope="col">Variété de thé planté</th>
                   <th scope="col">Actions</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <th scope="row">1</th>
+                  <td>12</td>
                   <td>Thé vert</td>
-                  <td>1.23</td>
-                  <td>3</td>
                   <td>
                     <button type="button" class="btn btnIcone"><img src="assets/img/edit.png" alt=""></button>
                     <button type="button" class="btn btnIcone"><img src="assets/img/delete.png" alt=""></button>
@@ -87,9 +85,8 @@
                 </tr>
                 <tr>
                   <th scope="row">2</th>
+                  <td>13</td>
                   <td>Thé noir</td>
-                  <td>1.28</td>
-                  <td>2</td>
                   <td>
                     <button type="button" class="btn btnIcone"><img src="assets/img/edit.png" alt=""></button>
                     <button type="button" class="btn btnIcone"><img src="assets/img/delete.png" alt=""></button>
@@ -97,9 +94,8 @@
                 </tr>
                 <tr>
                   <th scope="row">3</th>
+                  <td>5</td>
                   <td>Oolong</td>
-                  <td>1.4</td>
-                  <td>1.5</td>
                   <td>
                     <button type="button" class="btn btnIcone"><img src="assets/img/edit.png" alt=""></button>
                     <button type="button" class="btn btnIcone"><img src="assets/img/delete.png" alt=""></button>
@@ -129,16 +125,16 @@
             <h2>Insertion</h2>
           </div>
           <div class="form-group mb-3">
-            <label for="variete">Variété :</label>
-            <input type="text" class="form-control" id="variete" name="variete" required>
+            <label for="rendement">Numéro de parcelle :</label>
+            <input type="number" class="form-control" id="rendement" name="rendement" required>
           </div>
           <div class="form-group mb-3">
-            <label for="occupation">Occupation (m2/pied) :</label>
+            <label for="occupation">Surface (ha) :</label>
             <input type="number" class="form-control" id="occupation" name="occupation" required>
           </div>
           <div class="form-group mb-3">
-            <label for="rendement">Rendement par pied (kg/mois) :</label>
-            <input type="number" class="form-control" id="rendement" name="rendement" required>
+            <label for="variete">Variété de thé planté:</label>
+            <input type="text" class="form-control" id="variete" name="variete" required>
           </div>
           <div class="form-group mb-3  ">
             <button type="submit" class="btn btn-success form-control">Insérer</button>
