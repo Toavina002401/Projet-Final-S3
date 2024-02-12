@@ -44,8 +44,22 @@ CREATE TABLE Cueilleurs (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(255) NOT NULL,
     genre ENUM('Masculin', 'Féminin') NOT NULL,
-    salaire DECIMAL(10,2)
+    datenaissance DATE -- Suppression de la colonne salaire
 );
+
+
+
+
+-- Table pour les salaires
+CREATE TABLE Salaire (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_cueilleur INT,
+    salaire DECIMAL(10,2),
+    datelastupdate DATE,
+    FOREIGN KEY (id_cueilleur) REFERENCES Cueilleurs(id)
+);
+
+
 
 -- Table pour les types de dépenses
 CREATE TABLE TypeDepense (
@@ -74,61 +88,90 @@ CREATE TABLE Cueillettes (
     FOREIGN KEY (id_parcelle) REFERENCES Parcelle(id)
 );
 
--- Table pour les plantations
-CREATE TABLE Plantation (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    id_parcelle INT,
-    id_the INT,
-    date_plantation DATE,
-    FOREIGN KEY (id_parcelle) REFERENCES Parcelle(id),
-    FOREIGN KEY (id_the) REFERENCES The(id)
-);
 
--- Fonction pour récupérer tous les cueillettes dans un parcelle pour valider le poids
--- getSurfaceParcelle en m2
--- Récupérer toutes les plantations
+-- Insertion de données de test supplémentaires pour les variétés de thé
+INSERT INTO The (nom, occupation, rendement_par_pied) VALUES
+    ('Thé au jasmin', 3.0, 0.85),
+    ('Thé au gingembre', 2.8, 0.75),
+    ('Thé au citron', 2.9, 0.78),
+    ('Thé aux fruits rouges', 3.2, 0.82),
+    ('Thé à la menthe', 3.1, 0.80);
 
 
 
-
--- Insertion de données de test pour les variétés de thé
 INSERT INTO The (nom, occupation, rendement_par_pied) VALUES
     ('Thé vert', 2.5, 0.8),
     ('Thé noir', 2.7, 0.7),
-    ('Thé oolong', 2.6, 0.75);
+    ('Thé oolong', 2.6, 0.75),
+    ('Thé vert clair', 3.2, 0.9),
+    ('Thé noir foncé', 2.9, 0.65),
+    ('Thé oolong léger', 2.4, 0.8),
+    ('Thé blanc pur', 3.0, 0.75);
 
--- Insertion de données de test pour les parcelles
+
 INSERT INTO Parcelle (numero_parcelle, surface_HA, id_variete) VALUES
     (1, 5.5, 1),
     (2, 4.0, 2),
-    (3, 3.8, 3);
+    (3, 3.8, 3),
+    (5, 4.7, 1),
+    (6, 3.5, 2),
+    (7, 5.0, 3),
+    (8, 7.2, 4),
+    (9,4.2,5),
+    (10,2.2,6),
+    (11,1.2,4)
+    ;
+
+
+-- Insertion de données de test supplémentaires pour les parcelles
+INSERT INTO Parcelle (numero_parcelle, surface_HA, id_variete) VALUES
+    (24, 5.3, 1),
+    (25, 6.7, 2),
+    (26, 4.5, 3),
+    (27, 7.1, 4),
+    (28, 5.9, 5),
+    (29, 6.2, 6),
+    (30, 4.8, 7),
+    (31, 7.5, 11),
+    (32, 5.6, 12),
+    (33, 6.9, 9);
+
+
+
+
+    INSERT INTO TypeDepense (nom) VALUES
+        ('Engrais'),
+        ('Carburant'),
+        ('Logistique'),
+        ('Emballage'),
+        ('Entretien'),
+        ('Transport'),
+        ('Marketing');
+    -- Insertion de quelques données de test supplémentaires pour les types de dépenses
+    INSERT INTO TypeDepense (nom) VALUES
+        ('Fournitures de bureau'),
+        ('Frais de maintenance');
+
+
+
 
 -- Insertion de données de test pour les cueilleurs
-INSERT INTO Cueilleurs (nom, genre, salaire) VALUES
-    ('Jean Dupont', 'Masculin', 10.50),
-    ('Marie Leclerc', 'Féminin', 11.20),
-    ('Pierre Durand', 'Masculin', 9.75);
+INSERT INTO Cueilleurs (nom, genre, datenaissance) VALUES
+    ('Jean Dupont', 'Masculin', '1990-05-15'),
+    ('Marie Leclerc', 'Féminin', '1987-12-28'),
+    ('Pierre Durand', 'Masculin', '1995-08-03'),
+    ('Alice Martin', 'Féminin', '1992-04-20'),
+    ('Paul Dupuis', 'Masculin', '1989-10-10'),
+    ('Sophie Lefèvre', 'Féminin', '1993-07-18'),
+    ('Martin Lambert', 'Masculin', '1985-02-09');
 
--- Insertion de données de test pour les types de dépenses
-INSERT INTO TypeDepense (nom) VALUES
-    ('Engrais'),
-    ('Carburant'),
-    ('Logistique');
 
--- Insertion de données de test pour les dépenses
-INSERT INTO Depenses (dates, nom, id_typeDep, montant) VALUES
-    ('2024-02-10', 'Achat d engrais', 1, 50.25),
-    ('2024-02-11', 'Achat de carburant', 2, 30.75),
-    ('2024-02-12', 'Frais de logistique', 3, 100.00);
-
--- Insertion de données de test pour les cueillettes
-INSERT INTO Cueillettes (date_cueillette, id_cueilleur, id_parcelle, poids_cueilli) VALUES
-    ('2024-02-10', 1, 1, 12.5),
-    ('2024-02-11', 2, 2, 10.8),
-    ('2024-02-12', 3, 3, 9.2);
-
--- Insertion de données de test pour les plantations
-INSERT INTO Plantation (id_parcelle, id_the, date_plantation) VALUES
-    (1, 1, '2023-04-01'),
-    (2, 2, '2023-03-15'),
-    (3, 3, '2023-04-20');
+-- Insertion de données de test pour les salaires
+INSERT INTO Salaire (id_cueilleur, salaire, datelastupdate) VALUES
+    (1, 1500.50, '2024-02-10'),
+    (2, 1600.75, '2024-02-11'),
+    (3, 1400.25, '2024-02-12'),
+    (4, 1550.00, '2024-02-13'),
+    (5, 1650.25, '2024-02-14'),
+    (6, 1450.75, '2024-02-15'),
+    (7, 1700.00, '2024-02-16');
