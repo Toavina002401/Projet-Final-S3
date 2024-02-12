@@ -11,11 +11,10 @@
             <ul>
             <li><a class="nav-link scrollto " href="#hero">Accueil</a></li>
             <li><a class="nav-link scrollto" href="#about">A propos</a></li>
+            <li><a href="#" style="text-decoration: none;">Saisie des cueillettes</a></li>
+            <li><a class="nav-link scrollto" href="#portfolio">Saisie des dépenses</a></li>
+            <li><a class="nav-link scrollto" href="#team">Résultats</a></li>
             <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-            <li><a href="#" style="text-decoration: none;">Variation des thés</a></li>
-            <li><a class="nav-link scrollto" href="#portfolio">Nos parcelles</a></li>
-            <li><a class="nav-link scrollto" href="#team">Cueilleurs</a></li>
-            <li><a href="#" style="text-decoration: none;">Dépenses</a></li>
             <li><a class="getstarted scrollto" href="../../inc/deconnexion.php" style="text-decoration: none;">Deconnexion</a></li>
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
