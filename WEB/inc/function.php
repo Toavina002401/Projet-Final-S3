@@ -3,7 +3,7 @@
     $bdd = dbconnect();
     global $bdd;
 
-    //CONNEXION
+    //CONNEXION ok
         // Connexion admin
         function connexion_Admin($email, $mdp){
             $query = "SELECT id FROM Utilisateurs WHERE email = ? AND mot_de_passe = SHA1(?) AND post = 'admin'"; 
