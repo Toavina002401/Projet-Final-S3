@@ -28,6 +28,7 @@ CREATE TABLE The (
     nom VARCHAR(255) NOT NULL,
     occupation DECIMAL(10,2) NOT NULL, -- en m2
     rendement_par_pied DECIMAL(10,2) NOT NULL
+    prix_de_vente DECIMAL(10,2)
 );
 
 -- Table pour les parcelles
@@ -71,7 +72,6 @@ CREATE TABLE TypeDepense (
 CREATE TABLE Depenses (
     id INT AUTO_INCREMENT PRIMARY KEY,
     dates DATE,
-    nom VARCHAR(255) NOT NULL,
     id_typeDep INT,
     montant DECIMAL(10,2),
     FOREIGN KEY (id_typeDep) REFERENCES TypeDepense(id)
@@ -175,3 +175,64 @@ INSERT INTO Salaire (id_cueilleur, salaire, datelastupdate) VALUES
     (5, 1650.25, '2024-02-14'),
     (6, 1450.75, '2024-02-15'),
     (7, 1700.00, '2024-02-16');
+
+
+
+CREATE TABLE Regeneration (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_variete INT,
+    mois INT,
+    FOREIGN KEY (id_variete) REFERENCES The(id)
+);
+
+CREATE TABLE Liste_Paie (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    date DATE,
+    id_cueilleur INT,
+    poids DECIMAL(10, 2),
+    pourcentage_bonus DECIMAL(5, 2),
+    pourcentage_mallus DECIMAL(5, 2),
+    montant_paiement DECIMAL(10, 2),
+    FOREIGN KEY (id_cueilleur) REFERENCES Cueilleurs(id)
+);
+
+CREATE TABLE ConfigurationCueillette (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_cueilleur INT NOT NULL,
+    poids_min_journalier DECIMAL(10, 2) NOT NULL,
+    montant_bonus DECIMAL(5, 2) NOT NULL,
+    montant_malus DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (id_cueilleur) REFERENCES Cueilleurs(id)
+);
+
+INSERT INTO Regeneration (id_variete, mois) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(2, 1),
+(2, 2),
+(2, 3);
+
+-- Suppose que vous avez déjà des cueilleurs enregistrés dans la table Cueilleurs
+-- Assurez-vous d'avoir les ID corrects des cueilleurs
+INSERT INTO Liste_Paie (date, id_cueilleur, poids, pourcentage_bonus, pourcentage_mallus, montant_paiement) VALUES
+('2024-01-01', 1, 10.5, 5.00, 2.00, 120.50),
+('2024-01-02', 2, 9.8, 7.00, 1.50, 105.20),
+('2024-01-03', 3, 12.2, 6.50, 2.50, 140.80),
+('2024-01-04', 4, 11.5, 4.50, 1.80, 130.00),
+('2024-01-05', 5, 10.0, 5.50, 2.20, 125.50);
+
+
+-- Assurez-vous d'avoir les ID corrects des cueilleurs
+INSERT INTO ConfigurationCueillette (id_cueilleur, poids_min_journalier, montant_bonus, montant_malus) VALUES
+(1, 10.00, 5.00, 2.00),
+(2, 9.50, 7.00, 1.50),
+(3, 11.00, 6.50, 2.50),
+(4, 11.00, 4.50, 1.80),
+(5, 10.50, 5.50, 2.20);
+
+
+
+
+
+

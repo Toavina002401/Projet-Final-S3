@@ -690,7 +690,7 @@
         }
 
         
-        ///// 
+    /////SAISIE DEPENSE 
 
         // Fonction pour enregistrer une nouvelle dépense
         function saisieDepense($date, $nom, $id_typeDepense, $montant){
@@ -708,6 +708,10 @@
                 return false; // Erreur de préparation de la requête
             }
         }
+
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
         // Fonction pour récupérer la somme des poids cueillis dans une parcelle pour un mois donné
@@ -748,7 +752,7 @@
                     $id_variete = $row['id_variete']; // ID de la variété de thé
 
                     // Requête SQL pour obtenir le rendement par pied de la variété de thé
-                    $query_rendement = "SELECT rendement_par_pied FROM The WHERE id = ?";
+                    $query_rendement = "SELECT occupation,rendement_par_pied FROM The WHERE id = ?";
                     $stmt_rendement = $bdd->prepare($query_rendement);
                     $stmt_rendement->bind_param("i", $id_variete);
                     $stmt_rendement->execute();
@@ -758,12 +762,13 @@
                     if ($result_rendement->num_rows > 0) {
                         $row_rendement = $result_rendement->fetch_assoc();
                         $rendement_par_pied = $row_rendement['rendement_par_pied']; // Rendement par pied de la variété de thé
+                        $occupation= $row_rendement['occupation'];
 
                         // Calculer la surface de la parcelle en mètres carrés
                         $surface_m2 = $surface_HA * 10000;
 
                         // Calculer le nombre de pieds de thé sur la parcelle
-                        $nombre_pied = $surface_m2 / $rendement_par_pied;
+                        $nombre_pied = $surface_m2 / $occupation;
 
                         // Calculer le poids maximum attendu
                         $poids_max = $nombre_pied * $rendement_par_pied;
@@ -780,7 +785,7 @@
             function checkIFisEnough($date, $idcueilleur, $idparcelle, $poids) {
                 $max = 0;
 
-                $max = getMAX($idparcelle) + sumPoidscultive($idparcelle, $date);
+                $max = getMAX($idparcelle) - sumPoidscultive($idparcelle, $date);
                 
 
                 // Vérifier si les fonctions getMAX et sumPoidscultive ont renvoyé des résultats valides
@@ -1018,4 +1023,78 @@
 
 
 
+
+
+    //PAIEMENT//////////////////////////////////////////////////
+
+
+   // Fonction pour récupérer le poids minimal journalier, le pourcentage de bonus et le pourcentage de malus pour un cueilleur
+    function getConfigCueillette($id_cueilleur) {
+        $bdd = dbconnect();
+        $query = "SELECT poids_min_journalier, montant_bonus, montant_malus FROM ConfigurationCueillette WHERE id_cueilleur = ?";
+        $stmt = $bdd->prepare($query);
+        if ($stmt) {
+            $stmt->bind_param("i", $id_cueilleur);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result && $result->num_rows > 0) {
+                return $result->fetch_assoc();
+            }
+        }
+        // Valeurs par défaut si aucune configuration n'est trouvée
+        return array('poids_min_journalier' => 0, 'montant_bonus' => 0, 'montant_malus' => 0);
+    }
+
+    function insertPaiement($date, $idcueilleur, $poids) {
+        // Récupérer la configuration de cueillette pour le cueilleur
+        $config = getConfigCueillette($idcueilleur);
+        // Récupérer les valeurs individuelles
+        $poids_minimal = $config['poids_min_journalier'];
+        $pourcentage_bonus = $config['montant_bonus'];
+        $pourcentage_malus = $config['montant_malus'];
+    
+        // Calculer le paiement initial basé sur le salaire du cueilleur
+        $paiement = getSalaireById($idcueilleur) * $poids;
+    
+        // Vérifier si le poids cueilli est inférieur au poids minimal
+        if ($poids < $poids_minimal) {
+            // Appliquer le malus
+            $malus = $paiement * ($pourcentage_malus / 100);
+            $paiement -= $malus;
+        } else {
+            // Appliquer le bonus
+            $bonus = $paiement * ($pourcentage_bonus / 100);
+            $paiement += $bonus;
+        }
+    
+        // Insérer les informations de paiement dans la table Liste_Paie
+        $montant_paiement = $paiement; // Montant total du paiement
+        // Insérer les informations dans la table Liste_Paie
+        $query = "INSERT INTO Liste_Paie (date, id_cueilleur, poids, pourcentage_bonus, pourcentage_malus, montant_paiement) VALUES (?, ?, ?, ?, ?, ?)";
+        $stmt = dbconnect()->prepare($query);
+        if ($stmt) {
+            $stmt->bind_param("siiiii", $date, $idcueilleur, $poids, $pourcentage_bonus, $pourcentage_malus, $montant_paiement);
+            if ($stmt->execute()) {
+                return true; // Insertion réussie
+            } else {
+                return false; // Échec de l'insertion
+            }
+        } else {
+            return false; // Erreur de préparation de la requête
+        }
+    }
+    
+    ///////////////////////////////////////////////////////////////////
+
+
+    ////MONTANT Vente///////
+
+    function monntantVente($datedeb, $datefin){
+
+    }
+
+
+
+
+    
 ?>
