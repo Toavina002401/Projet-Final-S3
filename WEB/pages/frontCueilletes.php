@@ -42,7 +42,7 @@
                 <div class="col-lg-1"></div>
                 <div class="col-lg-5 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
                     <div class="content">
-                <form action="../insertion/insCueillettes.php" method="post">
+                <form id="tpajax">
                     <div class="form-group mb-3 log d-flex align-items-center">
                         <h2>Saisie des cueillettes</h2>
                     </div>
@@ -78,6 +78,77 @@
           </div>
         </div>
       </div>
+    <script>
+        var formTp=document.getElementById("tpajax");
+        formTp.addEventListener('submit',(e)=>{
+            e.preventDefault();
+            var formData = new FormData(formTp);
+            var xhr; 
+            try {  
+                xhr = new ActiveXObject('Msxml2.XMLHTTP');   
+            }
+            catch (e) {
+                try {   
+                    xhr = new ActiveXObject('Microsoft.XMLHTTP'); 
+                }
+                catch (e2) {
+                    try {  
+                        xhr = new XMLHttpRequest();  
+                    }
+                    catch (e3) {
+                        xhr = false;   
+                    }
+                }
+            }
+
+            xhr.onreadystatechange  = function() 
+            { 
+                if(xhr.readyState  == 4){
+                    if(xhr.status  == 200) {
+                        if (xhr.responseText=="true") {
+                            alert("Insertion cueillettes reussi avec succes");
+                            var formData2 = new FormData(formTp);
+                            var xhr2; 
+                            try {  
+                                xhr2 = new ActiveXObject('Msxml2.XMLHTTP');   
+                            }
+                            catch (e) {
+                                try {   
+                                    xhr2 = new ActiveXObject('Microsoft.XMLHTTP'); 
+                                }
+                                catch (e2) {
+                                    try {  
+                                        xhr2 = new XMLHttpRequest();  
+                                    }
+                                    catch (e3) {
+                                        xhr2 = false;   
+                                    }
+                                }
+                            }
+                            
+                            //XMLHttpRequest.open(method, url, async)
+                            xhr2.open("POST", "../insertion/insPayment.php",  true); 
+                            
+                            //XMLHttpRequest.send(body)
+                            xhr2.send(formData);
+                        }
+                        else{
+                            alert("Erreur sur la saisie du poids");
+                        }
+                        
+                    } else {
+                        document.dyn="Error code " + xhr.status;
+                    }
+                }
+            };
+
+            //XMLHttpRequest.open(method, url, async)
+            xhr.open("POST", "../insertion/insCueillettes.php",  true); 
+            
+            //XMLHttpRequest.send(body)
+            xhr.send(formData);
+        });
+    </script>
 
     </section><!-- End Saisie des cueillettes Section -->
 

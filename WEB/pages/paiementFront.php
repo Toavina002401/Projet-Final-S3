@@ -64,7 +64,7 @@
                             <td><?php echo($inf["nom"]); ?></td>
                             <td><?php echo($listePay[$i]["poids"]); ?></td>
                             <td><?php echo($listePay[$i]["pourcentage_bonus"]); ?></td>
-                            <td><?php echo($listePay[$i]["pourcentage_mallus"]); ?></td>
+                            <td><?php echo($listePay[$i]["pourcentage_malus"]); ?></td>
                             <td><?php echo($listePay[$i]["montant_paiement"]); ?></td>
                         </tr>
                     <?php } ?>

@@ -1100,23 +1100,13 @@
           
             if ($stmt) {
                 $stmt->bind_param("siii", $date, $idcueilleur, $idparcelle, $poids);
-                if(checkIFisEnough($date, $idcueilleur, $idparcelle, $poids)==true){
                     if ($stmt->execute()) {
                     
                             insertPaiement($date, $idcueilleur, $poids);
-
-                            return true; // Insertion réussie
                         
-                    } else {
-                        return false; // Échec de l'insertion
                     }
-                }
-                else{
-                    return checkIFisEnough($date, $idcueilleur, $idparcelle, $poids);
-                }
-            } else {
-                return false; // Erreur de préparation de la requête
-            }
+                
+            } 
         }
 
         ////////////////////
