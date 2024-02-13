@@ -860,25 +860,6 @@
                     }
         
     ////////////////////////////////////////////////////////////////////////
-            
-    //Poids restant sur les parcelles(Date fin)
-                 
-            function  getLastMonth($parcelle,$datefin){
-                return "2021-01-12";
-            }
-            
-            function poidsRestant($parcelle,$datefin){
-                $date_last_renov= getLastMonth($parcelle,$datefin);
-
-                $max = getMAX($parcelle);
-
-                $sum_Cuiellete= poidTotalCuielliParParcelle($date_last_renov,$datefin,$parcelle);
-
-                $result= $max - $sum_Cuiellete;
-                return $result;
-            }
-
-    /////////////////////////////////////////////////////////////////////
     
 
     //Montant Vente Par parcelle 
@@ -1189,6 +1170,13 @@
         }   
         
         
-        
+        function poidsRestant($parcelle,$datefin){
 
+            $max = getMAX($parcelle);
+
+            $sum_Cuiellete= poidTotalCuielliParParcelle(getDateBeforeOnThisMonth($datefin,getLastMonth_Regeneration($parcelle,$datefin)),$datefin,$parcelle);
+
+            $resul= $max - $sum_Cuiellete;
+            return $resul;
+        }
 ?>
