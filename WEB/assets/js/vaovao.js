@@ -159,3 +159,8 @@ function editSalaire(num) {
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");                                         
   xhr.send(data);
 }
+
+function maFonctionAlerte() {
+  alert("Dépense enregistrée avec succès !");
+  return true; // Continue avec la soumission du formulaire
+}

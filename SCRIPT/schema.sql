@@ -145,3 +145,14 @@ INSERT INTO Salaire (id_cueilleur, salaire, datelastupdate) VALUES
     (8, 1650.25, '2024-02-14'),
     (6, 1450.75, '2024-02-15'),
     (7, 1700.00, '2024-02-16');
+
+
+-- Table pour les dépenses
+CREATE TABLE Depenses (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    dates DATE,
+    nom VARCHAR(255) NOT NULL,
+    id_typeDep INT,
+    montant DECIMAL(10,2),
+    FOREIGN KEY (id_typeDep) REFERENCES TypeDepense(id)
+);

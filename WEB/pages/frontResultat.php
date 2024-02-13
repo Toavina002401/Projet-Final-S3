@@ -25,34 +25,6 @@
     <br>
 
     <main id="main">
-        <!-- ======= About Section ======= -->
-        <section id="about" class="about">
-            <div class="container-fluid" data-aos="fade-up">
-                <div class="row gx-0">
-
-                <div class="col-lg-6 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
-                    <div class="content">
-                    <h3>Qui nous sommes</h3>
-                    <h2>La Magie de la Plantation : Gardiens du Thé et de son Héritage</h2>
-                    <p>
-                        Dans les vastes étendues de notre plantation de thé, nous sommes immergés dans une symphonie de verdure. Chaque feuille, chaque branche raconte une histoire de dévouement et de tradition. Nous sommes les gardiens de cette terre fertile, guidés par un amour profond pour le thé et une passion inébranlable pour son héritage. Chaque jour, nous récoltons avec fierté les fruits de notre labeur, sachant que chaque gorgée de thé répand un peu de cette magie à travers le monde.              </p>
-                    <div class="text-center text-lg-start">
-                        <a href="#" class="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center" style="text-decoration: none;">
-                        <span>Voir plus</span>
-                        <i class="bi bi-arrow-right"></i>
-                        </a>
-                    </div>
-                    </div>
-                </div>
-
-                <div class="col-lg-6 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
-                    <img src="../../assets/images/fondFront.jpg" class="img-fluid" alt="">
-                </div>
-
-                </div>
-            </div>
-        </section><!-- End About Section -->
-
 
         <!-- ======= Contact Section ======= -->
         <section id="contact" class="contact">

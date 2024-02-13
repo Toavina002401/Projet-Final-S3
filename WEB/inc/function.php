@@ -681,4 +681,21 @@
             }
         }
 
+        // Fonction pour enregistrer une nouvelle dépense
+        function saisieDepense($date, $id_typeDepense, $montant){
+            $bdd = dbconnect(); // Obtenir l'objet de connexion à la base de données
+            $query = "INSERT INTO Depenses (dates, id_typeDep, montant) VALUES (?, ?, ?)";
+            $stmt = $bdd->prepare($query);
+            if ($stmt) {
+                $stmt->bind_param("sis", $date, $id_typeDepense, $montant);
+                if ($stmt->execute()) {
+                    return true; // Insertion réussie
+                } else {
+                    return false; // Échec de l'insertion
+                }
+            } else {
+                return false; // Erreur de préparation de la requête
+            }
+        }
+
 ?>

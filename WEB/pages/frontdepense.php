@@ -25,33 +25,49 @@
     <br>
 
     <main id="main">
-        <!-- ======= About Section ======= -->
-        <section id="about" class="about">
-            <div class="container-fluid" data-aos="fade-up">
-                <div class="row gx-0">
 
-                <div class="col-lg-6 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
-                    <div class="content">
-                    <h3>Qui nous sommes</h3>
-                    <h2>La Magie de la Plantation : Gardiens du Thé et de son Héritage</h2>
-                    <p>
-                        Dans les vastes étendues de notre plantation de thé, nous sommes immergés dans une symphonie de verdure. Chaque feuille, chaque branche raconte une histoire de dévouement et de tradition. Nous sommes les gardiens de cette terre fertile, guidés par un amour profond pour le thé et une passion inébranlable pour son héritage. Chaque jour, nous récoltons avec fierté les fruits de notre labeur, sachant que chaque gorgée de thé répand un peu de cette magie à travers le monde.              </p>
-                    <div class="text-center text-lg-start">
-                        <a href="#" class="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center" style="text-decoration: none;">
-                        <span>Voir plus</span>
-                        <i class="bi bi-arrow-right"></i>
-                        </a>
-                    </div>
-                    </div>
+    <!-- ======= Saisie des dépenses Section ======= -->
+    <?php
+        $listedep=listCategoriesDepense();
+    ?>
+    <section id="depense" class="about">
+        <div class="container" data-aos="fade-up" style="margin-top: 150px;margin-bottom: 20px;">
+            <div class="row gx-0">
+              <div class="col-lg-5 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
+                <div class="content">
+                    <form action="../insertion/frontInsDepense.php" method="post" onsubmit="return maFonctionAlerte()">
+                        <div class="form-group mb-3 log d-flex align-items-center">
+                            <h2>Saisie des dépenses</h2>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="date">Date :</label>
+                            <input type="date" class="form-control" id="date" name="date" required>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="variete">Catégorie :</label>
+                                <select class="form-control" id="variete" name="variete" required>
+                                    <?php for ($i=0; $i < count($listedep); $i++) { ?>
+                                        <option value="<?php echo($listedep[$i]["id"]); ?>"><?php echo($listedep[$i]["nom"]); ?></option>
+                                    <?php } ?>
+                                </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="poids">Montant :</label>
+                            <input type="number" class="form-control" id="poids" name="poids" required>
+                        </div>
+                        <div class="form-group mb-3  ">
+                            <button type="submit" class="btn btn-success form-control">Insérer</button>
+                        </div>
+                  </form>  
                 </div>
-
-                <div class="col-lg-6 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
-                    <img src="../../assets/images/fondFront.jpg" class="img-fluid" alt="">
-                </div>
-
-                </div>
+              </div>
+              <div class="col-lg-1"></div>
+              <div class="col-lg-6 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
+                <img src="../../assets/images/xou.jpg" class="img-fluid" alt="">
+              </div>
             </div>
-        </section><!-- End About Section -->
+        </div>
+    </section><!-- End Saisie des dépenses Section -->
 
 
         <!-- ======= Contact Section ======= -->
