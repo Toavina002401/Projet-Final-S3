@@ -105,16 +105,15 @@
                 }
 
         
-        //UPDATE THEA
-        function updateThea($id, $nom, $occupation, $rendement){
-
-            $query = "UPDATE The SET nom = ?, occupation = ?, rendement_par_pied = ? WHERE id = ?";
-        
+        //UPDATE THEA HERE
+        function updateThea($id, $nom, $occupation, $rendement, $prix_vente){
+            $query = "UPDATE The SET nom = ?, occupation = ?, rendement_par_pied = ?, prix_de_vente = ? WHERE id = ?";
+            
             $stmt = dbconnect()->prepare($query);
             
             if ($stmt) {
                 // Binder les paramètres
-                $stmt->bind_param("sddi", $nom, $occupation, $rendement, $id);
+                $stmt->bind_param("sdddi", $nom, $occupation, $rendement, $prix_vente, $id);
                 
                 // Exécuter la requête
                 if ($stmt->execute()) {
@@ -129,6 +128,7 @@
                 return false;
             }
         }
+        
         
         //DELETE THEA
         function deleteThea($id){
@@ -155,16 +155,15 @@
             }
         }
 
-        //CREATE THEA
-        function createThea($nom, $occupation, $rendement){
-            
-            $query = "INSERT INTO The (nom, occupation, rendement_par_pied) VALUES (?, ?, ?)";
+        //CREATE THEA HERE
+        function createThea($nom, $occupation, $rendement, $prix_vente){
+            $query = "INSERT INTO The (nom, occupation, rendement_par_pied, prix_de_vente) VALUES (?, ?, ?, ?)";
             
             // Préparer la requête
             $stmt = dbconnect()->prepare($query);
             
             if ($stmt) {
-                $stmt->bind_param("sdd", $nom, $occupation, $rendement);
+                $stmt->bind_param("sddd", $nom, $occupation, $rendement, $prix_vente);
                 
                 // Exécuter la requête
                 if ($stmt->execute()) {
@@ -176,6 +175,7 @@
                 return false;
             }
         }
+        
 
         //GET THEA by id
         function getTeaById($id) {
