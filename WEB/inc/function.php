@@ -875,8 +875,12 @@
             
     //Poids restant sur les parcelles(Date fin)
                  
+            function  getLastMonth($parcelle,$datefin){
+                return "2021-01-12";
+            }
+            
             function poidsRestant($parcelle,$datefin){
-                $date_last_renov= dernierRegenerer($parcelle,$datefin);
+                $date_last_renov= getLastMonth($parcelle,$datefin);
 
                 $max = getMAX($parcelle);
 
@@ -1007,7 +1011,7 @@
         $total_poids = poidTotalCuilli($datedebut, $datefin); // Obtenir le poids total de cueillette dans la période donnée
         if ($total_poids > 0) {
             // Calculer le coût de revient par kg
-            $total_cout = getTotalCout($datedebut, $datefin); // Fonction à définir pour obtenir le coût total des dépenses dans la période donnée
+            $total_cout = depenseGlobal($datedebut, $datefin); // Fonction à définir pour obtenir le coût total des dépenses dans la période donnée
             return $total_cout / $total_poids; // Retourner le coût de revient par kg
         } else {
             return 0; // En cas de poids total nul, retourner 0
