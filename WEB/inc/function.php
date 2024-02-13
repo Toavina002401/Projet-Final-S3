@@ -806,109 +806,12 @@
 
         //PAGE RESULTAT
             
-            // Fonction pour calculer le poids total de cueillette dans une période donnée
-            function poidTotalCuilli($datedebut, $datefin) {
-                $bdd=dbconnect();
+     
 
-                // Requête SQL pour obtenir le poids total de cueillette dans la période donnée
-                $query = "SELECT SUM(poids_cueilli) AS total_poids FROM Cueillettes WHERE date_cueillette BETWEEN ? AND ?";
-                $stmt = $bdd->prepare($query);
-                $stmt->bind_param("ss", $datedebut, $datefin);
-                $stmt->execute();
-                $result = $stmt->get_result();
+  
+    //////////////////////////////////////////////////////////////////////////////////
 
-                // Vérifier si la requête a réussi
-                if ($result->num_rows > 0) {
-                    $row = $result->fetch_assoc();
-                    return $row['total_poids'];
-                } else {
-                    return 0; // En cas d'erreur ou de données manquantes, retourner 0
-                }
-            }
-
-            // Fonction pour calculer le poids total de cueillette par cueilleur dans une période donnée
-            function poidTotalCuilliParcueilleur($datedebut, $datefin, $idcuielleur) {
-                $bdd=dbconnect();
-
-                // Requête SQL pour obtenir le poids total de cueillette par cueilleur dans la période donnée
-                $query = "SELECT SUM(poids_cueilli) AS total_poids FROM Cueillettes WHERE id_cueilleur = ? AND date_cueillette BETWEEN ? AND ?";
-                $stmt = $bdd->prepare($query);
-                $stmt->bind_param("iss", $idcuielleur, $datedebut, $datefin);
-                $stmt->execute();
-                $result = $stmt->get_result();
-
-                // Vérifier si la requête a réussi
-                if ($result->num_rows > 0) {
-                    $row = $result->fetch_assoc();
-                    return $row['total_poids'];
-                } else {
-                    return 0; // En cas d'erreur ou de données manquantes, retourner 0
-                }
-            }
-
-            // Fonction pour calculer le poids total de cueillette par parcelle dans une période donnée
-            function poidTotalCuielliParParcelle($datedebut, $datefin, $idparcelle) {
-                $bdd=dbconnect();
-                // Requête SQL pour obtenir le poids total de cueillette par parcelle dans la période donnée
-                $query = "SELECT SUM(poids_cueilli) AS total_poids FROM Cueillettes WHERE id_parcelle = ? AND date_cueillette BETWEEN ? AND ?";
-                $stmt = $bdd->prepare($query);
-                $stmt->bind_param("iss", $idparcelle, $datedebut, $datefin);
-                $stmt->execute();
-                $result = $stmt->get_result();
-
-                // Vérifier si la requête a réussi
-                if ($result->num_rows > 0) {
-                    $row = $result->fetch_assoc();
-                    return $row['total_poids'];
-                } else {
-                    return 0; // En cas d'erreur ou de données manquantes, retourner 0
-                }
-            }
-
-            // Fonction pour calculer le poids restant sur une parcelle à une date donnée
-            function PoidsRestantParcelle($datedebut, $datefin, $idparcelle) {
-                $max = getMAX($idparcelle); // Obtenez le poids maximum de thé attendu dans la parcelle
-                $poids_cueilli = poidTotalCuielliParParcelle($datedebut, $datefin, $idparcelle); // Obtenez le poids total de cueillette dans la parcelle
-                return $max - $poids_cueilli; // Retourne le poids restant sur la parcelle
-            }
-
-            // Fonction pour obtenir le coût total des dépenses dans la période donnée
-            function getTotalCout($datedebut, $datefin) {
-                $bdd=dbconnect();
-                // Requête SQL pour obtenir le coût total des dépenses dans la période donnée
-                $query = "SELECT SUM(montant) AS total_cout FROM Depenses WHERE dates BETWEEN ? AND ?";
-                
-                // Préparation de la requête
-                $stmt = $bdd->prepare($query);
-                
-                // Vérification de la préparation de la requête
-                if ($stmt) {
-                    // Liaison des valeurs des paramètres et exécution de la requête
-                    $stmt->bind_param("ss", $datedebut, $datefin);
-                    $stmt->execute();
-                    
-                    // Récupération du résultat de la requête
-                    $result = $stmt->get_result();
-                    
-                    // Vérification de l'existence de résultat
-                    if ($result->num_rows > 0) {
-                        // Récupération du coût total des dépenses
-                        $row = $result->fetch_assoc();
-                        $total_cout = $row['total_cout'];
-                        
-                        // Fermeture du résultat
-                        $result->close();
-                        
-                        return $total_cout; // Retourner le coût total des dépenses
-                    }
-                }
-                
-                // En cas d'erreur ou de données manquantes, retourner 0
-                return 0;
-            }
-
-
-
+    //AFFICHER RESULTAT Poids total cueillette
             // Fonction pour calculer le poids total cueilli dans une période donnée
             function poidsTotalCueilli($datedebut, $datefin) {
                 // Connexion à la base de données
@@ -930,23 +833,186 @@
                 }
             }
 
+                    // Fonction pour calculer le poids total de cueillette par parcelle dans une période donnée
+                    function poidTotalCuielliParParcelle($datedebut, $datefin, $idparcelle) {
+                        $bdd=dbconnect();
+                        // Requête SQL pour obtenir le poids total de cueillette par parcelle dans la période donnée
+                        $query = "SELECT SUM(poids_cueilli) AS total_poids FROM Cueillettes WHERE id_parcelle = ? AND date_cueillette BETWEEN ? AND ?";
+                        $stmt = $bdd->prepare($query);
+                        $stmt->bind_param("iss", $idparcelle, $datedebut, $datefin);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+
+                        // Vérifier si la requête a réussi
+                        if ($result->num_rows > 0) {
+                            $row = $result->fetch_assoc();
+                            return $row['total_poids'];
+                        } else {
+                            return 0; // En cas d'erreur ou de données manquantes, retourner 0
+                        }
+                    }
+                    // Fonction pour calculer le poids total de cueillette par cueilleur dans une période donnée
+                    function poidTotalCuilliParcueilleur($datedebut, $datefin, $idcuielleur) {
+                        $bdd=dbconnect();
+        
+                        // Requête SQL pour obtenir le poids total de cueillette par cueilleur dans la période donnée
+                        $query = "SELECT SUM(poids_cueilli) AS total_poids FROM Cueillettes WHERE id_cueilleur = ? AND date_cueillette BETWEEN ? AND ?";
+                        $stmt = $bdd->prepare($query);
+                        $stmt->bind_param("iss", $idcuielleur, $datedebut, $datefin);
+                        $stmt->execute();
+                        $result = $stmt->get_result();
+        
+                        // Vérifier si la requête a réussi
+                        if ($result->num_rows > 0) {
+                            $row = $result->fetch_assoc();
+                            return $row['total_poids'];
+                        } else {
+                            return 0; // En cas d'erreur ou de données manquantes, retourner 0
+                        }
+                    }
+        
+    ////////////////////////////////////////////////////////////////////////
+            
+    //Poids restant sur les parcelles(Date fin)
+                 
+            function poidsRestant($parcelle,$datefin){
+                $date_last_renov= dernierRegenerer($parcelle,$datefin);
+
+                $max = getMAX($parcelle);
+
+                $sum_Cuiellete= poidTotalCuielliParParcelle($date_last_renov,$datefin,$parcelle);
+
+                $resul= $max - $sum_Cuiellete;
+                return result;
 
 
-
-            // Fonction pour calculer le coût de revient par kg
-            function coutderevient($datedebut, $datefin) {
-                $total_cout = 0; // Initialiser le coût total
-                $total_poids = poidTotalCuilli($datedebut, $datefin); // Obtenir le poids total de cueillette dans la période donnée
-                if ($total_poids > 0) {
-                    // Calculer le coût de revient par kg
-                    $total_cout = getTotalCout($datedebut, $datefin); // Fonction à définir pour obtenir le coût total des dépenses dans la période donnée
-                    return $total_cout / $total_poids; // Retourner le coût de revient par kg
-                } else {
-                    return 0; // En cas de poids total nul, retourner 0
-                }
             }
 
+    /////////////////////////////////////////////////////////////////////
+    
 
+    //Montant Vente Par parcelle 
+        function venteParcelle($idparcelle, $datedeb, $datefin){
+            // Connexion à la base de données
+            $bdd = dbconnect();
+            
+            // Requête SQL pour obtenir les informations sur la parcelle
+            $query_parcelle = "SELECT id_variete FROM Parcelle WHERE id = ?";
+            $stmt_parcelle = $bdd->prepare($query_parcelle);
+            $stmt_parcelle->bind_param("i", $idparcelle);
+            $stmt_parcelle->execute();
+            $result_parcelle = $stmt_parcelle->get_result();
+            
+            // Vérification si la requête a réussi
+            if ($result_parcelle->num_rows > 0) {
+                // Récupération de l'ID de la variété de thé plantée dans la parcelle
+                $row_parcelle = $result_parcelle->fetch_assoc();
+                $id_variete = $row_parcelle['id_variete'];
+                
+                // Requête SQL pour obtenir le prix de vente de la variété de thé
+                $query_prix_vente = "SELECT prix_de_vente FROM The WHERE id = ?";
+                $stmt_prix_vente = $bdd->prepare($query_prix_vente);
+                $stmt_prix_vente->bind_param("i", $id_variete);
+                $stmt_prix_vente->execute();
+                $result_prix_vente = $stmt_prix_vente->get_result();
+                
+                // Vérification si la requête a réussi
+                if ($result_prix_vente->num_rows > 0) {
+                    // Récupération du prix de vente de la variété de thé
+                    $row_prix_vente = $result_prix_vente->fetch_assoc();
+                    $prix_vente_variete = $row_prix_vente['prix_de_vente'];
+                    
+                    // Calcul du poids total cueilli dans la parcelle pendant la période donnée
+                    $poids_total_cueilli = poidTotalCuielliParParcelle($datedeb, $datefin, $idparcelle);
+                    
+                    // Calcul du montant de la vente de la parcelle
+                    $montant_vente = $prix_vente_variete * $poids_total_cueilli;
+                    
+                    return $montant_vente;
+                } else {
+                    // En cas d'erreur ou de données manquantes, retourner 0
+                    return 0;
+                }
+            } else {
+                // En cas d'erreur ou de données manquantes, retourner 0
+                return 0;
+            }
+        }
+    
+    //////////////////////////////////////////////////////////
+    
+
+    //Depense 
+        function depenseGlobal($datedeb, $datefin) {
+            // Connexion à la base de données
+            $bdd = dbconnect();
+            
+            // Requête SQL pour calculer la somme des dépenses dans la période donnée
+            $query_depenses = "SELECT SUM(montant) AS total_depenses FROM Depenses WHERE dates BETWEEN ? AND ?";
+            $stmt_depenses = $bdd->prepare($query_depenses);
+            $stmt_depenses->bind_param("ss", $datedeb, $datefin);
+            $stmt_depenses->execute();
+            $result_depenses = $stmt_depenses->get_result();
+            $row_depenses = $result_depenses->fetch_assoc();
+            $total_depenses = $row_depenses['total_depenses'];
+            
+            // Requête SQL pour calculer la somme des paiements dans la période donnée
+            $query_paiements = "SELECT SUM(montant_paiement) AS total_paiements FROM Liste_Paie WHERE date BETWEEN ? AND ?";
+            $stmt_paiements = $bdd->prepare($query_paiements);
+            $stmt_paiements->bind_param("ss", $datedeb, $datefin);
+            $stmt_paiements->execute();
+            $result_paiements = $stmt_paiements->get_result();
+            $row_paiements = $result_paiements->fetch_assoc();
+            $total_paiements = $row_paiements['total_paiements'];
+        
+            // Calculer la somme totale des dépenses et des paiements
+            $total = $total_depenses + $total_paiements;
+        
+            return $total;
+        }
+    
+    ///////////////////////////////////////////////////////////
+
+    //Benefice
+        function beneficeTotal($datedebut, $datefin) {
+            // Connexion à la base de données
+            $bdd = dbconnect();
+        
+            // Calcul du total des ventes
+            $total_ventes = 0;
+            // Boucle à travers toutes les parcelles pour calculer les ventes
+            $query_parcelles = "SELECT id FROM Parcelle";
+            $result_parcelles = $bdd->query($query_parcelles);
+            if ($result_parcelles->num_rows > 0) {
+                while ($row_parcelle = $result_parcelles->fetch_assoc()) {
+                    $id_parcelle = $row_parcelle['id'];
+                    $vente_parcelle = venteParcelle($id_parcelle, $datedebut, $datefin);
+                    $total_ventes += $vente_parcelle;
+                }
+            }
+        
+            // Calcul du total des dépenses
+            $total_depenses = depenseGlobal($datedebut, $datefin);
+        
+            // Calcul du bénéfice total
+            $benefice = $total_ventes - $total_depenses;
+        
+            return $benefice;
+        }
+    
+
+    // Fonction pour calculer le coût de revient par kg
+      function coutderevient($datedebut, $datefin) {
+        $total_cout = 0; // Initialiser le coût total
+        $total_poids = poidTotalCuilli($datedebut, $datefin); // Obtenir le poids total de cueillette dans la période donnée
+        if ($total_poids > 0) {
+            // Calculer le coût de revient par kg
+            $total_cout = getTotalCout($datedebut, $datefin); // Fonction à définir pour obtenir le coût total des dépenses dans la période donnée
+            return $total_cout / $total_poids; // Retourner le coût de revient par kg
+        } else {
+            return 0; // En cas de poids total nul, retourner 0
+        }
+    }
 
    
 
@@ -986,42 +1052,8 @@
 
 
     
-    //RECHERCHE
+   
 
-    function searchThe($keyword) {
-        // Connexion à la base de données (à remplacer par votre méthode de connexion)
-        $bdd = dbconnect();
-        
-        // Préparation de la requête SQL avec une clause LIKE pour rechercher les variétés de thé
-        $query = "SELECT * FROM The WHERE nom LIKE ?";
-        
-        // Ajout du caractère joker '%' autour du mot-clé pour rechercher partiellement
-        $keyword = "%$keyword%";
-        
-        // Préparation de la requête
-        $stmt = $bdd->prepare($query);
-        
-        // Vérification de la préparation de la requête
-        if ($stmt) {
-            // Liaison des paramètres et exécution de la requête
-            $stmt->bind_param("s", $keyword);
-            if ($stmt->execute()) {
-                // Récupération du résultat
-                $result = $stmt->get_result();
-                if ($result->num_rows > 0) {
-                    // Récupération des données
-                    $varietes = $result->fetch_all(MYSQLI_ASSOC);
-                    return $varietes; // Retourner les variétés de thé correspondantes
-                } else {
-                    return []; // Aucune variété de thé trouvée avec ce nom
-                }
-            } else {
-                return null; // Erreur lors de l'exécution de la requête
-            }
-        } else {
-            return null; // Erreur lors de la préparation de la requête
-        }
-    }
 
 
 
@@ -1102,28 +1134,45 @@
     ///////////////////////////////////////////////////////////////////
 
 
-    //INSERT REGENERATIOn
-    function insertRegeneration($idTea, $months) {
-        $bdd = dbconnect();
+
     
-        // Boucle à travers les mois et insère les données de régénération
-        foreach ($months as $month) {
-            $query = "INSERT INTO Regeneration (id_variete, mois) VALUES (?, ?)";
-            $stmt = $bdd->prepare($query);
-            if ($stmt) {
-                $stmt->bind_param("ii", $idTea, $month);
-                $stmt->execute();
+    ///Configuration regeneration
+        function deleteRege($idThea){
+            // Connexion à la base de données
+            $bdd = dbconnect();
+            
+            // Requête SQL pour supprimer les données de régénération liées à l'ID de la variété de thé
+            $query_delete = "DELETE FROM Regeneration WHERE id_variete = ?";
+            $stmt_delete = $bdd->prepare($query_delete);
+            $stmt_delete->bind_param("i", $idThea);
+            
+            // Exécution de la requête
+            if ($stmt_delete->execute()) {
+                return true; // Suppression réussie
             } else {
-                // Gérer les erreurs de préparation de la requête
+                return false; // Échec de la suppression
             }
         }
-    }
+        
+        function insertRegeneration($idTea, $months) {
+            $bdd = dbconnect();
+            
+            // Supprimer les données de régénération existantes pour cette variété de thé
+            deleteRege($idTea);
+            
+            // Boucle à travers les mois et insère les données de régénération
+            foreach ($months as $month) {
+                $query = "INSERT INTO Regeneration (id_variete, mois) VALUES (?, ?)";
+                $stmt = $bdd->prepare($query);
+                if ($stmt) {
+                    $stmt->bind_param("ii", $idTea, $month);
+                    $stmt->execute();
+                } else {
+                    // Gérer les erreurs de préparation de la requête
+                }
+            }
+        }
     
-    ////MONTANT Vente///////
-
-    function monntantVente($datedeb, $datefin){
-
-    }
 
 
 
