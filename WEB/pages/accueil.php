@@ -12,6 +12,7 @@
             <li><a class="nav-link scrollto " href="../../pages/Templates/template.php?page=accueil.php">Accueil</a></li>
             <li><a href="../../pages/Templates/template.php?page=frontCueilletes.php" style="text-decoration: none;">Saisie des cueillettes</a></li>
             <li><a class="nav-link scrollto" href="../../pages/Templates/template.php?page=frontdepense.php">Saisie des dépenses</a></li>
+            <li><a class="nav-link scrollto" href="../../pages/Templates/template.php?page=paiementFront.php">Paiements</a></li>
             <li><a class="nav-link scrollto" href="../../pages/Templates/template.php?page=frontResultat.php">Résultats</a></li>
             <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
             <li><a class="getstarted scrollto" href="../../inc/deconnexion.php" style="text-decoration: none;">Deconnexion</a></li>
