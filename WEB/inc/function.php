@@ -672,23 +672,7 @@
 
     /////////////////////FRONT OFFICE/////////////////////////////////////////////
 
-    //SAISIE CUEILLETE
-        function saisiecuillete($date, $idcueilleur, $idparcelle, $poids){
-            $bdd = dbconnect(); 
-            $query = "INSERT INTO Cueillettes (date_cueillette, id_cueilleur, id_parcelle, poids_cueilli) VALUES (?, ?, ?, ?)";
-            $stmt = $bdd->prepare($query);
-            if ($stmt) {
-                $stmt->bind_param("siii", $date, $idcueilleur, $idparcelle, $poids);
-                if ($stmt->execute() && checkIFisEnough($date, $idcueilleur, $idparcelle, $poids)) {
-                    insertPaiement($date, $idcueilleur, $poids);
-                    return true; // Insertion réussie
-                } else {
-                    return false; // Échec de l'insertion
-                }
-            } else {
-                return false; // Erreur de préparation de la requête
-            }
-        }
+  
 
 
         
@@ -735,6 +719,8 @@
                     return 0; 
                 }
             }
+
+            ///////Cueileur
 
             // Fonction pour récupérer le poids maximum de thé attendu dans une parcelle
             function getMAX($idparcelle) {
@@ -783,14 +769,152 @@
                 return false;
             }
 
+          // Fonction pour récupérer le dernier mois de regénération entre entre janvier et le mois
+          function getLastMonth_Regeneration_BetweenJan_Date($idparcelle,$mois){
+            $bdd= dbconnect();
+
+            // Requête SQL pour obtenir ce dernier mois
+            $query = <<<SQL
+                SELECT R.mois as mois
+                FROM Parcelle as P
+                JOIN Regeneration as R 
+                    on P.id_variete = R.id_variete 
+                    and P.id=?
+                    and mois<=?
+                GROUP BY mois desc limit 1;
+            SQL;
+                
+            $stmt = $bdd->prepare($query);
+
+            $stmt->bind_param("iss", $idparcelle, $mois);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            // Vérifier si la requête a réussi
+            if ($result) {
+                $row = $result->fetch_assoc();
+                return $row['mois'];
+            } else {
+                return 0; 
+            }
+        }
+
+        // Fonction pour récupérer le dernier mois de regénération avant la date
+        function getLastMonth_Regeneration($idparcelle,$date){
+            // Premier appel de la fonction en envoyant l'idparcelle et le mois de la date
+            $mois = getLastMonth_Regeneration_BetweenJan_Date($idparcelle,date('n', strtotime($date)););
+            if($mois==0){
+                // Deuxieme appel en cas de derniere regeneration = annee derniere (avant le janvier de l'annee ou se siture cette date)
+                $mois = getLastMonth_Regeneration_BetweenJan_Date($idparcelle,12);
+            }
+            return $mois;
+        }
+
+          //SAISIE CUEILLETE
+          function saisiecuillete($date, $idcueilleur, $idparcelle, $poids){
+            $bdd = dbconnect(); 
+            $query = "INSERT INTO Cueillettes (date_cueillette, id_cueilleur, id_parcelle, poids_cueilli) VALUES (?, ?, ?, ?)";
+            $stmt = $bdd->prepare($query);
+            if ($stmt) {
+                $stmt->bind_param("siii", $date, $idcueilleur, $idparcelle, $poids);
+                if ($stmt->execute() && checkIFisEnough($date, $idcueilleur, $idparcelle, $poids)) {
+                    insertPaiement($date, $idcueilleur, $poids);
+                    return true; // Insertion réussie
+                } else {
+                    return false; // Échec de l'insertion
+                }
+            } else {
+                return false; // Erreur de préparation de la requête
+            }
+        }
+
+        // Fonction pour obtenir la date à partir d'un mois donnée
+        function getDateBeforeOnThisMonth($date, $mois) {
+                $dateObj = new DateTime($date);
+                
+                $year = $dateObj->format('Y');
+                $originalMonth = $dateObj->format('m');
+                
+                // Si le mois est inférieur ou égal au mois de la date fournie, utiliser la même année
+                if ($mois <= $originalMonth) {
+                    $newYear = $year;
+                } else {
+                    // Sinon, utiliser l'année précédente
+                    $newYear = $year - 1;
+                }
+                // Créer la nouvelle date avec le mois et l'année déterminés
+                $newDate = new DateTime("$newYear-$mois-01");
+                return $newDate->format('Y-m-d');
+            }
+                    // Fonction pour récupérer le dernier mois de regénération entre entre janvier et le mois
+            function getLastMonth_Regeneration_BetweenJan_Date($idparcelle,$mois){
+                $bdd= dbconnect();
+
+                // Requête SQL pour obtenir ce dernier mois
+                $query = <<<SQL
+                    SELECT R.mois as mois
+                    FROM Parcelle as P
+                    JOIN Regeneration as R 
+                        on P.id_variete = R.id_variete 
+                        and P.id=?
+                        and mois<=?
+                    GROUP BY mois desc limit 1;
+                SQL;
+                    
+                $stmt = $bdd->prepare($query);
+
+                $stmt->bind_param("iss", $idparcelle, $mois);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                // Vérifier si la requête a réussi
+                if ($result) {
+                    $row = $result->fetch_assoc();
+                    return $row['mois'];
+                } else {
+                    return 0; 
+                }
+            }
+
+            // Fonction pour récupérer le dernier mois de regénération avant la date
+            function getLastMonth_Regeneration($idparcelle,$date){
+                // Premier appel de la fonction en envoyant l'idparcelle et le mois de la date
+                $mois = getLastMonth_Regeneration_BetweenJan_Date($idparcelle,date('n', strtotime($date)););
+                if($mois==0){
+                    // Deuxieme appel en cas de derniere regeneration = annee derniere (avant le janvier de l'annee ou se siture cette date)
+                    $mois = getLastMonth_Regeneration_BetweenJan_Date($idparcelle,12);
+                }
+                return $mois;
+            }
+
+            // Fonction pour obtenir la date à partir d'un mois donnée
+            function getDateBeforeOnThisMonth($date, $mois) {
+                $dateObj = new DateTime($date);
+                
+                $year = $dateObj->format('Y');
+                $originalMonth = $dateObj->format('m');
+                
+                // Si le mois est inférieur ou égal au mois de la date fournie, utiliser la même année
+                if ($mois <= $originalMonth) {
+                    $newYear = $year;
+                } else {
+                    // Sinon, utiliser l'année précédente
+                    $newYear = $year - 1;
+                }
+                // Créer la nouvelle date avec le mois et l'année déterminés
+                $newDate = new DateTime("$newYear-$mois-01");
+                return $newDate->format('Y-m-d');
+            }
+
+        
             // Fonction pour tester si le poids de la cueillette est suffisant
             function checkIFisEnough($date, $idcueilleur, $idparcelle, $poids) {
                 $max = 0;
 
-                $max = getMAX($idparcelle) - sumPoidscultive($idparcelle, $date);
+                $max = getMAX($idparcelle) - sumPoidscultiveBetweenTwoDate($idparcelle, $date);
                 
 
-                // Vérifier si les fonctions getMAX et sumPoidscultive ont renvoyé des résultats valides
+                // Vérifier si les fonctions getMAX et sumPoidscultiveBetweenTwoDate ont renvoyé des résultats valides
                 if ($max !== false) {
                     if ($poids < $max) {
                         saisiecuillete($date, $idcueilleur, $idparcelle, $poids);
@@ -801,7 +925,7 @@
                     return "Erreur : Impossible de récupérer les données nécessaires pour vérifier le poids de la cueillette.";
                 }
             }
-
+        
         
 
         //PAGE RESULTAT
@@ -875,12 +999,10 @@
             
     //Poids restant sur les parcelles(Date fin)
                  
-            function  getLastMonth($parcelle,$datefin){
-                return "2021-01-12";
-            }
+           
             
             function poidsRestant($parcelle,$datefin){
-                $date_last_renov= getLastMonth($parcelle,$datefin);
+                $date_last_renov= getLastMonth_Regeneration($parcelle,$datefin);
 
                 $max = getMAX($parcelle);
 
