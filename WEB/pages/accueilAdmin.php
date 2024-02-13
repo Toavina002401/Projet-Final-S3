@@ -53,7 +53,7 @@
                 </thead>
                 <tbody>
                         <?php for ($i=0; $i < count($listeThe); $i++) { 
-                                $num="edit(".$listeThe[$i]["id"].")";
+                            $num="edit(".$listeThe[$i]["id"].")";
                         ?>
                             <tr>
                                 <th  scope="row"> <?php echo($listeThe[$i]["id"]); ?></th>

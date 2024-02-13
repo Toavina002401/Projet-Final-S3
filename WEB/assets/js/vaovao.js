@@ -117,3 +117,20 @@ function editCueilleur(num) {
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");                                         
   xhr.send(data);
 }
+
+function editdepense(num) {
+  var xhr=creeXHR();
+  var data="id="+num;
+  xhr.addEventListener("load", function(event) {
+    var liste=JSON.parse(xhr.responseText);
+    modal2.style.display = "block";
+    var num=document.getElementById("typedepmod");
+    var idm=document.getElementById("idmod");
+    idm.value=liste["id"];
+    num.value=liste["nom"];
+  });
+
+  xhr.open("POST","../update/ajax4.php",true);
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");                                         
+  xhr.send(data);
+}

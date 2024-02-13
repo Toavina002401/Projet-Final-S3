@@ -49,13 +49,17 @@
                 </tr>
               </thead>
               <tbody>
-                <?php for ($i=0; $i < count($listedep); $i++) { ?>
+                <?php for ($i=0; $i < count($listedep); $i++) { 
+                    $num="editdepense(".$listedep[$i]["id"].")";
+                ?>
                   <tr>
                     <th scope="row"><?php echo($listedep[$i]["id"]); ?></th>
                     <td><?php echo($listedep[$i]["nom"]); ?></td>
                     <td>
-                      <button type="button" class="btn btnIcone"><img src="../../assets/images/edit.png" width="30px"></button>
-                      <button type="button" class="btn btnIcone"><img src="../../assets/images/delete.png" width="30px"></button>
+                      <button type="button" class="btn btnIcone" onclick="<?php echo($num);?>"><img src="../../assets/images/edit.png" width="30px"></button>
+                      <a href="../../pages/delete/delDepense.php?id=<?php echo($listedep[$i]["id"]); ?>">
+                        <button type="button" class="btn btnIcone"><img src="../../assets/images/delete.png" width="30px"></button>
+                      </a>
                     </td>
                   </tr>
                 <?php } ?>
@@ -63,7 +67,7 @@
             </table>
           </div>
           <div class="d-flex justify-content-center mt-3">
-            <a href="#" class="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center"  style="text-decoration: none;">
+            <a href="#" class="btn-read-more d-inline-flex align-items-center justify-content-center align-self-center"  style="text-decoration: none;"  onclick="clickage()">
               <span>Inserer</span>
               <i class="bi bi-plus-circle"></i>
             </a>
@@ -71,6 +75,48 @@
         </div>
       </div>
     </section><!-- End Variation des thés Section -->
+
+    <!-- Structure de la boîte de dialogue -->
+
+    <section id="formulaire" class="modal">
+        <div class="modal-content"  style="width: 30%;">
+          <span class="close hidden">&times;</span>
+          <div class="form-group mb-3 log d-flex align-items-center justify-content-center">
+              <img src="../../assets/images/logo.png" alt="">
+              <h2>Insertion</h2>
+          </div>
+          <form action="../insertion/insDepense.php" method="post">
+              <div class="form-group mb-3">
+                  <label for="typedep">Type :</label>
+                  <input type="text" class="form-control" id="typedep" name="typedep" required>
+              </div>
+              <div class="form-group mb-3">
+                  <button type="submit" class="btn btn-success form-control">Insérer</button>
+              </div>
+          </form>        
+        </div>
+      </section>
+
+      
+      <section id="formulaire2" class="modal">
+            <div class="modal-content"  style="width: 30%;">
+                <span class="close hidden">&times;</span>
+                <div class="form-group mb-3 log d-flex align-items-center justify-content-center">
+                    <img src="../../assets/images/logo.png" alt="">
+                    <h2>Modification</h2>
+                </div>
+                <form action="../update/updDepense.php" method="post">
+                  <input type="hidden" name="idmod" id="idmod">
+                  <div class="form-group mb-3">
+                      <label for="typedep">Type :</label>
+                      <input type="text" class="form-control" id="typedepmod" name="typedep" required>
+                  </div>
+                  <div class="form-group mb-3">
+                      <button type="submit" class="btn btn-success form-control">Modifier</button>
+                  </div>
+              </form>       
+            </div>
+        </section>
 
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
