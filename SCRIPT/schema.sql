@@ -31,6 +31,21 @@ CREATE TABLE The (
     prix_de_vente DECIMAL(10,2)
 );
 
+INSERT INTO The (nom, occupation, rendement_par_pied, prix_de_vente) VALUES
+    ('Thé au jasmin', 3.0, 0.85, 15.50),
+    ('Thé au gingembre', 2.8, 0.75, 12.75),
+    ('Thé au citron', 2.9, 0.78, 13.25),
+    ('Thé aux fruits rouges', 3.2, 0.82, 14.00),
+    ('Thé à la menthe', 3.1, 0.80, 13.75),
+    ('Thé vert', 2.5, 0.8, 12.50),
+    ('Thé noir', 2.7, 0.7, 11.50),
+    ('Thé oolong', 2.6, 0.75, 12.25),
+    ('Thé vert clair', 3.2, 0.9, 16.00),
+    ('Thé noir foncé', 2.9, 0.65, 11.00),
+    ('Thé oolong léger', 2.4, 0.8, 12.50),
+    ('Thé blanc pur', 3.0, 0.75, 12.75);
+
+
 -- Table pour les parcelles
 CREATE TABLE Parcelle (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -88,25 +103,6 @@ CREATE TABLE Cueillettes (
     FOREIGN KEY (id_parcelle) REFERENCES Parcelle(id)
 );
 
-
--- Insertion de données de test supplémentaires pour les variétés de thé
-INSERT INTO The (nom, occupation, rendement_par_pied) VALUES
-    ('Thé au jasmin', 3.0, 0.85),
-    ('Thé au gingembre', 2.8, 0.75),
-    ('Thé au citron', 2.9, 0.78),
-    ('Thé aux fruits rouges', 3.2, 0.82),
-    ('Thé à la menthe', 3.1, 0.80);
-
-
-
-INSERT INTO The (nom, occupation, rendement_par_pied) VALUES
-    ('Thé vert', 2.5, 0.8),
-    ('Thé noir', 2.7, 0.7),
-    ('Thé oolong', 2.6, 0.75),
-    ('Thé vert clair', 3.2, 0.9),
-    ('Thé noir foncé', 2.9, 0.65),
-    ('Thé oolong léger', 2.4, 0.8),
-    ('Thé blanc pur', 3.0, 0.75);
 
 
 INSERT INTO Parcelle (numero_parcelle, surface_HA, id_variete) VALUES

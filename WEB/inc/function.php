@@ -679,7 +679,8 @@
             $stmt = $bdd->prepare($query);
             if ($stmt) {
                 $stmt->bind_param("siii", $date, $idcueilleur, $idparcelle, $poids);
-                if ($stmt->execute()) {
+                if ($stmt->execute() && checkIFisEnough($date, $idcueilleur, $idparcelle, $poids)) {
+                    insertPaiement($date, $idcueilleur, $poids);
                     return true; // Insertion réussie
                 } else {
                     return false; // Échec de l'insertion
@@ -688,6 +689,7 @@
                 return false; // Erreur de préparation de la requête
             }
         }
+
 
         
     /////SAISIE DEPENSE 
@@ -714,7 +716,7 @@
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-        // Fonction pour récupérer la somme des poids cueillis dans une parcelle pour un mois donné
+        // Fonction pour récupérer la somme des poids cueillis 
             function sumPoidscultive($idparcelle, $date) {
             $bdd= dbconnect();
 
@@ -905,7 +907,7 @@
                 return 0;
             }
 
-            //fonction poids total cueilli dans une periode donne
+
 
             // Fonction pour calculer le poids total cueilli dans une période donnée
             function poidsTotalCueilli($datedebut, $datefin) {
@@ -1044,7 +1046,6 @@
         // Valeurs par défaut si aucune configuration n'est trouvée
         return array('poids_min_journalier' => 0, 'montant_bonus' => 0, 'montant_malus' => 0);
     }
-
     function insertPaiement($date, $idcueilleur, $poids) {
         // Récupérer la configuration de cueillette pour le cueilleur
         $config = getConfigCueillette($idcueilleur);
@@ -1101,7 +1102,7 @@
     ///////////////////////////////////////////////////////////////////
 
 
-    //INSERT REGENERATIO
+    //INSERT REGENERATIOn
     function insertRegeneration($idTea, $months) {
         $bdd = dbconnect();
     
