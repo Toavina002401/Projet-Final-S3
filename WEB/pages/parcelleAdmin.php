@@ -9,11 +9,12 @@
 
         <nav id="navbar" class="navbar">
             <ul>
-            <li><a class="nav-link scrollto " href="#hero">Accueil</a></li>
+            <li><a class="nav-link scrollto " href="../../pages/Templates/template.php?page=homeAdmin.php">Accueil</a></li>
             <li><a style="text-decoration: none;" href="../../pages/Templates/template.php?page=accueilAdmin.php">Variation des thés</a></li>
             <li><a class="nav-link scrollto" href="../../pages/Templates/template.php?page=parcelleAdmin.php">Nos parcelles</a></li>
             <li><a class="nav-link scrollto" href="../../pages/Templates/template.php?page=cueilleurAdmin.php">Cueilleurs</a></li>
             <li><a style="text-decoration: none;" href="../../pages/Templates/template.php?page=depenseAdmin.php">Dépenses</a></li>
+            <li><a style="text-decoration: none;" href="../../pages/Templates/template.php?page=salaireAdmin.php">Salaires</a></li>
             <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
             <li><a class="getstarted scrollto" href="../../inc/deconnexion.php" style="text-decoration: none;">Deconnexion</a></li>
             </ul>

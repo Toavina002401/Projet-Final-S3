@@ -134,3 +134,24 @@ function editdepense(num) {
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");                                         
   xhr.send(data);
 }
+
+function editSalaire(num) {
+  var xhr=creeXHR();
+  var data="id="+num;
+  xhr.addEventListener("load", function(event) {
+    var liste=JSON.parse(xhr.responseText);
+    modal2.style.display = "block";
+    var name=document.getElementById("cueilmod");
+    var occ=document.getElementById("salmod");
+    var red=document.getElementById("datelastmod");
+    var idm=document.getElementById("idmod");
+    idm.value=liste["id"];
+    name.value=liste["id_cueilleur"];
+    occ.value=liste["salaire"];
+    red.value=liste["datelastupdate"];
+  });
+
+  xhr.open("POST","../update/ajax5.php",true);
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");                                         
+  xhr.send(data);
+}

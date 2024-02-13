@@ -583,4 +583,92 @@
 //////////////////////////------------------------------------/////////////////////////////////////
 //////////////////////////------------------------------------/////////////////////////////////////
 //////////////////////////------------------------------------/////////////////////////////////////
+
+ //Configuration salaire
+
+        // CREATE SALAIRE
+        function createSalaire($id_cueilleur, $salaire, $datelastupdate){
+            $query = "INSERT INTO Salaire (id_cueilleur, salaire, datelastupdate) VALUES (?, ?, ?)";
+            $stmt = dbconnect()->prepare($query);
+            if ($stmt) {
+                $stmt->bind_param("ids", $id_cueilleur, $salaire, $datelastupdate);
+                if ($stmt->execute()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+
+        // LISTER SALAIRES
+        function listSalaires(){
+            $query = "SELECT * FROM Salaire";
+            $result = dbconnect()->query($query);
+            if ($result) {
+                return $result->fetch_all(MYSQLI_ASSOC);
+            } else {
+                return [];
+            }
+        }
+
+        // DELETE SALAIRE
+        function deleteSalaire($id){
+            $query = "DELETE FROM Salaire WHERE id = ?";
+            $stmt = dbconnect()->prepare($query);
+            if ($stmt) {
+                $stmt->bind_param("i", $id);
+                if ($stmt->execute()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+
+        // UPDATE SALAIRE
+        function updateSalaire($id, $id_cueilleur, $salaire, $datelastupdate){
+            $query = "UPDATE Salaire SET id_cueilleur = ?, salaire = ?, datelastupdate = ? WHERE id = ?";
+            $stmt = dbconnect()->prepare($query);
+            if ($stmt) {
+                $stmt->bind_param("idsi", $id_cueilleur, $salaire, $datelastupdate, $id);
+                if ($stmt->execute()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+
+        //get by id salaire
+        function getSalaireById($id) {
+            $bdd = dbconnect();
+            
+            $query = "SELECT * FROM Salaire WHERE id = ?";
+            
+            $stmt = $bdd->prepare($query);
+            
+            if ($stmt) {
+                $stmt->bind_param("i", $id);
+                if ($stmt->execute()) {
+                    $result = $stmt->get_result();
+                    if ($result->num_rows > 0) {
+                        $salaire = $result->fetch_assoc();
+                        return $salaire;
+                    } else {
+                        return null;
+                    }
+                } else {
+                    return null;
+                }
+            } else {
+                return null;
+            }
+        }
+
 ?>

@@ -30,11 +30,11 @@
 
     <!-- ======= Variation des thés Section ======= -->
     <?php
-        $listeThe=getAllThea();
+        $listeSal=listSalaires();
     ?>
     <section class="breadcrumbs">
         <div class="container" data-aos="fade-up">
-            <h2>Variation des thés</h2>
+            <h2>Salaires</h2>
         </div>
     </section>
 
@@ -46,24 +46,25 @@
                 <thead>
                     <tr>
                     <th scope="col" >Id</th>
-                    <th scope="col" >Variété</th>
-                    <th scope="col"  >Occupation (m2/pied)</th>
-                    <th scope="col" >Rendement par pied (kg/mois)</th>
+                    <th scope="col" >Cueilleurs</th>
+                    <th scope="col"  >Salaires</th>
+                    <th scope="col"  >Last date de modification salaire</th>
                     <th scope="col" >Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                        <?php for ($i=0; $i < count($listeThe); $i++) { 
-                            $num="edit(".$listeThe[$i]["id"].")";
+                        <?php for ($i=0; $i < count($listeSal); $i++) { 
+                            $num="editSalaire(".$listeSal[$i]["id"].")";
+                            $info=getCueilleurById($listeSal[$i]["id_cueilleur"]);
                         ?>
                             <tr>
-                                <th  scope="row"> <?php echo($listeThe[$i]["id"]); ?></th>
-                                <td><?php echo($listeThe[$i]["nom"]); ?></td>
-                                <td  class="text-center"><?php echo($listeThe[$i]["occupation"]); ?></td>
-                                <td  class="text-center"><?php echo($listeThe[$i]["rendement_par_pied"]); ?></td>
+                                <th  scope="row"> <?php echo($listeSal[$i]["id"]); ?></th>
+                                <td><?php echo($info["nom"]); ?></td>
+                                <td><?php echo($listeSal[$i]["salaire"]); ?></td>
+                                <td><?php echo($listeSal[$i]["datelastupdate"]); ?></td>
                                 <td>
                                     <button type="button" class="btn btnIcone" onclick="<?php echo($num);?>"><img src="../../assets/images/edit.png" width="30px"></button>
-                                    <a href="../../pages/delete/delVariete.php?id=<?php echo($listeThe[$i]["id"]); ?>">
+                                    <a href="../../pages/delete/delSalaire.php?id=<?php echo($listeSal[$i]["id"]); ?>">
                                         <button type="button" class="btn btnIcone"><img src="../../assets/images/delete.png" width="30px"></button>
                                     </a>
                                 </td>
@@ -90,18 +91,18 @@
                     <img src="../../assets/images/logo.png" alt="">
                     <h2>Insertion</h2>
                 </div>
-                <form action="../insertion/insVarite.php" method="post">
+                <form action="../insertion/insSalaire.php" method="post">
                     <div class="form-group mb-3">
-                        <label for="variete">Variété :</label>
-                        <input type="text" class="form-control" id="variete" name="variete" required>
+                        <label for="cueil">Cueilleurs :</label>
+                        <input type="text" class="form-control" id="cueil" name="cueil" required>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="occupation">Occupation (m2/pied) :</label>
-                        <input type="text" class="form-control" id="occupation" name="occupation" required>
+                        <label for="sal">Salaires :</label>
+                        <input type="text" class="form-control" id="sal" name="sal" required>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="rendement">Rendement par pied (kg/mois) :</label>
-                        <input type="text" class="form-control" id="rendement" name="rendement" required>
+                        <label for="datelast">Last date modif :</label>
+                        <input type="date" class="form-control" id="datelast" name="datelast" required>
                     </div>
                     <div class="form-group mb-3">
                         <button type="submit" class="btn btn-success form-control">Insérer</button>
@@ -117,26 +118,29 @@
                     <img src="../../assets/images/logo.png" alt="">
                     <h2>Modification</h2>
                 </div>
-                <form action="../update/updVarite.php" method="post">
+                <form action="../update/updSalaire.php" method="post">
                     <input type="hidden" name="idmod" id="idmod">
                     <div class="form-group mb-3">
-                        <label for="variete">Variété :</label>
-                        <input type="text" class="form-control" id="varietemod" name="variete" required>
+                        <label for="cueil">Cueilleurs :</label>
+                        <input type="text" class="form-control" id="cueilmod" name="cueil" required>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="occupation">Occupation (m2/pied) :</label>
-                        <input type="text" class="form-control" id="occupationmod" name="occupation" required>
+                        <label for="sal">Salaires :</label>
+                        <input type="text" class="form-control" id="salmod" name="sal" required>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="rendement">Rendement par pied (kg/mois) :</label>
-                        <input type="text" class="form-control" id="rendementmod" name="rendement" required>
+                        <label for="datelast">Last date modif :</label>
+                        <input type="date" class="form-control" id="datelastmod" name="datelast" required>
                     </div>
                     <div class="form-group mb-3">
                         <button type="submit" class="btn btn-success form-control">Modifier</button>
                     </div>
-                </form>        
+                </form>       
             </div>
         </section>
+
+
+
 
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">

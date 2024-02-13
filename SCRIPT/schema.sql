@@ -125,3 +125,23 @@ CREATE TABLE TypeDepense (
     INSERT INTO TypeDepense (nom) VALUES
         ('Fournitures de bureau'),
         ('Frais de maintenance');
+
+
+-- Table pour les salaires
+CREATE TABLE Salaire (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_cueilleur INT,
+    salaire DECIMAL(10,2),
+    datelastupdate DATE,
+    FOREIGN KEY (id_cueilleur) REFERENCES Cueilleurs(id)
+);
+
+-- Insertion de données de test pour les salaires
+INSERT INTO Salaire (id_cueilleur, salaire, datelastupdate) VALUES
+    (1, 1500.50, '2024-02-10'),
+    (2, 1600.75, '2024-02-11'),
+    (3, 1400.25, '2024-02-12'),
+    (4, 1550.00, '2024-02-13'),
+    (8, 1650.25, '2024-02-14'),
+    (6, 1450.75, '2024-02-15'),
+    (7, 1700.00, '2024-02-16');
