@@ -26,27 +26,23 @@ CREATE TABLE The (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nom VARCHAR(255) NOT NULL,
     occupation DECIMAL(10,2) NOT NULL, -- en m2
-    rendement_par_pied DECIMAL(10,2) NOT NULL
+    rendement_par_pied DECIMAL(10,2) NOT NULL,
+    prix_de_vente DECIMAL(10,2)
 );
 
--- Insertion de données de test supplémentaires pour les variétés de thé
-INSERT INTO The (nom, occupation, rendement_par_pied) VALUES
-    ('Thé au jasmin', 3.0, 0.85),
-    ('Thé au gingembre', 2.8, 0.75),
-    ('Thé au citron', 2.9, 0.78),
-    ('Thé aux fruits rouges', 3.2, 0.82),
-    ('Thé à la menthe', 3.1, 0.80);
-
-
-
-INSERT INTO The (nom, occupation, rendement_par_pied) VALUES
-    ('Thé vert', 2.5, 0.8),
-    ('Thé noir', 2.7, 0.7),
-    ('Thé oolong', 2.6, 0.75),
-    ('Thé vert clair', 3.2, 0.9),
-    ('Thé noir foncé', 2.9, 0.65),
-    ('Thé oolong léger', 2.4, 0.8),
-    ('Thé blanc pur', 3.0, 0.75);
+INSERT INTO The (nom, occupation, rendement_par_pied, prix_de_vente) VALUES
+    ('Thé au jasmin', 3.0, 0.85, 15.50),
+    ('Thé au gingembre', 2.8, 0.75, 12.75),
+    ('Thé au citron', 2.9, 0.78, 13.25),
+    ('Thé aux fruits rouges', 3.2, 0.82, 14.00),
+    ('Thé à la menthe', 3.1, 0.80, 13.75),
+    ('Thé vert', 2.5, 0.8, 12.50),
+    ('Thé noir', 2.7, 0.7, 11.50),
+    ('Thé oolong', 2.6, 0.75, 12.25),
+    ('Thé vert clair', 3.2, 0.9, 16.00),
+    ('Thé noir foncé', 2.9, 0.65, 11.00),
+    ('Thé oolong léger', 2.4, 0.8, 12.50),
+    ('Thé blanc pur', 3.0, 0.75, 12.75);
 
 
 -- Table pour les parcelles
@@ -142,7 +138,7 @@ INSERT INTO Salaire (id_cueilleur, salaire, datelastupdate) VALUES
     (2, 1600.75, '2024-02-11'),
     (3, 1400.25, '2024-02-12'),
     (4, 1550.00, '2024-02-13'),
-    (8, 1650.25, '2024-02-14'),
+    (5, 1650.25, '2024-02-14'),
     (6, 1450.75, '2024-02-15'),
     (7, 1700.00, '2024-02-16');
 

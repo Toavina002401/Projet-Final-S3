@@ -56,11 +56,13 @@ function edit(num) {
     var name=document.getElementById("varietemod");
     var occ=document.getElementById("occupationmod");
     var red=document.getElementById("rendementmod");
+    var rid=document.getElementById("prixmod");
     var idm=document.getElementById("idmod");
     idm.value=liste["id"];
     name.value=liste["nom"];
     occ.value=liste["occupation"];
     red.value=liste["rendement_par_pied"];
+    rid.value=liste["prix_de_vente"];
   });
 
   xhr.open("POST","../update/ajax1.php",true);

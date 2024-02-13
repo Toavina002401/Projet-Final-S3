@@ -49,6 +49,7 @@
                     <th scope="col" >Variété</th>
                     <th scope="col"  >Occupation (m2/pied)</th>
                     <th scope="col" >Rendement par pied (kg/mois)</th>
+                    <th scope="col" >Prix de vente</th>
                     <th scope="col" >Actions</th>
                     </tr>
                 </thead>
@@ -61,6 +62,7 @@
                                 <td><?php echo($listeThe[$i]["nom"]); ?></td>
                                 <td  class="text-center"><?php echo($listeThe[$i]["occupation"]); ?></td>
                                 <td  class="text-center"><?php echo($listeThe[$i]["rendement_par_pied"]); ?></td>
+                                <td class="text-center"><?php echo($listeThe[$i]["prix_de_vente"]); ?></td>
                                 <td>
                                     <button type="button" class="btn btnIcone" onclick="<?php echo($num);?>"><img src="../../assets/images/edit.png" width="30px"></button>
                                     <a href="../../pages/delete/delVariete.php?id=<?php echo($listeThe[$i]["id"]); ?>">
@@ -104,6 +106,10 @@
                         <input type="text" class="form-control" id="rendement" name="rendement" required>
                     </div>
                     <div class="form-group mb-3">
+                        <label for="prix">Prix de vente :</label>
+                        <input type="text" class="form-control" id="prix" name="prix" required>
+                    </div>
+                    <div class="form-group mb-3">
                         <button type="submit" class="btn btn-success form-control">Insérer</button>
                     </div>
                 </form>        
@@ -130,6 +136,10 @@
                     <div class="form-group mb-3">
                         <label for="rendement">Rendement par pied (kg/mois) :</label>
                         <input type="text" class="form-control" id="rendementmod" name="rendement" required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="prix">Prix de vente :</label>
+                        <input type="text" class="form-control" id="prixmod" name="prix" required>
                     </div>
                     <div class="form-group mb-3">
                         <button type="submit" class="btn btn-success form-control">Modifier</button>
