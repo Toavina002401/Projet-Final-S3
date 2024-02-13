@@ -42,7 +42,7 @@
                     <div class="content">
                         <h2>Résultats</h2>
                         
-                        <form action="#" method="get" id="affichageResultat">
+                        <form id="affichageResultat">
                             <div class="row mt-5">
                                 <div class="col-md-6">
                                     <div class="form-group mb-3">

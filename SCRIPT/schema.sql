@@ -160,14 +160,14 @@ CREATE TABLE Liste_Paie (
     id_cueilleur INT,
     poids DECIMAL(10, 2),
     pourcentage_bonus DECIMAL(5, 2),
-    pourcentage_mallus DECIMAL(5, 2),
+    pourcentage_malus DECIMAL(5, 2),
     montant_paiement DECIMAL(10, 2),
     FOREIGN KEY (id_cueilleur) REFERENCES Cueilleurs(id)
 );
 
 
 -- Assurez-vous d'avoir les ID corrects des cueilleurs
-INSERT INTO Liste_Paie (date, id_cueilleur, poids, pourcentage_bonus, pourcentage_mallus, montant_paiement) VALUES
+INSERT INTO Liste_Paie (date, id_cueilleur, poids, pourcentage_bonus, pourcentage_malus, montant_paiement) VALUES
 ('2024-01-01', 1, 10.5, 5.00, 2.00, 120.50),
 ('2024-01-02', 2, 9.8, 7.00, 1.50, 105.20),
 ('2024-01-03', 3, 12.2, 6.50, 2.50, 140.80),

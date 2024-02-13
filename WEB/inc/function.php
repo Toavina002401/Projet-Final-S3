@@ -1103,7 +1103,7 @@
                 if(checkIFisEnough($date, $idcueilleur, $idparcelle, $poids)==true){
                     if ($stmt->execute()) {
                     
-                            // insertPaiement($date, $idcueilleur, $poids);
+                            insertPaiement($date, $idcueilleur, $poids);
 
                             return true; // Insertion réussie
                         
@@ -1119,6 +1119,7 @@
             }
         }
 
+        ////////////////////
         function insertPaiement($date, $idcueilleur, $poids) {
             // Récupérer la configuration de cueillette pour le cueilleur
             $config = getConfigCueillette($idcueilleur);
@@ -1128,7 +1129,7 @@
             $pourcentage_malus = $config['montant_malus'];
         
             // Calculer le paiement initial basé sur le salaire du cueilleur
-            $paiement = getSalaireById($idcueilleur)["salaire"] * $poids;
+            $paiement = getSalaireById($idcueilleur)['salaire'] * $poids;
         
             // Vérifier si le poids cueilli est inférieur au poids minimal
             if ($poids < $poids_minimal) {
@@ -1157,6 +1158,7 @@
                 return false; // Erreur de préparation de la requête
             }
         }
+        
 
 
     // Fonction pour récupérer le poids minimal journalier, le pourcentage de bonus et le pourcentage de malus pour un cueilleur
