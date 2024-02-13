@@ -709,4 +709,41 @@
             }
         }
 
+        ///Configuration regeneration
+        function deleteRege($idThea){
+            // Connexion à la base de données
+            $bdd = dbconnect();
+            
+            // Requête SQL pour supprimer les données de régénération liées à l'ID de la variété de thé
+            $query_delete = "DELETE FROM Regeneration WHERE id_variete = ?";
+            $stmt_delete = $bdd->prepare($query_delete);
+            $stmt_delete->bind_param("i", $idThea);
+            
+            // Exécution de la requête
+            if ($stmt_delete->execute()) {
+                return true; // Suppression réussie
+            } else {
+                return false; // Échec de la suppression
+            }
+        }
+        
+        function insertRegeneration($idTea, $months) {
+            $bdd = dbconnect();
+            
+            // Supprimer les données de régénération existantes pour cette variété de thé
+            deleteRege($idTea);
+            
+            // Boucle à travers les mois et insère les données de régénération
+            foreach ($months as $month) {
+                $query = "INSERT INTO Regeneration (id_variete, mois) VALUES (?, ?)";
+                $stmt = $bdd->prepare($query);
+                if ($stmt) {
+                    $stmt->bind_param("ii", $idTea, $month);
+                    $stmt->execute();
+                } else {
+                    // Gérer les erreurs de préparation de la requête
+                }
+            }
+        }
+
 ?>

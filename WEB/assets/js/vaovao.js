@@ -1,6 +1,7 @@
 // Obtenir l'élément de la boîte de dialogue
 var modal = document.getElementById("formulaire");
 var modal2 = document.getElementById("formulaire2");
+var modal3 = document.getElementById("formulaire3");
 
 // Obtenir l'élément pour fermer la boîte de dialogue
 var span = document.getElementsByClassName("close")[0];
@@ -10,10 +11,19 @@ function clickage(){
   modal.style.display = "block";
 }
 
+function saison(num,name) {
+  modal3.style.display = "block";
+  var inp=document.getElementById("varieteSaison");
+  inp.value=name;
+  var idm=document.getElementById("idmodSaison");
+  idm.value=num;
+}
+
 // Quand l'utilisateur clique sur (x), fermer la boîte de dialogue
 span.onclick = function() {
   modal.style.display = "none";
   modal2.style.display = "none";
+  modal3.style.display = "none";
 }
 
 // Quand l'utilisateur clique n'importe où en dehors de la boîte de dialogue, la fermer
@@ -23,6 +33,9 @@ window.onclick = function(event) {
   }
   if (event.target == modal2) {
     modal2.style.display = "none";
+  }
+  if (event.target == modal3) {
+    modal3.style.display = "none";
   }
 }
 

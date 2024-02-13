@@ -173,3 +173,12 @@ INSERT INTO Liste_Paie (date, id_cueilleur, poids, pourcentage_bonus, pourcentag
 ('2024-01-03', 3, 12.2, 6.50, 2.50, 140.80),
 ('2024-01-04', 4, 11.5, 4.50, 1.80, 130.00),
 ('2024-01-05', 6, 10.0, 5.50, 2.20, 125.50);
+
+
+
+CREATE TABLE Regeneration (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_variete INT,
+    mois INT,
+    FOREIGN KEY (id_variete) REFERENCES The(id)
+);
