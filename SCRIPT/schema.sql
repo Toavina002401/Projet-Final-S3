@@ -180,18 +180,6 @@ CREATE TABLE Regeneration (
     mois INT,
     FOREIGN KEY (id_variete) REFERENCES The(id)
 );
-
-CREATE TABLE Liste_Paie (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    date DATE,
-    id_cueilleur INT,
-    poids DECIMAL(10, 2),
-    pourcentage_bonus DECIMAL(5, 2),
-    pourcentage_mallus DECIMAL(5, 2),
-    montant_paiement DECIMAL(10, 2),
-    FOREIGN KEY (id_cueilleur) REFERENCES Cueilleurs(id)
-);
-
 CREATE TABLE ConfigurationCueillette (
     id INT AUTO_INCREMENT PRIMARY KEY,
     id_cueilleur INT NOT NULL,
@@ -204,12 +192,23 @@ CREATE TABLE ConfigurationCueillette (
 
 -- Suppose que vous avez déjà des cueilleurs enregistrés dans la table Cueilleurs
 -- Assurez-vous d'avoir les ID corrects des cueilleurs
-INSERT INTO Liste_Paie (date, id_cueilleur, poids, pourcentage_bonus, pourcentage_mallus, montant_paiement) VALUES
+INSERT INTO Liste_Paie (date, id_cueilleur, poids, pourcentage_bonus, pourcentage_malus, montant_paiement) VALUES
 ('2024-01-01', 1, 10.5, 5.00, 2.00, 120.50),
 ('2024-01-02', 2, 9.8, 7.00, 1.50, 105.20),
 ('2024-01-03', 3, 12.2, 6.50, 2.50, 140.80),
 ('2024-01-04', 4, 11.5, 4.50, 1.80, 130.00),
 ('2024-01-05', 5, 10.0, 5.50, 2.20, 125.50);
+
+CREATE TABLE ConfigurationCueillette (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_cueilleur INT NOT NULL,
+    poids_min_journalier DECIMAL(10, 2) NOT NULL,
+    montant_bonus DECIMAL(5, 2) NOT NULL,
+    montant_malus DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (id_cueilleur) REFERENCES Cueilleurs(id)
+);
+
+
 
 
 -- Assurez-vous d'avoir les ID corrects des cueilleurs
