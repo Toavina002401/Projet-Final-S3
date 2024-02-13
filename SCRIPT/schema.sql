@@ -199,3 +199,14 @@ INSERT INTO ConfigurationCueillette (id_cueilleur, poids_min_journalier, montant
 (3, 11.00, 6.50, 2.50),
 (4, 11.00, 4.50, 1.80),
 (5, 10.50, 5.50, 2.20);
+
+-- Table pour les cueillettes
+CREATE TABLE Cueillettes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    date_cueillette DATE NOT NULL,
+    id_cueilleur INT,
+    id_parcelle INT,
+    poids_cueilli DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (id_cueilleur) REFERENCES Cueilleurs(id),
+    FOREIGN KEY (id_parcelle) REFERENCES Parcelle(id)
+);

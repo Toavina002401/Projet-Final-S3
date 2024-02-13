@@ -42,7 +42,7 @@
                 <div class="col-lg-1"></div>
                 <div class="col-lg-5 d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="200">
                     <div class="content">
-                <form action="traitement.php" method="post">
+                <form action="../insertion/insCueillettes.php" method="post">
                     <div class="form-group mb-3 log d-flex align-items-center">
                         <h2>Saisie des cueillettes</h2>
                     </div>
@@ -62,7 +62,7 @@
                         <label for="num">Numero de parcelle :</label>
                         <select class="form-control" id="num" name="num" required>
                             <?php for ($i=0; $i < count($listeParcelle); $i++) {  ?>
-                                <option value="<?php echo($listeParcelle[$i]["id"]); ?>"><?php echo($listeParcelle[$i]["id"]); ?></option>
+                                <option value="<?php echo($listeParcelle[$i]["id"]); ?>"><?php echo($listeParcelle[$i]["numero_parcelle"]); ?></option>
                             <?php } ?>
                         </select>
                     </div>

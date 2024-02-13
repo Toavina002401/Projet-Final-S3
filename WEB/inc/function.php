@@ -1004,7 +1004,196 @@
         }
     }
 
-   
+        // Fonction pour récupérer le dernier mois de regénération entre entre janvier et le mois
+        function getLastMonth_Regeneration_BetweenJan_Date($idparcelle,$mois){
+            $bdd= dbconnect();
 
+            // Requête SQL pour obtenir ce dernier mois
+            $query = <<<SQL
+                SELECT R.mois as mois
+                FROM Parcelle as P
+                JOIN Regeneration as R 
+                    on P.id_variete = R.id_variete 
+                    and P.id=?
+                    and mois<=?
+                GROUP BY mois desc limit 1;
+            SQL;
+                
+            $stmt = $bdd->prepare($query);
+
+            $stmt->bind_param("is", $idparcelle, $mois);
+            $stmt->execute();
+            $result = $stmt->get_result();
+
+            // Vérifier si la requête a réussi
+            if ($result) {
+                $row = $result->fetch_assoc();
+                return $row;
+            } else {
+                return 0; 
+            }
+        }
+
+        // Fonction pour récupérer le dernier mois de regénération avant la date
+        function getLastMonth_Regeneration($idparcelle,$date){
+            // Premier appel de la fonction en envoyant l'idparcelle et le mois de la date
+            $mois = getLastMonth_Regeneration_BetweenJan_Date($idparcelle,date('n', strtotime($date)));
+            if($mois==0){
+                // Deuxieme appel en cas de derniere regeneration = annee derniere (avant le janvier de l'annee ou se siture cette date)
+                $mois = getLastMonth_Regeneration_BetweenJan_Date($idparcelle,12);
+            }
+             return $mois;
+        }
+
+        // Fonction pour obtenir la date à partir d'un mois donnée
+        function getDateBeforeOnThisMonth($date, $mois) {
+            $dateObj = new DateTime($date);
+            
+            $year = $dateObj->format('Y');
+            $originalMonth = $dateObj->format('m');
+            
+            // Si le mois est inférieur ou égal au mois de la date fournie, utiliser la même année
+            if ($mois <= $originalMonth) {
+                $newYear = $year;
+            } else {
+                // Sinon, utiliser l'année précédente
+                $newYear = $year - 1;
+            }
+            // Créer la nouvelle date avec le mois et l'année déterminés
+            $newDate = new DateTime("$newYear-$mois-01");
+            return $newDate->format('Y-m-d');
+        }
+
+    
+        // Fonction pour tester si le poids de la cueillette est suffisant
+        function checkIFisEnough($date, $idcueilleur, $idparcelle, $poids) {
+            $max = 0;
+            $moisRegeneration= getLastMonth_Regeneration($idparcelle,$date);
+            $mois=$moisRegeneration["mois"];
+            if($mois==0){
+                $datemin="1990-01-01";
+            }
+            else{
+                $datemin= getDateBeforeOnThisMonth($date,$mois);
+            }
+            $max = getMAX($idparcelle) - sumPoidscultiveBetweenTwoDate($idparcelle,$datemin, $date);
+            
+
+            // Vérifier si les fonctions getMAX et sumPoidscultiveBetweenTwoDate ont renvoyé des résultats valides
+            if ($max !== false) {
+                if ($poids < $max) {
+                    return true;
+                } else {
+                    return "Erreur : Le poids de la cueillette est insuffisant.";
+                }
+            
+            }
+            return "Erreur : Impossible de récupérer les données nécessaires pour vérifier le poids de la cueillette.";
+
+        }
+
+          //SAISIE CUEILLETE
+          function saisiecuillete($date, $idcueilleur, $idparcelle, $poids){
+            $bdd = dbconnect(); 
+            $query = "INSERT INTO Cueillettes (date_cueillette, id_cueilleur, id_parcelle, poids_cueilli) VALUES (?, ?, ?, ?)";
+            $stmt = $bdd->prepare($query);
+          
+            if ($stmt) {
+                $stmt->bind_param("siii", $date, $idcueilleur, $idparcelle, $poids);
+                if(checkIFisEnough($date, $idcueilleur, $idparcelle, $poids)==true){
+                    if ($stmt->execute()) {
+                    
+                            // insertPaiement($date, $idcueilleur, $poids);
+
+                            return true; // Insertion réussie
+                        
+                    } else {
+                        return false; // Échec de l'insertion
+                    }
+                }
+                else{
+                    return checkIFisEnough($date, $idcueilleur, $idparcelle, $poids);
+                }
+            } else {
+                return false; // Erreur de préparation de la requête
+            }
+        }
+
+        function insertPaiement($date, $idcueilleur, $poids) {
+            // Récupérer la configuration de cueillette pour le cueilleur
+            $config = getConfigCueillette($idcueilleur);
+            // Récupérer les valeurs individuelles
+            $poids_minimal = $config['poids_min_journalier'];
+            $pourcentage_bonus = $config['montant_bonus'];
+            $pourcentage_malus = $config['montant_malus'];
+        
+            // Calculer le paiement initial basé sur le salaire du cueilleur
+            $paiement = getSalaireById($idcueilleur)["salaire"] * $poids;
+        
+            // Vérifier si le poids cueilli est inférieur au poids minimal
+            if ($poids < $poids_minimal) {
+                // Appliquer le malus
+                $malus = $paiement * ($pourcentage_malus / 100);
+                $paiement -= $malus;
+            } else {
+                // Appliquer le bonus
+                $bonus = $paiement * ($pourcentage_bonus / 100);
+                $paiement += $bonus;
+            }
+        
+            // Insérer les informations de paiement dans la table Liste_Paie
+            $montant_paiement = $paiement; // Montant total du paiement
+            // Insérer les informations dans la table Liste_Paie
+            $query = "INSERT INTO Liste_Paie (date, id_cueilleur, poids, pourcentage_bonus, pourcentage_malus, montant_paiement) VALUES (?, ?, ?, ?, ?, ?)";
+            $stmt = dbconnect()->prepare($query);
+            if ($stmt) {
+                $stmt->bind_param("siiiii", $date, $idcueilleur, $poids, $pourcentage_bonus, $pourcentage_malus, $montant_paiement);
+                if ($stmt->execute()) {
+                    return true; // Insertion réussie
+                } else {
+                    return false; // Échec de l'insertion
+                }
+            } else {
+                return false; // Erreur de préparation de la requête
+            }
+        }
+
+
+    // Fonction pour récupérer le poids minimal journalier, le pourcentage de bonus et le pourcentage de malus pour un cueilleur
+    function getConfigCueillette($id_cueilleur) {
+        $bdd = dbconnect();
+        $query = "SELECT poids_min_journalier, montant_bonus, montant_malus FROM ConfigurationCueillette WHERE id_cueilleur = ?";
+        $stmt = $bdd->prepare($query);
+        if ($stmt) {
+            $stmt->bind_param("i", $id_cueilleur);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            if ($result && $result->num_rows > 0) {
+                return $result->fetch_assoc();
+            }
+        }
+        // Valeurs par défaut si aucune configuration n'est trouvée
+        return array('poids_min_journalier' => 0, 'montant_bonus' => 0, 'montant_malus' => 0);
+    }
+
+        // Fonction pour récupérer la somme des poids cueillis entre deux date
+        function sumPoidscultiveBetweenTwoDate($idparcelle, $dateMin, $dateMax) {
+            $bdd = dbconnect();
+        
+            // Requête SQL pour obtenir la somme des poids cueillis dans la parcelle pour la période spécifiée
+            $query = "SELECT SUM(poids_cueilli) AS total_poids FROM Cueillettes WHERE id_parcelle = ? AND date_cueillette BETWEEN ? AND ?";
+            $stmt = $bdd->prepare($query);
+            $stmt->bind_param("iss", $idparcelle, $dateMin, $dateMax);
+            $stmt->execute();
+            $result = $stmt->get_result();
+        
+            // Vérifier si la requête a réussi
+            if ($result) {
+                $row = $result->fetch_assoc();
+                return $row['total_poids'];
+            } else {
+                return 0; 
+            }
+        }     
 
 ?>
