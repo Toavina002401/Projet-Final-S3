@@ -613,6 +613,16 @@
             }
         }
 
+        function listSalairesPourNom(){
+            $query = "SELECT distinct id_cueilleur from salaire";
+            $result = dbconnect()->query($query);
+            if ($result) {
+                return $result->fetch_all(MYSQLI_ASSOC);
+            } else {
+                return [];
+            }
+        }
+
         // DELETE SALAIRE
         function deleteSalaire($id){
             $query = "DELETE FROM Salaire WHERE id = ?";

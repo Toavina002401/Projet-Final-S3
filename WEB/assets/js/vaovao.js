@@ -146,7 +146,11 @@ function editSalaire(num) {
     var red=document.getElementById("datelastmod");
     var idm=document.getElementById("idmod");
     idm.value=liste["id"];
-    name.value=liste["id_cueilleur"];
+    for (let i = 0; i < name.options.length; i++) {
+      if (name.options[i].value == liste["id_cueilleur"]) {
+        name.options[i].setAttribute("selected","");
+      }
+    }
     occ.value=liste["salaire"];
     red.value=liste["datelastupdate"];
   });

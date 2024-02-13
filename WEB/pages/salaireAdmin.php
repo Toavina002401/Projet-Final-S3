@@ -122,7 +122,16 @@
                     <input type="hidden" name="idmod" id="idmod">
                     <div class="form-group mb-3">
                         <label for="cueil">Cueilleurs :</label>
-                        <input type="text" class="form-control" id="cueilmod" name="cueil" required>
+                        <select id="cueilmod" name="cueil" required class="form-control">
+                            <?php 
+                                $nouvlist=listSalairesPourNom();
+                                for ($i=0; $i < count($nouvlist); $i++) { 
+                            ?>
+                                <option value="<?php echo($nouvlist[$i]["id_cueilleur"]); ?>">
+                                    <?php echo(getCueilleurById($nouvlist[$i]["id_cueilleur"])["nom"]); ?>
+                                </option>
+                            <?php } ?>
+                        </select>
                     </div>
                     <div class="form-group mb-3">
                         <label for="sal">Salaires :</label>
