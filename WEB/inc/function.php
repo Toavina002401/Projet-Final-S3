@@ -1002,7 +1002,8 @@
            
             
             function poidsRestant($parcelle,$datefin){
-                $date_last_renov= getLastMonth_Regeneration($parcelle,$datefin);
+                $date=getDateBeforeOnThisMonth($datefin,getLastMonth_Regeneration($parcelle,$datefin));
+                $date_last_renov= $date;
 
                 $max = getMAX($parcelle);
 
