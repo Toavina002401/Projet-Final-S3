@@ -1,12 +1,3 @@
--- Supprimer la base de données si elle existe
-DROP DATABASE IF EXISTS takeTea;
-
--- Créer une nouvelle base de données
-CREATE DATABASE IF NOT EXISTS takeTea;
-
--- Utiliser la base de données créée
-USE takeTea;
-
 -- Table pour les utilisateurs
 CREATE TABLE Utilisateurs (
     id INT AUTO_INCREMENT PRIMARY KEY,
