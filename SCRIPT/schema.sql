@@ -182,3 +182,20 @@ CREATE TABLE Regeneration (
     mois INT,
     FOREIGN KEY (id_variete) REFERENCES The(id)
 );
+
+CREATE TABLE ConfigurationCueillette (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_cueilleur INT NOT NULL,
+    poids_min_journalier DECIMAL(10, 2) NOT NULL,
+    montant_bonus DECIMAL(5, 2) NOT NULL,
+    montant_malus DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (id_cueilleur) REFERENCES Cueilleurs(id)
+);
+
+-- Assurez-vous d'avoir les ID corrects des cueilleurs
+INSERT INTO ConfigurationCueillette (id_cueilleur, poids_min_journalier, montant_bonus, montant_malus) VALUES
+(1, 10.00, 5.00, 2.00),
+(2, 9.50, 7.00, 1.50),
+(3, 11.00, 6.50, 2.50),
+(4, 11.00, 4.50, 1.80),
+(5, 10.50, 5.50, 2.20);

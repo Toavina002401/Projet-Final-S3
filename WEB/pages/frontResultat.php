@@ -33,7 +33,7 @@
         <div class="container" data-aos="fade-up" style="margin-top: 50px;margin-bottom: 20px;">
             <div class="row gx-0">
                 <div class="col-lg-4 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
-                  <img src="../../assets/images/stat.jpg" class="img-fluid" alt="">
+                  <img src="../../assets/images/stat.svg" class="img-fluid" alt="">
                 </div>
                 <div class="col-lg-1"></div>
                 <div class="col-lg-7 d-flex flex-column " data-aos="fade-up" data-aos-delay="200">
