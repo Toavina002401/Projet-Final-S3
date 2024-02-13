@@ -122,7 +122,7 @@
 
 
     <!-- Structure de la boîte de dialogue -->
-    <section id="formulaire" class="modal">
+    <!-- <section id="formulaire" class="modal">
       <div class="modal-content ">
         <span class="close hidden">&times;</span>
         <form action="traitement.php" method="post">
@@ -147,7 +147,90 @@
           </div>
         </form>        
       </div>
+    </section> -->
+
+    <!-- Structure de la boîte de dialogue -->
+    <section id="formulaire" class="modal">
+      <div class="modal-content ">
+        <span class="close hidden">&times;</span>
+        <form action="traitement.php" method="post">
+          <div class="form-group mb-3 log d-flex align-items-center">
+            <img src="assets/img/logo.png" alt="">
+            <h2>Regéneration par saison</h2>
+          </div>
+          <div class="form-group mb-3">
+            <label for="variete">Variété :</label>
+            <input type="text" class="form-control" id="variete" name="variete" required>
+          </div>
+          <form action="traitement.php" method="">
+            <div class="form-group mb-3">
+              <label>Mois :</label>
+              <div class="row">
+                <div class="form-check col-md-1"></div>
+                <div class="form-check col-md-3">
+                  <input type="checkbox" class="form-check-input" id="janvier" name="mois[]" value="janvier">
+                  <label class="form-check-label" for="janvier">Janvier</label>
+                </div>
+                <div class="form-check col-md-3">
+                  <input type="checkbox" class="form-check-input" id="fevrier" name="mois[]" value="fevrier">
+                  <label class="form-check-label" for="fevrier">Février</label>
+                </div>
+                <div class="form-check col-md-3">
+                    <input type="checkbox" class="form-check-input" id="mars" name="mois[]" value="mars">
+                    <label class="form-check-label" for="mars">Mars</label>
+                </div>
+                <div class="form-check col-md-2">
+                  <input type="checkbox" class="form-check-input" id="avril" name="mois[]" value="avril">
+                  <label class="form-check-label" for="avril">Avril</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-check col-md-1"></div>
+                <div class="form-check col-md-3">
+                  <input type="checkbox" class="form-check-input" id="mai" name="mois[]" value="mai">
+                  <label class="form-check-label" for="mai">Mai</label>
+                </div>
+                <div class="form-check col-md-3">
+                  <input type="checkbox" class="form-check-input" id="juin" name="mois[]" value="juin">
+                  <label class="form-check-label" for="juin">Juin</label>
+                </div>
+                <div class="form-check col-md-3">
+                    <input type="checkbox" class="form-check-input" id="juillet" name="mois[]" value="juillet">
+                    <label class="form-check-label" for="juillet">Juillet</label>
+                </div>
+                <div class="form-check col-md-2">
+                    <input type="checkbox" class="form-check-input" id="aout" name="mois[]" value="aout">
+                    <label class="form-check-label" for="aout">Août</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="form-check col-md-1"></div>
+                <div class="form-check col-md-3">
+                  <input type="checkbox" class="form-check-input" id="septembre" name="mois[]" value="septembre">
+                  <label class="form-check-label" for="septembre">Sept</label>
+                </div>
+                <div class="form-check col-md-3">
+                  <input type="checkbox" class="form-check-input" id="octobre" name="mois[]" value="octobre">
+                  <label class="form-check-label" for="octobre">Oct</label>
+                </div>
+                <div class="form-check col-md-3">
+                  <input type="checkbox" class="form-check-input" id="novembre" name="mois[]" value="novembre">
+                  <label class="form-check-label" for="novembre">Nov</label>
+                </div>
+                <div class="form-check col-md-2">
+                  <input type="checkbox" class="form-check-input" id="decembre" name="mois[]" value="decembre">
+                  <label class="form-check-label" for="decembre">Déc</label>
+                </div>
+              </div>
+            </div>
+          </form>
+          <div class="form-group mb-3  ">
+            <button type="submit" class="btn btn-success form-control">Insérer</button>
+          </div>
+        </form>        
+      </div>
     </section>
+  
 
 
     <!-- ======= Contact Section ======= -->
