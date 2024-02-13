@@ -1083,10 +1083,41 @@
             return false; // Erreur de préparation de la requête
         }
     }
+
+    //getPaiement
+    function getAllPaiement() {
+        $bdd = dbconnect();
+        $query = "SELECT * FROM Liste_Paie";
+        $result = $bdd->query($query);
+        if ($result) {
+            return $result->fetch_all(MYSQLI_ASSOC);
+        } else {
+            // Gérer les erreurs de requête
+            return [];
+        }
+    }
+    
     
     ///////////////////////////////////////////////////////////////////
 
 
+    //INSERT REGENERATIO
+    function insertRegeneration($idTea, $months) {
+        $bdd = dbconnect();
+    
+        // Boucle à travers les mois et insère les données de régénération
+        foreach ($months as $month) {
+            $query = "INSERT INTO Regeneration (id_variete, mois) VALUES (?, ?)";
+            $stmt = $bdd->prepare($query);
+            if ($stmt) {
+                $stmt->bind_param("ii", $idTea, $month);
+                $stmt->execute();
+            } else {
+                // Gérer les erreurs de préparation de la requête
+            }
+        }
+    }
+    
     ////MONTANT Vente///////
 
     function monntantVente($datedeb, $datefin){

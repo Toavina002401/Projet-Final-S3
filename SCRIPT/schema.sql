@@ -205,13 +205,6 @@ CREATE TABLE ConfigurationCueillette (
     FOREIGN KEY (id_cueilleur) REFERENCES Cueilleurs(id)
 );
 
-INSERT INTO Regeneration (id_variete, mois) VALUES
-(1, 1),
-(1, 2),
-(1, 3),
-(2, 1),
-(2, 2),
-(2, 3);
 
 -- Suppose que vous avez déjà des cueilleurs enregistrés dans la table Cueilleurs
 -- Assurez-vous d'avoir les ID corrects des cueilleurs
