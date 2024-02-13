@@ -27,6 +27,55 @@
 
     <main id="main">
 
+    <!-- ======= Breadcrumbs ======= -->
+    <section class="breadcrumbs">
+        <div class="container" data-aos="fade-up">
+            <h2>Paiements</h2>
+        </div>
+    </section><!-- End Breadcrumbs -->
+    
+    <!-- ======= About Section ======= -->
+    <?php
+        $listePay=getAllPaiement();
+    ?>
+    <section class="about">
+        <div class="container" data-aos="fade-up">
+        <div class="row">
+            <div class="col-12">
+            <table class="table datatable">
+                <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Cueilleur</th>
+                    <th scope="col">Poids (kg)</th>
+                    <th scope="col">%bonus</th>
+                    <th scope="col">%mallus</th>
+                    <th scope="col">Montant paiements (Ar)</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <?php for ($i=0; $i < count($listePay); $i++) { 
+                        $inf=getCueilleurById($listePay[$i]["id_cueilleur"]);
+                    ?>
+                        <tr>
+                            <th scope="row"><?php echo($listePay[$i]["id"]); ?></th>
+                            <td><?php echo($listePay[$i]["date"]); ?></td>
+                            <td><?php echo($inf["nom"]); ?></td>
+                            <td><?php echo($listePay[$i]["poids"]); ?></td>
+                            <td><?php echo($listePay[$i]["pourcentage_bonus"]); ?></td>
+                            <td><?php echo($listePay[$i]["pourcentage_mallus"]); ?></td>
+                            <td><?php echo($listePay[$i]["montant_paiement"]); ?></td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+            </div>
+
+        </div>
+        </div>
+    </section><!-- End About Section -->
+
         <!-- ======= Contact Section ======= -->
         <section id="contact" class="contact">
 

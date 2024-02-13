@@ -698,4 +698,17 @@
             }
         }
 
+        //getPaiement
+        function getAllPaiement() {
+            $bdd = dbconnect();
+            $query = "SELECT * FROM Liste_Paie";
+            $result = $bdd->query($query);
+            if ($result) {
+                return $result->fetch_all(MYSQLI_ASSOC);
+            } else {
+                // Gérer les erreurs de requête
+                return [];
+            }
+        }
+
 ?>
