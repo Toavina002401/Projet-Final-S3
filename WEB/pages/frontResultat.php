@@ -27,6 +27,105 @@
 
     <main id="main">
 
+    
+    <!-- ======= About Section ======= -->
+    <section id="about" class="about"> 
+        <div class="container" data-aos="fade-up" style="margin-top: 50px;margin-bottom: 20px;">
+            <div class="row gx-0">
+                <div class="col-lg-4 d-flex align-items-center" data-aos="zoom-out" data-aos-delay="200">
+                  <img src="../../assets/images/stat.jpg" class="img-fluid" alt="">
+                </div>
+                <div class="col-lg-1"></div>
+                <div class="col-lg-7 d-flex flex-column " data-aos="fade-up" data-aos-delay="200">
+                    <div class="content">
+                        <h2>Résultats</h2>
+                        
+                        <form action="#" method="">
+                            <div class="row mt-5">
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="debut">Date début :</label>
+                                        <input type="date" class="form-control" id="debut" name="debut">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group mb-3">
+                                        <label for="fin">Date fin :</label>
+                                        <input type="date" class="form-control" id="fin" name="fin">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-5">
+                                <button type="submit" class="btn btn-success form-control">Afficher le résultat</button>
+                            </div>
+                        </form>
+
+                        <div class="row mt-3">
+                            <h3 class="col-md-5 ">Poids total cueillette :</h3>
+                            <h3 class="col-md-3 mb-3" style="color: black;">700 kg</h3>
+                        </div>
+
+                        <div class="row">
+                            <h3 class="col-md-5 " >Coût de revient /kg :</h3>
+                            <h3 class="col-md-3 mb-3" style="color: black;">2000 Ar</h3>
+                        </div>
+
+                        <div class="row">
+                            <h3 class="col-md-5 " >Montant des dépenses :</h3>
+                            <h3 class="col-md-3 mb-3" style="color: black;">100000 Ar</h3>
+                        </div>
+
+                        
+                        <div class="row">
+                            <h3 class="col-md-5 " >Montant des ventes :</h3>
+                            <h3 class="col-md-3 mb-3" style="color: black;">200000 Ar</h3>
+                        </div>
+
+                        <div class="row">
+                            <h3 class="col-md-5 " >Montant des bénéfices :</h3>
+                            <h3 class="col-md-3 " style="color: black;">100000 Ar</h3>
+                        </div>
+                        
+                        <table class="table datatable mt-3">
+                            <thead>
+                              <tr>
+                                <th scope="col">N° de parcelle</th>
+                                <th scope="col">Poids restant (kg)</th>
+                                <th scope="col">Poids cueilli (kg)</th>
+                                <th scope="col">Ventes (Ar)</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <th>1</th>
+                                <td>20</td>
+                                <td>200</td>
+                                <td>3000</td>
+                              </tr>
+                              <tr>
+                                <th>2</th>
+                                <td>100</td>
+                                <td>400</td>
+                                <td>2000</td>
+                              </tr>
+                              <tr>
+                                <th>3</th>
+                                <td>60</td>
+                                <td>100</td>               
+                                <td>2000</td>
+                              </tr>
+                            </tbody>
+                        </table>          
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </section><!-- End About Section -->
+
+
+
+
         <!-- ======= Contact Section ======= -->
         <section id="contact" class="contact">
 
