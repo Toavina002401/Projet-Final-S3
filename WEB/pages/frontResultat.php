@@ -29,6 +29,8 @@
 
     
     <!-- ======= About Section ======= -->
+
+
     <section id="about" class="about"> 
         <div class="container" data-aos="fade-up" style="margin-top: 50px;margin-bottom: 20px;">
             <div class="row gx-0">
@@ -40,7 +42,7 @@
                     <div class="content">
                         <h2>Résultats</h2>
                         
-                        <form action="#" method="">
+                        <form action="#" method="get" id="affichageResultat">
                             <div class="row mt-5">
                                 <div class="col-md-6">
                                     <div class="form-group mb-3">
@@ -60,62 +62,64 @@
                             </div>
                         </form>
 
-                        <div class="row mt-3">
-                            <h3 class="col-md-5 ">Poids total cueillette :</h3>
-                            <h3 class="col-md-3 mb-3" style="color: black;">700 kg</h3>
-                        </div>
+                        <div class="hafenina" style="display: none;">
+                            <div class="row mt-3">
+                                <h3 class="col-md-5 ">Poids total cueillette :</h3>
+                                <h3 class="col-md-3 mb-3" style="color: black;">700 kg</h3>
+                            </div>
 
-                        <div class="row">
-                            <h3 class="col-md-5 " >Coût de revient /kg :</h3>
-                            <h3 class="col-md-3 mb-3" style="color: black;">2000 Ar</h3>
-                        </div>
+                            <div class="row">
+                                <h3 class="col-md-5 " >Coût de revient /kg :</h3>
+                                <h3 class="col-md-3 mb-3" style="color: black;">2000 Ar</h3>
+                            </div>
 
-                        <div class="row">
-                            <h3 class="col-md-5 " >Montant des dépenses :</h3>
-                            <h3 class="col-md-3 mb-3" style="color: black;">100000 Ar</h3>
-                        </div>
+                            <div class="row">
+                                <h3 class="col-md-5 " >Montant des dépenses :</h3>
+                                <h3 class="col-md-3 mb-3" style="color: black;">100000 Ar</h3>
+                            </div>
 
-                        
-                        <div class="row">
-                            <h3 class="col-md-5 " >Montant des ventes :</h3>
-                            <h3 class="col-md-3 mb-3" style="color: black;">200000 Ar</h3>
-                        </div>
+                            
+                            <div class="row">
+                                <h3 class="col-md-5 " >Montant des ventes :</h3>
+                                <h3 class="col-md-3 mb-3" style="color: black;">200000 Ar</h3>
+                            </div>
 
-                        <div class="row">
-                            <h3 class="col-md-5 " >Montant des bénéfices :</h3>
-                            <h3 class="col-md-3 " style="color: black;">100000 Ar</h3>
-                        </div>
-                        
-                        <table class="table datatable mt-3">
-                            <thead>
-                              <tr>
-                                <th scope="col">N° de parcelle</th>
-                                <th scope="col">Poids restant (kg)</th>
-                                <th scope="col">Poids cueilli (kg)</th>
-                                <th scope="col">Ventes (Ar)</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-                                <th>1</th>
-                                <td>20</td>
-                                <td>200</td>
-                                <td>3000</td>
-                              </tr>
-                              <tr>
-                                <th>2</th>
-                                <td>100</td>
-                                <td>400</td>
-                                <td>2000</td>
-                              </tr>
-                              <tr>
-                                <th>3</th>
-                                <td>60</td>
-                                <td>100</td>               
-                                <td>2000</td>
-                              </tr>
-                            </tbody>
-                        </table>          
+                            <div class="row">
+                                <h3 class="col-md-5 " >Montant des bénéfices :</h3>
+                                <h3 class="col-md-3 " style="color: black;">100000 Ar</h3>
+                            </div>
+                            
+                            <table class="table datatable mt-3">
+                                <thead>
+                                <tr>
+                                    <th scope="col">N° de parcelle</th>
+                                    <th scope="col">Poids restant (kg)</th>
+                                    <th scope="col">Poids cueilli (kg)</th>
+                                    <th scope="col">Ventes (Ar)</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th>1</th>
+                                    <td>20</td>
+                                    <td>200</td>
+                                    <td>3000</td>
+                                </tr>
+                                <tr>
+                                    <th>2</th>
+                                    <td>100</td>
+                                    <td>400</td>
+                                    <td>2000</td>
+                                </tr>
+                                <tr>
+                                    <th>3</th>
+                                    <td>60</td>
+                                    <td>100</td>               
+                                    <td>2000</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>          
                     </div>
                 </div>
             </div>
